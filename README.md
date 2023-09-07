@@ -2,8 +2,7 @@
 
 Befor Publication change secure keys from IdentityServer 
  
-Build instruction: 
- 
-Build ShopDb release 
-Build IdentityServer release 
-Build ShopApi and FileServer (the sequence is not important)
+Build instruction(also do this for correct developing because you need to build all to dependency resolution): 
+1. Build ShopDb release 
+2. Build IdentityServer release 
+3. Build ShopApi and FileServer (the sequence is not important)
