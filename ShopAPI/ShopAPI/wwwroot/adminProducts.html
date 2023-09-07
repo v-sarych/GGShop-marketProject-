@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="css/adminProducts.css">
+<div class="products__left_section">
+    <h1 class="page_header">Продукты</h1>
+    <div class="search_section">
+        <div class="search_section__top" onclick="changeProductSearchButton()">
+            <i class="fa-solid fa-play search_section__button search_section__button--products"></i>
+            <h3 class="search_section__header">Поиск</h3>
+        </div>
+        <div class="search_section__search_panel search_section__search_panel--products">
+            <div class="search_panel__row">
+                <div class="search_panel__input">
+                    <div class="input__label">name</div>
+                    <input type="text" class="input__input_box" id="search_input__product_name" placeholder="Введите значение...">
+                </div>
+                <div class="search_panel__input">
+                    <div class="input__label">tagsIds</div>
+                    <input type="text" class="input__input_box" id="search_input__product_tagsIds" placeholder="Введите значение...">
+                </div>
+            </div>
+            <div class="search_panel__save_button--border" onclick="searchProducts()">
+                <div class="search_panel__save_button">
+                    Искать
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cta_section">
+        <div class="cta_section__add_button--border" onclick="createProduct()">
+            <div class="cta_section__add_button">
+                Добавить
+            </div>
+        </div>
+    </div>
+    <div class="table_container">
+        <table class="table">
+            <thead class="table__head table--head">
+                <tr class="table__headers">
+                    <th class="table__header table__header--ID">ID</th>
+                    <th class="table__header">Название</th>
+                </tr>
+            </thead>
+            <tbody class="table__body table__body_data--products">
+            </tbody>
+        </table>
+    </div>
+</div>

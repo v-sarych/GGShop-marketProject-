@@ -1,0 +1,129 @@
+<div>
+    sdlkfjsdlfkjsldkj
+    <input type="text" id="t"/>
+    <input type="button" onclick="buttonOnClick()"/>
+
+    <!-- <img src="https://localhost:7231/api/ProductsImages/1/1.png"/> -->
+
+    <div id="result">
+
+    </div>
+    
+
+    <script src="jszip.min.js"></script>
+    <script type="text/javascript">//тесты
+
+        async function buttonOnClick(){
+            await GetAllProductImages(1, function(files){
+                CreateAndPastImages(files, document.getElementById('result'));
+            });
+        }
+
+        /*async function buttonOnClick(){
+            await GetProductsMainImages([1, 2], function(files){
+                CreateAndPastImages(files, document.getElementById('result'));
+            });
+        }*/// - тест 2 функции
+    </script>
+
+    <script type="text/javascript">
+
+        const HOST = "https://localhost:7231";
+
+        //запрос 1
+        async function GetProductsMainImages(productIds, callback){
+            var request = new XMLHttpRequest();
+
+            await request.open("POST", HOST + "/api/file/product/GetProductMainImagesZip");
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            request.responseType = 'arraybuffer';
+
+            request.onload = async function(){
+                if(request.status != 200){
+                    console.log(`Ошибка ${request.status}: ${request.statusText}`);
+                    return;
+                } 
+
+                callback(await GetFilesFromZip(request.response));
+            }
+
+            request.onerror = function(){
+                console.log(`Ошибка при выполнении запроса`);
+            }
+            
+            await request.send(JSON.stringify(productIds));
+        }
+
+        //запрос 2
+        async function GetAllProductImages(productId, callback){
+            var request = new XMLHttpRequest();
+
+            let url = new URL(HOST + "/api/file/product/GetAllProductImagesZip");
+            url.searchParams.set('productId', productId);
+
+            await request.open("GET", url);
+
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            request.responseType = 'arraybuffer';
+
+            request.onload = async function(){
+                if(request.status != 200){
+                    console.error(`Ошибка ${request.status}: ${request.statusText}`);
+                    return;
+                }
+
+                callback(await GetFilesFromZip(request.response));
+            }
+
+            request.onerror = function(){
+                console.log(`Ошибка при выполнении запроса`);
+            }
+            
+            await request.send();
+        }
+
+        // распаковка архива, возвращает его файлы 
+        async function GetFilesFromZip(zipFile){
+            var images = [];
+            var i = 0;
+
+            await JSZip.loadAsync(zipFile).then(function (files){
+                files.forEach(function (relativePath, zipEntry){
+                    images[i] = zipEntry;
+                    i++;
+                });
+            }).catch(function(error){
+                console.error("Ошибка при разархивации:", error);
+            });
+
+            return images;
+        }
+
+        // создает img теги в таргете на каждый файл
+        async function CreateAndPastImages(images, targetElement){
+            images.forEach(async function(image){
+                var imgElement = document.createElement('img');
+
+                await CreateAndPastImage(image, targetElement);
+                targetElement.appendChild(imgElement);
+            });
+        }
+
+        // создает img тег в таргете и ставит туда значение файла
+        async function CreateAndPastImage(image, targetElement){
+            var imgElement = document.createElement('img');
+
+            await PastDataToImg(image, imgElement);
+            targetElement.appendChild(imgElement);
+        }
+
+        // ставит в img тег файл
+        async function PastDataToImg(file, imgElement){
+            const imageData = await file.async('base64');
+
+            imgElement.src = `data:image/png;base64,${imageData}`;
+        }
+    </script>
+</div>

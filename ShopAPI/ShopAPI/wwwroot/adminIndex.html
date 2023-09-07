@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/adminIndex.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/regular.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar__logo_section">
+            <img src="css/images/logo.svg" alt="" class="logo_section__logo">
+            <h1 class="logo_section__company_name">GG Brand</h1>
+        </div>
+        <div class="sidebar__tabs">
+            <p class="tabs__tab" id="tab_products">Продукты</p>
+            <p class="tabs__tab" id="tab_tags">Теги</p>
+            <p class="tabs__tab" id="tab_orders">Заказы</p>
+        </div>
+    </div>
+    <div class="notification_pop_up">
+        <i class="fa-solid fa-xmark notification_pop_up__close"></i>
+        <div class="notification_pop_up__content">
+            <i class="notification_pop_up__icon fa-solid fa-check"></i>
+            <div class="notification_pop_up__message">
+                <p class="notification_pop_up__header"></p>
+                <p class="notification_pop_up__text">Вы успешно зарегистрировались!</p>
+            </div>
+        </div>
+        <div class="notification_pop_up__progress"></div>
+    </div>
+    <div class="content_container">
+    </div>
+</body>
+<script src="js/adminProducts.js"></script>
+<script src="js/adminTags.js"></script>
+<script src="js/adminOrders.js"></script>
+<script src="js/adminRouter.js"></script>
+<script src="js/jszip.min.js"></script>
+</html>

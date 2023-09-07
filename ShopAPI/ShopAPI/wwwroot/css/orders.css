@@ -1,0 +1,127 @@
+.content {
+    width: 100%;
+    display: flex;
+    gap: 3.5rem;
+}
+
+.links_panel {
+    width: 12rem;
+    height: 9rem;
+    background-color: var(--p-700);
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.3125rem;
+    overflow: hidden;
+}
+
+.links_panel__link {
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    transition: all .25s ease-in-out;
+}
+
+.links_panel__link:hover {
+    background-color: var(--p-500);
+}
+
+.links_panel__link--middle {
+    border-top: 0.2rem solid var(--p-500);
+    border-bottom: 0.2rem solid var(--p-500);
+}
+
+.links_panel__text {
+    color: var(--s-50);
+    margin-left: 1rem;
+    font-family: Open Sans;
+    font-size: 0.85rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.content__right_section {
+    width: 58rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.right_section__header {
+    color: var(--s-50);
+    font-family: 'Bitter', sans-serif;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.right_section__main_content {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+    justify-content: space-between;
+}
+
+.main_content__top_section {
+    display: flex;
+}
+
+.main_content__table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+
+}
+
+.table__head {
+    width: 100%;
+    padding: 0.75rem;
+}
+
+.table__header {
+    border: none;
+    padding: 0.75rem;
+    color: var(--s-50);
+    font-family: 'Open Sans';
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    transition: all .25s ease-in-out;
+}
+
+.table__header:hover {
+    background-color: var(--p-700);
+}
+
+.table__body {
+    width: 100%;
+    padding: 0.75rem;
+}
+
+.table__body_row {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--p-700);
+    border-top: 0.125rem solid var(--p-500);
+    border-bottom: 0.125rem solid var(--p-500);
+}
+
+.table__cell {
+    padding: 0.75rem;
+    color: var(--s-50);
+    font-family: 'Open Sans';
+    font-size: 0.85rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    transition: all .25s ease-in-out;
+    text-align: center;
+}
+
+.table__body_row:hover {
+    background-color: var(--p-500);
+}

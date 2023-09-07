@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="css/buy.css">
+<div class="content">
+    <div class="links_panel">
+        <div class="links_panel__link" id="orders_link">
+            <a class="links_panel__text">Заказы</a>
+        </div>
+        <div class="links_panel__link links_panel__link--middle" id="cart_link">
+            <a class="links_panel__text">Корзина</a>
+        </div>
+        <div class="links_panel__link" id="profile_link">
+            <a class="links_panel__text">Мои Данные</a>
+        </div>
+    </div>
+    <div class="content__right_section">
+        <h2 class="right_section__header">Оформление Заказа</h2>
+        <div class="right_section__main_content">
+            <div class="main_content__info">
+                <div class="info__input_group">
+                    <p class="info__header">Способ доставки</p>
+                    <form class="info__options">
+                        <div class="info__option" id="delivery_option__pickup" onclick="deliveryOptions(event)">
+                            <div class="info__option_circle" id="delivery_option__pickup_circle"></div>
+                            <p class="info__option_label">Самовывоз</p>
+                        </div>
+                        <div class="info__option" id="delivery_option__carrier" onclick="deliveryOptions(event)">
+                            <div class="info__option_circle" id="delivery_option__carrier_circle"></div>
+                            <p class="info__option_label">Курьер</p>
+                        </div>
+                    </form>
+                </div>
+                <div class="info__input_group">
+                    <p class="info__header">Ваши данные</p>
+                    <form class="info__inputs">
+                        <div class="info__inputs--first_row info__inputs--row">
+                            <div class="info__input_box">
+                                <p class="info__input__label">Адрес</p>
+                                <input class="info__input" placeholder="г.Москва, Измайловское шоссе, д 1" id="delivery_address__input"></input>
+                            </div>
+                            <div class="info__input_box">
+                                <p class="info__input__label">Кв./Офис</p>
+                                <input class="info__input info__input--small" placeholder="7"></input>
+                            </div>
+                        </div>
+                        <div class="info__inputs--second_row info__inputs--row">
+                            <div class="info__input_box">
+                                <p class="info__input__label">Имя</p>
+                                <input class="info__input" placeholder="Иван" id="name__input"></input>
+                            </div>
+                            <div class="info__input_box">
+                                <p class="info__input__label">Фамилия</p>
+                                <input class="info__input" placeholder="Иванов" id="surname__input"></input>
+                            </div>
+                        </div>
+                        <div class="info__inputs--third_row info__inputs--row">
+                            <div class="info__input_box">
+                                <p class="info__input__label">Телефон</p>
+                                <input class="info__input" placeholder="+7 (___) ___ - __ - __" id="telephone__input"></input>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="info__input_group">
+                    <p class="info__header">Способ оплаты</p>
+                    <form class="info__options">
+                        <div class="info__option" id="payment_option__offline" onclick="paymentOptions(event)">
+                            <div class="info__option_circle" id="payment_option__offline_circle"></div>
+                            <p class="info__option_label">При получении</p>
+                        </div>
+                        <div class="info__option" id="payment_option__online" onclick="paymentOptions(event)">
+                            <div class="info__option_circle" id="payment_option__online_circle"></div>
+                            <p class="info__option_label">Онлайн</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="main_content__buy_panel">
+                <div class="buy_panel__header">Сумма заказа</div>
+                <div class="buy_panel__price_section">
+                    <div class="buy_panel__products_price">
+                        <div class="buy_panel__products">
+                            <span class="buy_panel__products_count"></span>
+                            <div class="buy_panel__products_text">товар на сумму</div>
+                        </div>
+                        <div class="buy_panel__price">
+                            <div class="buy_panel__product_price"></div>
+                            <div class="buy_panel__products_label">₽</div>
+                        </div>
+                    </div>
+                    
+                    <div class="buy__total_sum">
+                        <p class="total_sum__text">Итого</p>
+                        <div class="total_sum__price_box">
+                            <span class="total_sum__price"></span>
+                            <div class="total_sum__label">₽</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main_content__buy_button--border" onclick="createOrder()">
+                    <div class="main_content__buy_button">
+                        Оформить Заказ
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
