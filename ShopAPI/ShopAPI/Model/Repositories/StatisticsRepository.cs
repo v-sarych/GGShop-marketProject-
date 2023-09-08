@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using ShopApi.Model.Entities.DTO.ProductSearch;
 using ShopApi.Model.Entities.DTO.Statistics;
 using ShopApi.Model.Interfaces.Repository;
 using ShopDb;
@@ -31,7 +33,10 @@ namespace ShopApi.Model.Repositories
             statistics.AverageCheck = statistics.SumOfOrders / checks.Length;
 
             statistics.MostPopularProducts = _dBContext.OrdersItems.AsNoTracking()
-                .Where(o => o.Ored.DateOfCreation > beginingPeriod && o.DateOfCreation < endPeriod)
+                .Where(o => o.Order.DateOfCreation > beginingPeriod && o.Order.DateOfCreation < endPeriod)
+                .Select(i => i.Product)
+                .OrderBy(p => p.Id)
+                .ProjectTo<SimpleProductDTO>(_mapper.ConfigurationProvider)
                 .ToArray();
 
 
