@@ -11,7 +11,7 @@ namespace ShopDb.Configuration
             builder.HasKey(x => x.Id);
 
             builder.HasMany(x => x.OrderItems)
-                .WithOne()
+                .WithOne(x => x.Order)
                 .HasPrincipalKey(y => y.Id)
                 .HasForeignKey(z => z.OrderId)
                 .OnDelete(DeleteBehavior.SetNull);
