@@ -16,6 +16,6 @@ namespace ShopApi.Api
         public StatisticsApi(IStatisticsRepository statisticsRepository) => _statisticsRepository = statisticsRepository;
 
         public async Task<BaseStatisticsDTO> GetBaseMonthStatistics()
-            => await _statisticsRepository.GetBaseStatistics();
+            => await _statisticsRepository.GetBaseStatistics(DateTime.Now.AddMonths(-1), DateTime.Now);
     }
 }
