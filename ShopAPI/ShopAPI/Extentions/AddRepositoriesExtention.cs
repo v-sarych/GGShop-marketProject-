@@ -19,6 +19,8 @@ namespace ShopApi.Extentions
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 
             services.AddScoped<IOrderRepository, OrderRepository>();
+
+            services.AddScoped<IStatisticsRepository, StatisticsRepository>();
         }
     }
 }
