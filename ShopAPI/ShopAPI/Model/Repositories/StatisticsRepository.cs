@@ -24,22 +24,21 @@ namespace ShopApi.Model.Repositories
                 .Where(o => o.DateOfCreation > beginingPeriod && o.DateOfCreation < endPeriod)
                 .CountAsync();
 
-            float[] checks = _dBContext.Orders.AsNoTracking()
+            statistics.SumOfOrders = _dBContext.Orders.AsNoTracking()
                 .Where(o => o.DateOfCreation > beginingPeriod && o.DateOfCreation < endPeriod)
                 .Select(o => o.Cost)
-                .ToArray();
-            foreach (var check in checks)
-                statistics.SumOfOrders += check;
-            statistics.AverageCheck = statistics.SumOfOrders / checks.Length;
+                .Sum();
+            statistics.AverageCheck = statistics.SumOfOrders / _dBContext.Orders.AsNoTracking()
+                .Where(o => o.DateOfCreation > beginingPeriod && o.DateOfCreation < endPeriod)
+                .Count();
 
-            statistics.MostPopularProducts = _dBContext.OrdersItems.AsNoTracking()
-                .Where(o => o.Order.DateOfCreation > beginingPeriod && o.Order.DateOfCreation < endPeriod)
-                .Select(i => i.Product)
-                .OrderBy(p => p.Id)
+            statistics.MostPopularProducts = _dBContext.Products.AsNoTracking()
+                .OrderByDescending(x => x.OrderItems
+                    .Count(i => i.Order.DateOfCreation > beginingPeriod && i.Order.DateOfCreation  < endPeriod))
+                .Take(3)
                 .ProjectTo<SimpleProductDTO>(_mapper.ConfigurationProvider)
                 .ToArray();
-
-
+            
             return statistics;
         }
     }
