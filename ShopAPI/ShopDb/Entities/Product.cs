@@ -16,6 +16,8 @@ namespace ShopDb.Entities
         public ICollection<AvailabilityOfProduct>? AvailabilitisOfProduct { get; set; }
         public ICollection<Comment> Comments { get; set; }
 
+        public ICollection<OrderItem> OrderItems { get; set; }
+
         public ICollection<ProductTag> ProductTags { get; set; }
     }
 }
