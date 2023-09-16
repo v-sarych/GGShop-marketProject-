@@ -12,5 +12,7 @@ At first you should to build all release versions(this need for dependency resol
     
 Then you can build publish versions and other
 
+Also do this build scheme if you updated 1 or more components(you just can update only needed dll files)
+
 
 
