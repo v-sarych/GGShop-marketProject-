@@ -1,4 +1,5 @@
-﻿using ShopApi.Model.Exceptions;
+﻿using ShopApi.Extentions;
+using ShopApi.Model.Exceptions;
 using System.Net;
 using System.Text.Json;
 
@@ -31,6 +32,10 @@ namespace ShopApi.Middelware
                     context.Response.StatusCode = 404;
                     break;
 
+                case NoPermissionsException:
+                    context.Response.StatusCode = 403;
+                    break;
+                    
                 default:
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;
