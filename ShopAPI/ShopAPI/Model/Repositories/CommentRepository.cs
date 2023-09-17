@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using ShopApi.Model.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.Replication.PgOutput.Messages;
 using ShopApi.Model.Entities.DTO.Comment;
@@ -19,7 +20,7 @@ namespace ShopApi.Model.Repositories
         public async Task Create(CreateCommentDTO creatingSettings, long userId)
         {
             if (_dbContext.OrdersItems.AsNoTracking().Any(i => i.ProductId == creatingSettings.ProductId && i.Order.UserId == userId))
-                throw new Exception("You don`t have order");
+                throw new NotFoundException();
 
             Comment comment = new Comment {
                 UserId = userId,

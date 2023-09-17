@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopApi.Model.Entities.DTO.Comment;
 using ShopApi.Model.Interfaces.Repository;
+using ShopDb.Entities;
 
 namespace ShopApi.Api
 {
@@ -31,6 +32,12 @@ namespace ShopApi.Api
                 Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
 
         [Authorize]
+        [HttpDelete("Delete")]
+        public async Task Delete(int productId)
+            => await _commentRepository.Delete(productId, 
+                Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
+
+        [Authorize(Roles = Roles.Admin)]
         [HttpDelete("Delete")]
         public async Task Delete(int productId, long userId)
             => await _commentRepository.Delete(productId, userId);
