@@ -27,7 +27,7 @@ namespace ShopApi.Model.Repositories
                 ProductId = creatingSettings.ProductId,
                 Stars = creatingSettings.Stars,
                 Text = creatingSettings.Text,
-                CreatedDate = DateTime.Now
+                CreatedDate = DateTime.UtcNow
             };
 
             await _dbContext.Comments.AddAsync(comment);
