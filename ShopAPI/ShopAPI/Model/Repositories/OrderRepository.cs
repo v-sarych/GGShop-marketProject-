@@ -27,7 +27,7 @@ namespace ShopApi.Model.Repositories
             Order creatingOrder = _mapper.Map<Order>(createSettings);
 
             creatingOrder.UserId = userId;
-            //creatingOrder.DateOfCreation = DateTime.Now;
+            creatingOrder.DateOfCreation = DateTime.Now;
 
             creatingOrder.Id = Guid.NewGuid();
             foreach(var item in creatingOrder.OrderItems)
