@@ -40,11 +40,11 @@ void ConfigureServices(WebApplicationBuilder builder)
 
 void ConfigureApp(WebApplication app)
 {
-    if (app.Environment.IsDevelopment())
-    {
+    //if (app.Environment.IsDevelopment())
+    //{
         app.UseSwagger();
         app.UseSwaggerUI();
-    }
+    //} - только для общей разработки
 
     /*using(var scope = app.Services.CreateScope())
         using(var context = scope.ServiceProvider.GetService<ShopDbContext>())
