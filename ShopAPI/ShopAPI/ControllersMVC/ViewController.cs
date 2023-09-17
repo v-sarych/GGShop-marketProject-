@@ -12,11 +12,11 @@ namespace ShopApi.ControllersMVC
         public ViewController(IWebHostEnvironment environment) => _environment = environment;
 
         public IActionResult UserView()
-            => View("Views\\index.cshtml");
+            => PhysicalFile(Path.Combine(_environment.WebRootPath, "index.html"), "text/html");
 
-        //[Authorize(Roles = Roles.Admin)]
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet("admin")]
         public IActionResult AdminView()
-            => View("Views\\adminIndex.cshtml");
+            => PhysicalFile(Path.Combine(_environment.WebRootPath, "adminIndex.html"), "text/html");
     }
 }
