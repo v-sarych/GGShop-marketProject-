@@ -11,7 +11,7 @@ namespace FileServer.Model.Services
         {
             foreach (var file in files)
             {
-                string path = folderPath+ $"/{ file.Name + Path.GetExtension(file.File.FileName) }";
+                string path = Path.Combine(folderPath, $"{ file.Name + Path.GetExtension(file.File.FileName) }");
 
                 using (var stream = new FileStream(path, FileMode.Create))
                     await file.File.CopyToAsync(stream);

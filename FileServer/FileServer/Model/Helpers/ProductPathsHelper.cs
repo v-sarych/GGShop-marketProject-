@@ -10,7 +10,7 @@ namespace FileServer.Model.Helpers
         public ProductPathsHelper(PathConfiguration pathConfiguration) => _pathConfiguration = pathConfiguration;
 
         public string[] GetAllProductImagesPaths(int productId)
-            => Directory.GetFiles(GetProductFolderPath() + $"\\{productId}");
+            => Directory.GetFiles(Path.Combine(GetProductFolderPath(), $"{productId}"));
 
         public string[] GetMainProductsImagesPaths(int[] productIds)
         {
@@ -23,10 +23,10 @@ namespace FileServer.Model.Helpers
         }
 
         public string GetProductFilePathByName(int productId, string fileName)
-            => Directory.GetFiles(GetProductFolderPath() + $"\\{ productId }")
+            => Directory.GetFiles(Path.Combine(GetProductFolderPath(), $"{ productId }"))
                     .First(x => Path.GetFileNameWithoutExtension(x) == fileName);
 
         public string GetProductFolderPath()
-            => _pathConfiguration.StoragePath + _pathConfiguration.ProductSubpath;
+            => Path.Combine(_pathConfiguration.StoragePath, _pathConfiguration.ProductSubpath);
     }
 }
