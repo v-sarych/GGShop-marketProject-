@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using ShopApi.Model.Exceptions;
+using System.Net;
 using System.Text.Json;
 
 namespace ShopApi.Middelware
@@ -26,11 +27,16 @@ namespace ShopApi.Middelware
 
             switch (exception)
             {
+                case NotFoundException:
+                    context.Response.StatusCode = 404;
+                    break;
+
                 default:
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(exception.Message));
                     break;
             }
+
+            await context.Response.WriteAsync(JsonSerializer.Serialize(exception.Message));
         }
     }
 }

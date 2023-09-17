@@ -19,7 +19,7 @@ namespace ShopApi.Model.Repositories
         public async Task Create(CreateCommentDTO creatingSettings, long userId)
         {
             if (_dbContext.OrdersItems.AsNoTracking().Any(i => i.ProductId == creatingSettings.ProductId && i.Order.UserId == userId))
-                throw new Exception();
+                throw new Exception("You don`t have order");
 
             Comment comment = new Comment {
                 UserId = userId,
