@@ -22,7 +22,7 @@ namespace ShopApi.Model.Repositories
         public async Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings, long userId)
         {
             if(createSettings.OrderItems.Count < 1)
-                throw new NotInStockException();
+                throw new Exception();
 
             Order creatingOrder = _mapper.Map<Order>(createSettings);
 
@@ -39,11 +39,11 @@ namespace ShopApi.Model.Repositories
                 .Where(a => createSettings.OrderItems.Select(i => i.Size).Any(i => i == a.Size))
                 .ToListAsync();
 
-            foreach (var availability in availabilities)
+            foreach (var orderItem in creatingOrder.OrderItems)
             {
-                OrderItem orderItem = creatingOrder.OrderItems.FirstOrDefault(x => x.ProductId == availability.ProductId && x.Size == availability.Size);
-                if (orderItem == null)
-                    continue;
+                var availability = availabilities.FirstOrDefault(x => x.ProductId == orderItem.ProductId && x.Size == orderItem.Size);
+                if (availability == null)
+                    throw new NotInStockException();
 
                 if (orderItem.Count > 0 && availability.Count - orderItem.Count >= 0)
                 {
