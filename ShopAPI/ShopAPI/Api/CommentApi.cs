@@ -34,11 +34,19 @@ namespace ShopApi.Api
 
         [Authorize]
         [HttpDelete("Delete")]
-        public async Task Delete(int productId, long userId)
+        public async Task Delete(int productId, long userId = 0)
         {
-            if(userId == Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value) ||
-                Request.HttpContext.User.FindFirst(ClaimTypes.Role).Value == Roles.Admin)
-                    await _commentRepository.Delete(productId, userId);
+            if(userId == 0)
+            {
+                await _commentRepository.Delete(productId,
+                    Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
+                return;
+            }
+            else if(Request.HttpContext.User.FindFirst(ClaimTypes.Role).Value == Roles.Admin)
+            {
+                await _commentRepository.Delete(productId, userId);
+                return;
+            }
 
             throw new NoPermissionsException();
         }

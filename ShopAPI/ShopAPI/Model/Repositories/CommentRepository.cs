@@ -15,11 +15,11 @@ namespace ShopApi.Model.Repositories
         private readonly IShopDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public CommentRepository(IShopDbContext dbContext, IMapper mapper) => (_dbContext, mapper) = (dbContext, _mapper);
+        public CommentRepository(IShopDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
 
         public async Task Create(CreateCommentDTO creatingSettings, long userId)
         {
-            if (_dbContext.OrdersItems.AsNoTracking().Any(i => i.ProductId == creatingSettings.ProductId && i.Order.UserId == userId))
+            if (!_dbContext.OrdersItems.AsNoTracking().Any(i => i.ProductId == creatingSettings.ProductId && i.Order.UserId == userId))
                 throw new NotFoundException();
 
             Comment comment = new Comment {
@@ -68,7 +68,7 @@ namespace ShopApi.Model.Repositories
                 getCommentQuery = getCommentQuery.Skip(gettingSettings.FirstRangePoint.Value)
                     .Take(gettingSettings.EndRangePoint.Value - gettingSettings.FirstRangePoint.Value);
 
-            return (ICollection<CommentDTO>)await getCommentQuery.ProjectTo<GetCommentsDTO>(_mapper.ConfigurationProvider).ToListAsync();
+            return await getCommentQuery.ProjectTo<CommentDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
         }
     }
