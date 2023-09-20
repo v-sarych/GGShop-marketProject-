@@ -25,23 +25,23 @@ namespace IdentityServer.Model
 
         public async Task<string> Login(UserIdentity user)
         {
-            Guid jwtId = Guid.NewGuid();
+            Guid sessionId = Guid.NewGuid();
 
             string newRefreshToken = _createRandomToken();
             Session session = await _sessionRepository.Create(new SessionCreateInfo()
             {
                 UserId = user.Id,
-                JwtId = jwtId,
+                Id = sessionId,
                 Role = user.Role,
                 RefreshToken = newRefreshToken
             });
 
             JwtSecurityToken jwt =  _jwtCreator.Create(new TokenPayload()
             {
-                JwtId = jwtId,
+                Id = session.Id,
                 RefreshToken = newRefreshToken,
-                UsertId = user.Id,
-                Role = user.Role,
+                UsertId = session.UserId,
+                Role = session.Role
             });
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -49,13 +49,12 @@ namespace IdentityServer.Model
 
         public async Task<string> Update(TokenPayload payload)
         {
-            if (!(await _sessionRepository.TryFind(payload.JwtId)))
+            if (!(await _sessionRepository.TryFind(payload.Id)))
                 throw new NotFoundException();
 
             string newRefreshToken = _createRandomToken();
-            Session session = await _sessionRepository.Update(payload.JwtId, payload.RefreshToken, newRefreshToken);
+            Session session = await _sessionRepository.Update(payload.Id, payload.RefreshToken, newRefreshToken);
 
-            payload.JwtId = session.JwtId;
             payload.RefreshToken = newRefreshToken;
 
             JwtSecurityToken jwt = _jwtCreator.Create(payload);
@@ -65,10 +64,8 @@ namespace IdentityServer.Model
         public async Task<ICollection<Claim>> GetJwtClaims(string jwtString)
             => new JwtSecurityTokenHandler().ReadJwtToken(jwtString).Claims.ToList();
 
-        public async Task DeleteSession(long id)
-        {
-            await _sessionRepository.Delete(id);
-        }
+        public async Task DeleteSession(Guid id)
+            => await _sessionRepository.Delete(id);
 
         private string _createRandomToken()
             => Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));

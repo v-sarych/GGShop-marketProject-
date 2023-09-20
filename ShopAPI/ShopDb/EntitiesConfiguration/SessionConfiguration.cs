@@ -14,8 +14,7 @@ namespace ShopDb.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<Session> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.HasIndex(x => x.JwtId).IsUnique();
+            builder.Property(x => x.Id).ValueGeneratedNever();
 
             builder.Property(x => x.Role).HasDefaultValue(Roles.User);
         }

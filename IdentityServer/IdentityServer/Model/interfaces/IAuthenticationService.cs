@@ -8,6 +8,6 @@ namespace IdentityServer.Model.interfaces
         Task<string> Login(UserIdentity user);
         Task<string> Update(TokenPayload payload);
         Task<ICollection<Claim>> GetJwtClaims(string jwtString);
-        Task DeleteSession(long id);
+        Task DeleteSession(Guid id);
     }
 }

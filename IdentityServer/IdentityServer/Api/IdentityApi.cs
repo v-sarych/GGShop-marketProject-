@@ -77,7 +77,7 @@ namespace IdentityServer.Controllers
             TokenPayload payload = new TokenPayload() {
                 UsertId = Convert.ToInt64(claims.First(x => x.Type == ClaimTypes.UserId).Value),
                 Role = claims.First(x => x.Type == ClaimTypes.Role).Value,
-                JwtId = Guid.Parse(claims.First(x => x.Type == ClaimTypes.JwtId).Value),
+                Id = Guid.Parse(claims.First(x => x.Type == ClaimTypes.SessionId).Value),
                 RefreshToken = claims.First(x => x.Type == ClaimTypes.RefreshToken).Value
             };
 
@@ -90,8 +90,8 @@ namespace IdentityServer.Controllers
             => await _sessionRepository.GetAll(Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
 
         [Authorize]
-        [HttpPost("DeleteSession")]
-        public async Task<string> DeleteSession(long sessionId)
+        [HttpDelete("DeleteSession")]
+        public async Task<string> DeleteSession(Guid sessionId)
         {
             Session session = await _sessionRepository.FindSessionOrDefault(sessionId);
             if (session == null)
@@ -105,7 +105,7 @@ namespace IdentityServer.Controllers
                 return "Unauthorized";
             }
 
-            _authenticationService.DeleteSession(sessionId);
+            await _authenticationService.DeleteSession(sessionId);
 
             return "Success";
         }

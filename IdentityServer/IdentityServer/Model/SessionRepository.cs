@@ -28,7 +28,7 @@ namespace IdentityServer.Model
             Session session = new Session()
             {
                 UserId = info.UserId,
-                JwtId = info.JwtId,
+                Id = info.Id,
                 Role = info.Role,
                 RefreshTokenHash = Hasher.GetHash(info.RefreshToken)
             };
@@ -39,7 +39,7 @@ namespace IdentityServer.Model
             return session;
         }
 
-        public async Task Delete(long sessionId)
+        public async Task Delete(Guid sessionId)
         {
             _context.Sessions.Remove(await _context.Sessions.FirstAsync(s => s.Id == sessionId));
             await _context.SaveChangesAsync();
@@ -48,19 +48,18 @@ namespace IdentityServer.Model
         public async Task<ICollection<SessionDTO>> GetAll(long userId)
             => _mapper.Map<List<SessionDTO>>(await _context.Sessions.AsNoTracking().Where(session => session.UserId == userId).ToArrayAsync());
 
-        public async Task<bool> TryFind(Guid jwtId)
-            =>  await _context.Sessions.FirstOrDefaultAsync(session => session.JwtId == jwtId) != null;
+        public async Task<bool> TryFind(Guid id)
+            =>  await _context.Sessions.FirstOrDefaultAsync(session => session.Id == id) != null;
 
-        public async Task<Session> FindSessionOrDefault(long id)
+        public async Task<Session> FindSessionOrDefault(Guid id)
         {
             return await _context.Sessions.AsNoTracking().FirstOrDefaultAsync(session => session.Id == id);
         }
 
-        public async Task<Session> Update(Guid jwtId,string refreshToken, string newRefreshToken)
+        public async Task<Session> Update(Guid id,string refreshToken, string newRefreshToken)
         {
-            Session session = await _context.Sessions.FirstAsync(session => session.JwtId ==jwtId);
+            Session session = await _context.Sessions.FirstAsync(session => session.Id ==id);
 
-            session.JwtId = Guid.NewGuid();
             session.RefreshTokenHash = Hasher.GetHash(newRefreshToken);
 
             await _context.SaveChangesAsync();

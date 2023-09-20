@@ -18,7 +18,7 @@ namespace IdentityServer.Model
             List<Claim> claims = new List<Claim>() {
                 new Claim(ClaimTypes.UserId, Convert.ToString(payload.UsertId)),
                 new Claim(ClaimTypes.Role, payload.Role),
-                new Claim(ClaimTypes.JwtId, payload.JwtId.ToString()),
+                new Claim(ClaimTypes.SessionId, payload.Id.ToString()),
                 new Claim(ClaimTypes.RefreshToken, payload.RefreshToken)
 
             };
