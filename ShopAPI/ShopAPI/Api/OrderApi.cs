@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopApi.Model.Entities.DTO.Order;
+using ShopApi.Model.Entities.Payments;
 using ShopApi.Model.Interfaces.Repository;
 using ShopDb.Entities;
 
@@ -19,6 +20,10 @@ namespace ShopApi.Api
         [HttpPost("Search")]
         public async Task<ICollection<GetFullOrderInfoDTO>> SearchOrders(OrderSearchSettingsDTO searchSettings)
             => await _orderRepository.GetOrders(searchSettings);
+
+        [HttpPost("Pay")]
+        public async Task<string> Pay(PaymentInfoDTO info)
+            => await _orderRepository.CreateAndAuthorizeOrderPayment(info);
 
         [HttpGet("GetAvailableStatuses")]
         public async Task<OrderStatusesDTO> GetAvailableStatuses() 

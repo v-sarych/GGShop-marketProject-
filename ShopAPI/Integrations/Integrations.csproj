@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Cdek\" />
+    <ProjectReference Include="..\ShopAPI\ShopApi.csproj" />
+    <ProjectReference Include="..\ShopDb\ShopDb.csproj" />
   </ItemGroup>
 
 </Project>

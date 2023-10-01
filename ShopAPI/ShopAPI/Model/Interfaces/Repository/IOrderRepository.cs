@@ -1,4 +1,5 @@
 ﻿using ShopApi.Model.Entities.DTO.Order;
+using ShopApi.Model.Entities.Payments;
 using ShopDb.Entities;
 
 namespace ShopApi.Model.Interfaces.Repository
@@ -9,5 +10,7 @@ namespace ShopApi.Model.Interfaces.Repository
         Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings, long userId);
         Task UpdateStatus(Guid id, string newStatus);
         Task<OrderStatusesDTO> GetAvailableStatuses();
+
+        Task<string> CreateAndAuthorizeOrderPayment(PaymentInfoDTO info);
     }
 }

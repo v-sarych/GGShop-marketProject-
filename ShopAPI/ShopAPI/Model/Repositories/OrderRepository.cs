@@ -3,8 +3,10 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ShopApi.Model.Entities.DTO.Order;
 using ShopApi.Model.Entities.DTO.SearchResults;
+using ShopApi.Model.Entities.Payments;
 using ShopApi.Model.Exceptions;
 using ShopApi.Model.Interfaces.Repository;
+using ShopApi.Model.Interfaces.Services;
 using ShopDb;
 using ShopDb.Entities;
 using System.Linq;
@@ -15,9 +17,10 @@ namespace ShopApi.Model.Repositories
     {
         private readonly IShopDbContext _dBContext;
         private readonly IMapper _mapper;
+        private readonly IPaymentService _paymentService;
 
-        public OrderRepository(IShopDbContext dBContext, IMapper mapper)
-            => (_dBContext, _mapper) = (dBContext, mapper);
+        public OrderRepository(IShopDbContext dBContext, IMapper mapper, IPaymentService paymentService)
+            => (_dBContext, _mapper, _paymentService) = (dBContext, mapper, paymentService);
 
         public async Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings, long userId)
         {
@@ -59,6 +62,9 @@ namespace ShopApi.Model.Repositories
 
             return await _dBContext.Orders.AsNoTracking().ProjectTo<GetUserOrderDTO>(_mapper.ConfigurationProvider).FirstAsync(x => x.Id == creatingOrder.Id);
         }
+
+        public Task<string> CreateAndAuthorizeOrderPayment(PaymentInfoDTO info)
+            => _paymentService.CreateAndAuthorizePayment(info);
 
         public async Task<OrderStatusesDTO> GetAvailableStatuses()
            => new OrderStatusesDTO(); 
