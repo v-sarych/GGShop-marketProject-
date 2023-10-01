@@ -44,7 +44,7 @@ void ConfigureApp(WebApplication app)
     //{
         app.UseSwagger();
         app.UseSwaggerUI();
-    //} - только для общей разработки
+    //} - only for general development
 
     /*using(var scope = app.Services.CreateScope())
         using(var context = scope.ServiceProvider.GetService<ShopDbContext>())
