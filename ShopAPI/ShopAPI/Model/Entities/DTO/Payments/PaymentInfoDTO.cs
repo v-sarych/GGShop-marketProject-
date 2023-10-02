@@ -4,6 +4,9 @@ namespace ShopApi.Model.Entities.DTO.Payments
 {
     public class PaymentInfoDTO
     {
-        public Order order;
+        public Guid OrderId { get; set; }
+
+        public PaymentClientDTO paymentClientDTO {  get; set; }
+        public string Currency {  get; set; }
     }
 }
