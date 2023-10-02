@@ -2,8 +2,8 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ShopApi.Model.Entities.DTO.Order;
+using ShopApi.Model.Entities.DTO.Payments;
 using ShopApi.Model.Entities.DTO.SearchResults;
-using ShopApi.Model.Entities.Payments;
 using ShopApi.Model.Exceptions;
 using ShopApi.Model.Interfaces.Repository;
 using ShopApi.Model.Interfaces.Services;

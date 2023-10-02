@@ -1,6 +1,6 @@
 ﻿using ShopDb.Entities;
 
-namespace ShopApi.Model.Entities.Payments
+namespace ShopApi.Model.Entities.DTO.Payments
 {
     public class PaymentInfoDTO
     {

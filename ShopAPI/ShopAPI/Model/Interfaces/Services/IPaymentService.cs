@@ -1,4 +1,4 @@
-﻿using ShopApi.Model.Entities.Payments;
+﻿using ShopApi.Model.Entities.DTO.Payments;
 
 namespace ShopApi.Model.Interfaces.Services
 {

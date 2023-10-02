@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShopApi.Model.Entities.DTO.Order;
-using ShopApi.Model.Entities.Payments;
+using ShopApi.Model.Entities.DTO.Payments;
 using ShopApi.Model.Interfaces.Repository;
 using ShopDb.Entities;
 

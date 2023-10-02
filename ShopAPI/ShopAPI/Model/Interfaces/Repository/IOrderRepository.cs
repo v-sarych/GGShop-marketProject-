@@ -1,5 +1,5 @@
 ﻿using ShopApi.Model.Entities.DTO.Order;
-using ShopApi.Model.Entities.Payments;
+using ShopApi.Model.Entities.DTO.Payments;
 using ShopDb.Entities;
 
 namespace ShopApi.Model.Interfaces.Repository
