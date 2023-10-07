@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -9,6 +9,10 @@
   <ItemGroup>
     <ProjectReference Include="..\ShopAPI\ShopApi.csproj" />
     <ProjectReference Include="..\ShopDb\ShopDb.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cdek\Interfaces\" />
   </ItemGroup>
 
 </Project>
