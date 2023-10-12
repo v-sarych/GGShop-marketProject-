@@ -38,10 +38,12 @@ void ConfigureApp(WebApplication app)
 
     app.UseCastomExeptionHandler();
 
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        RequestPath = "/api/File"
-    });
+    app.UseCustomizedStaticFiles();
+
+    app.MapControllerRoute(
+                name: "default",
+                pattern: "{action=UserView}",
+                defaults: new { controller = "View", action = "UserView" });
 
     app.UseAuthentication();
     app.UseAuthorization();

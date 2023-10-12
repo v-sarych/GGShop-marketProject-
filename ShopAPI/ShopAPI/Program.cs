@@ -65,10 +65,5 @@ void ConfigureApp(WebApplication app)
 
     app.UseStaticFiles();
 
-    app.MapControllerRoute(
-                    name: "default",
-                    pattern: "{action=UserView}",
-                    defaults: new { controller = "View", action = "UserView" });
-
     app.MapControllers();
 }

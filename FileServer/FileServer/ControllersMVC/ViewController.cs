@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopDb.Entities;
 
-namespace ShopApi.ControllersMVC
+namespace FileServer.ControllersMVC
 {
     public class ViewController : Controller
     {
@@ -12,11 +12,11 @@ namespace ShopApi.ControllersMVC
         public ViewController(IWebHostEnvironment environment) => _environment = environment;
 
         public IActionResult UserView()
-            => PhysicalFile(Path.Combine(_environment.WebRootPath, "index.html"), "text/html");
+            => PhysicalFile(Path.Combine(_environment.WebRootPath, "Views\\index.html"), "text/html");
 
         [Authorize(Roles = Roles.Admin)]
         [HttpGet("admin")]
         public IActionResult AdminView()
-            => PhysicalFile(Path.Combine(_environment.WebRootPath, "adminIndex.html"), "text/html");
+            => PhysicalFile(Path.Combine(_environment.WebRootPath, "Views\\adminIndex.html"), "text/html");
     }
 }
