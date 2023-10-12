@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Integrations\Integrations.csproj" />
-    <ProjectReference Include="..\ShopAPICore\ShopAPICore.csproj" />
+    <ProjectReference Include="..\ShopAPICore\ShopApiCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

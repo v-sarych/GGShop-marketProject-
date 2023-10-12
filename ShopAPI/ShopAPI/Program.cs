@@ -1,8 +1,10 @@
 using IdentityServer.Model.Extentions;
 using Microsoft.EntityFrameworkCore;
+using ShopApiCore.Mapping;
 using ShopApiServer.Extentions;
 using ShopDb;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +30,7 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddRepositories();
     builder.Services.AddServices();
 
-    builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+    builder.Services.AddAutoMapper(cfg => { AutoMapperConfiguration.GetConfiguration(cfg); });
 
     builder.Services.AddControllersWithViews()
         .AddNewtonsoftJson(options => {

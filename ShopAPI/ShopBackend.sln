@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopDb", "ShopDb\ShopDb.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Integrations", "Integrations\Integrations.csproj", "{67E40171-8CEB-4CBC-B28C-06440F5805CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopAPICore", "ShopAPICore\ShopAPICore.csproj", "{4B010C03-0985-4FA1-8B5B-1E977C1033E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopApiCore", "ShopAPICore\ShopApiCore.csproj", "{4B010C03-0985-4FA1-8B5B-1E977C1033E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
