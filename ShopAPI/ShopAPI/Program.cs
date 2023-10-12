@@ -26,6 +26,7 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddCastomAuthentication();
 
     builder.Services.AddRepositories();
+    builder.Services.AddServices();
 
     builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

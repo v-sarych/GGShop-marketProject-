@@ -5,7 +5,7 @@ namespace ShopApi.Extentions
 {
     internal static class AddRepositoriesExtention
     {
-        internal static void AddRepositories(this IServiceCollection services)
+        internal static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IProductControllRepository, ProductControllRepository>();
             services.AddScoped<IProductAvailabilityRepository, ProductAvailabilityRepository>();
@@ -21,6 +21,8 @@ namespace ShopApi.Extentions
             services.AddScoped<IOrderRepository, OrderRepository>();
 
             services.AddScoped<IStatisticsRepository, StatisticsRepository>();
+
+            return services;
         }
     }
 }
