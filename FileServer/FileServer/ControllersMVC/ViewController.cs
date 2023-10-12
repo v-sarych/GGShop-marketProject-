@@ -12,11 +12,11 @@ namespace FileServer.ControllersMVC
         public ViewController(IWebHostEnvironment environment) => _environment = environment;
 
         public IActionResult UserView()
-            => PhysicalFile(Path.Combine(_environment.WebRootPath, "Views\\index.html"), "text/html");
+            => PhysicalFile(Path.Combine(_environment.WebRootPath, Path.Combine("Views", "index.html")), "text/html");
 
         [Authorize(Roles = Roles.Admin)]
         [HttpGet("admin")]
         public IActionResult AdminView()
-            => PhysicalFile(Path.Combine(_environment.WebRootPath, "Views\\adminIndex.html"), "text/html");
+            => PhysicalFile(Path.Combine(_environment.WebRootPath, Path.Combine("Views", "adminIndex.html")), "text/html");
     }
 }
