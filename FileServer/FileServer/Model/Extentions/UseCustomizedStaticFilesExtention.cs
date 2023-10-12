@@ -7,10 +7,8 @@ namespace FileServer.Model.Extentions
     {
         public static WebApplication UseCustomizedStaticFiles(this WebApplication app)
         {
-
             app.UseStaticFiles(new StaticFileOptions
             {
-                RequestPath = "/",
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(app.Environment.WebRootPath, "Views"))
             });
