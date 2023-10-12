@@ -1,8 +1,8 @@
-﻿using ShopApi.Model.Interfaces.Services;
+﻿using ShopApiCore.Interfaces.Services;
 using Integrations.YourPayments;
 using Integrations.Cdek;
 
-namespace ShopApi.Extentions
+namespace ShopApiServer.Extentions
 {
     internal static class AddServicesExtention
     {

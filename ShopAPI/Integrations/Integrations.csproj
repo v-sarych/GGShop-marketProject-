@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShopAPI\ShopApi.csproj" />
+    <ProjectReference Include="..\ShopAPICore\ShopAPICore.csproj" />
     <ProjectReference Include="..\ShopDb\ShopDb.csproj" />
   </ItemGroup>
 

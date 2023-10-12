@@ -1,5 +1,5 @@
 ﻿using Integrations.YourPayments.Entities;
-using ShopApi.Model.Entities.DTO.Payments;
+using ShopApiCore.Entities.DTO.Payments;
 using System;
 using System.Collections.Generic;
 using System.Linq;

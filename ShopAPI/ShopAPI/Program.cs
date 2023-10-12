@@ -1,6 +1,6 @@
 using IdentityServer.Model.Extentions;
 using Microsoft.EntityFrameworkCore;
-using ShopApi.Extentions;
+using ShopApiServer.Extentions;
 using ShopDb;
 using System.Reflection;
 

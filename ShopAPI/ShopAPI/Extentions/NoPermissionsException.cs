@@ -1,4 +1,4 @@
-﻿namespace ShopApi.Extentions
+﻿namespace ShopApiServer.Extentions
 {
     public class NoPermissionsException : Exception
     {

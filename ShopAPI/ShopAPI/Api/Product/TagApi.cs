@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using ShopApi.Model.Entities.DTO.Tag;
-using ShopApi.Model.Interfaces.Repository;
+using ShopApiCore.Entities.DTO.Tag;
+using ShopApiCore.Interfaces.Repository;
 using ShopDb.Entities;
 
-namespace ShopApi.Api.Product
+namespace ShopApiServer.Api.Product
 {
     [Route("api/Product/Tag")]
     [ApiController]

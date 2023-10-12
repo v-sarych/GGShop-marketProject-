@@ -1,12 +1,12 @@
 ﻿using IdentityServer.Model.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShopApi.Model.Entities.DTO.Order;
-using ShopApi.Model.Entities.DTO.Payments;
-using ShopApi.Model.Interfaces.Repository;
+using ShopApiCore.Entities.DTO.Order;
+using ShopApiCore.Entities.DTO.Payments;
+using ShopApiCore.Interfaces.Repository;
 using ShopDb.Entities;
 
-namespace ShopApi.Api
+namespace ShopApiServer.Api
 {
     [Route("api/Order")]
     [ApiController]

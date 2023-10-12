@@ -1,4 +1,4 @@
-﻿using ShopApi.Model.Interfaces.Services;
+﻿using ShopApiCore.Interfaces.Services;
 using ShopDb.Entities;
 
 namespace Integrations.Cdek

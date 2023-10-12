@@ -1,12 +1,12 @@
 ﻿using IdentityServer.Model.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShopApi.Extentions;
-using ShopApi.Model.Entities.DTO.Comment;
-using ShopApi.Model.Interfaces.Repository;
+using ShopApiServer.Extentions;
+using ShopApiCore.Entities.DTO.Comment;
+using ShopApiCore.Interfaces.Repository;
 using ShopDb.Entities;
 
-namespace ShopApi.Api
+namespace ShopApiServer.Api
 {
     [Route("api/Product/Comment")]
     [ApiController]

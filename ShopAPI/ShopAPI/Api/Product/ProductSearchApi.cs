@@ -4,14 +4,12 @@ using ShopDb;
 using System.Xml.Linq;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using ShopApi.Model.Entities.DTO;
-using ShopApi.Model.Interfaces.Repository;
 using Microsoft.AspNetCore.Authorization;
-using ShopApi.Model.Entities.DTO.SearchResults;
-using ShopApi.Model.Entities.DTO.ProductSearch;
-using ShopApi.Model.Repositories;
+using ShopApiCore.Interfaces.Repository;
+using ShopApiCore.Entities.DTO.SearchResults;
+using ShopApiCore.Entities.DTO.ProductSearch;
 
-namespace ShopApi.Api.Product
+namespace ShopApiServer.Api.Product
 {
     [Route("api/Product")]
     [ApiController]

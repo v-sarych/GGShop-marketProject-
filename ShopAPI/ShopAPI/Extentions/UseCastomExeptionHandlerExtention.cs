@@ -1,7 +1,7 @@
-﻿using ShopApi.Middelware;
+﻿using ShopApiServer.Middelware;
 using System.Runtime.CompilerServices;
 
-namespace ShopApi.Extentions
+namespace ShopApiServer.Extentions
 {
     internal static class UseCastomExeptionHandlerExtention
     {

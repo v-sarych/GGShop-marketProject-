@@ -1,9 +1,9 @@
-﻿using ShopApi.Extentions;
-using ShopApi.Model.Exceptions;
+﻿using ShopApiServer.Extentions;
+using ShopApiCore.Exceptions;
 using System.Net;
 using System.Text.Json;
 
-namespace ShopApi.Middelware
+namespace ShopApiServer.Middelware
 {
     public class CastomExeptionHandlerMiddelware
     {

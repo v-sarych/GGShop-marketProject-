@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShopApi.Model.Entities.DTO.ProductAvailability;
-using ShopApi.Model.Interfaces.Repository;
+using ShopApiCore.Entities.DTO.ProductAvailability;
+using ShopApiCore.Interfaces.Repository;
 using ShopDb.Entities;
 
-namespace ShopApi.Api.Product
+namespace ShopApiServer.Api.Product
 {
     [Authorize(Roles = Roles.Admin)]
     [Route("api/Product/Accounting")]

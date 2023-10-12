@@ -1,7 +1,7 @@
-﻿using ShopApi.Model.Interfaces.Repository;
-using ShopApi.Model.Repositories;
+﻿using ShopApiCore.Interfaces.Repository;
+using ShopApiCore.Repositories;
 
-namespace ShopApi.Extentions
+namespace ShopApiServer.Extentions
 {
     internal static class AddRepositoriesExtention
     {

@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShopApi.Model.Entities.DTO.ShoppingCart;
-using ShopApi.Model.Interfaces.Repository;
-
+using ShopApiCore.Entities.DTO.ShoppingCart;
+using ShopApiCore.Interfaces.Repository;
 using ClaimTypes = IdentityServer.Model.Entities.Identity.ClaimTypes;
 
 
-namespace ShopApi.Api.User
+namespace ShopApiServer.Api.User
 {
     [Route("api/User/ShoppingCart")]
     [Authorize]

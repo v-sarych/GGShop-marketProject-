@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShopApi.Model.Entities.DTO.Statistics;
-using ShopApi.Model.Interfaces.Repository;
+using ShopApiCore.Entities.DTO.Statistics;
+using ShopApiCore.Interfaces.Repository;
 using ShopDb.Entities;
 
-namespace ShopApi.Api
+namespace ShopApiServer.Api
 {
     [Authorize(Roles = Roles.Admin)]
     [Route("api/Statistics")]
