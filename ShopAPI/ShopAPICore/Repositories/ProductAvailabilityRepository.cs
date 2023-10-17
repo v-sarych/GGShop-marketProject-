@@ -14,18 +14,17 @@ namespace ShopApiCore.Repositories
         public ProductAvailabilityRepository(IShopDbContext dBContext, IMapper mapper)
             => (_dBContext, _mapper) = (dBContext, mapper);
 
-        public async Task<int> Create(CreateProductAvailabilityDTO settings)
+        public async Task Create(CreateProductAvailabilityDTO settings)
         {
             AvailabilityOfProduct availabilityOfProduct = _mapper.Map<AvailabilityOfProduct>(settings);
             await _dBContext.AvailabilityOfProducts.AddAsync(availabilityOfProduct);
 
             await _dBContext.SaveChangesAsync();
-            return availabilityOfProduct.Id;
         }
 
         public async Task Update(UpdateProductAvailabilityDTO settings)
         { 
-            AvailabilityOfProduct availability = _dBContext.AvailabilityOfProducts.FirstOrDefault(x => x.Id == settings.Id);
+            AvailabilityOfProduct availability = _dBContext.AvailabilityOfProducts.FirstOrDefault(x => x.Sku == settings.Sku);
 
             availability.Cost = settings.Cost ?? availability.Cost;
             availability.Count = settings.Count ?? availability.Count;

@@ -10,7 +10,12 @@ namespace ShopDb.Configuration
         {
             builder.HasKey(x => x.Id);
 
-            builder.HasAlternateKey(x => new { x.UserId, x.Size, x.ProductId});
+            builder.HasAlternateKey(x => new { x.UserId, x.Sku});
+
+            builder.HasOne(x => x.AvailabilityOfProduct)
+                .WithMany(y => y.UserShoppingCartItems)
+                .HasPrincipalKey(z => z.Sku)
+                .HasForeignKey(v => v.Sku);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace ShopDb.Configuration
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            builder.HasKey(x => new { x.OrderId, x.ProductId, x.Size });
+            builder.HasKey(x => new { x.OrderId, x.Sku });
 
             builder.HasOne(x => x.Product)
                 .WithMany(x => x.OrderItems)

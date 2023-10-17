@@ -17,7 +17,7 @@ namespace ShopApiServer.Api.Product
             => _productAvailabilityRepository = productAvailabilityRepository;
 
         [HttpPost("Create")]
-        public async Task<int> Create(CreateProductAvailabilityDTO settings)
+        public async Task Create(CreateProductAvailabilityDTO settings)
             => await _productAvailabilityRepository.Create(settings);
 
         [HttpPatch("Update")]

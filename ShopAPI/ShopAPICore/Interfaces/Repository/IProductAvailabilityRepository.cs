@@ -4,7 +4,7 @@ namespace ShopApiCore.Interfaces.Repository
 {
     public interface IProductAvailabilityRepository
     {
-        Task<int> Create(CreateProductAvailabilityDTO settings);
+        Task Create(CreateProductAvailabilityDTO settings);
         Task Update(UpdateProductAvailabilityDTO settings);
     }
 }

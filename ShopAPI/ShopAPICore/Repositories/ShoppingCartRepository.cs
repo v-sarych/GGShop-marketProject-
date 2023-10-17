@@ -21,6 +21,7 @@ namespace ShopApiCore.Repositories
         {
             List<GetShoppingCartElementDTO> elements = await _dBContext.UsersShoppingCartItems.AsNoTracking()
                        .Include(item => item.Product)
+                       .Include(item => item.AvailabilityOfProduct)
                        .Where(item => item.UserId == userId)
                        .ProjectTo<GetShoppingCartElementDTO>(_mapper.ConfigurationProvider)
                        .ToListAsync();
@@ -28,11 +29,11 @@ namespace ShopApiCore.Repositories
             foreach(var element in elements)
             {
                 AvailabilityOfProduct availabilityOfProduct = await _dBContext.AvailabilityOfProducts.AsNoTracking()
-                            .FirstOrDefaultAsync(a => a.Size == element.Size
-                                && a.ProductId == element.Id
+                            .FirstOrDefaultAsync(a => a.Sku == element.Sku
                                 && a.Count > 0);
+
                 if (availabilityOfProduct != null)
-                    element.Cost = (float)availabilityOfProduct.Cost * element.Count;
+                    element.Cost = (float)availabilityOfProduct.Cost * element.Count;// без внешнего ключа
             }
 
             return elements;

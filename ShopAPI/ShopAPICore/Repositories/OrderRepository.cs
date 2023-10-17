@@ -38,23 +38,21 @@ namespace ShopApiCore.Repositories
 
             IQueryable<AvailabilityOfProduct> aviabilitiesQuery = _dBContext.AvailabilityOfProducts;
             List<AvailabilityOfProduct> availabilities = await aviabilitiesQuery
-                .Where(a => createSettings.OrderItems.Select(i => i.ProductId).Any(i => i == a.ProductId))
-                .Where(a => createSettings.OrderItems.Select(i => i.Size).Any(i => i == a.Size))
+                .Where(a => createSettings.OrderItems.Select(i => i.Sku).Any(i => i == a.Sku))
                 .ToListAsync();
 
             foreach (var orderItem in creatingOrder.OrderItems)
             {
-                var availability = availabilities.FirstOrDefault(x => x.ProductId == orderItem.ProductId && x.Size == orderItem.Size);
-                if (availability == null)
+                var availability = availabilities.FirstOrDefault(x => x.Sku == orderItem.Sku);
+                if (availability == null || availability.Count - orderItem.Count >= 0)
                     throw new NotInStockException();
 
-                if (orderItem.Count > 0 && availability.Count - orderItem.Count >= 0)
+                if (orderItem.Count > 0)
                 {
                     availability.Count -= orderItem.Count;
                     orderItem.Cost = (float)availability.Cost * orderItem.Count;
                     creatingOrder.Cost += orderItem.Cost;
                 }
-                else { throw new NotInStockException(); }
             }
 
             await _dBContext.Orders.AddAsync(creatingOrder);

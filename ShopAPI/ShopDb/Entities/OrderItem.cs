@@ -6,6 +6,8 @@
         public float Cost { get; set; } = 0;
         public int Count { get; set; } = 1;
 
+        public string Sku {  get; set; }
+
         public Guid OrderId { get; set; }
         public Order Order { get; set; }
 
