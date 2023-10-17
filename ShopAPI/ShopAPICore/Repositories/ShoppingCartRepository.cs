@@ -29,11 +29,12 @@ namespace ShopApiCore.Repositories
             foreach(var element in elements)
             {
                 AvailabilityOfProduct availabilityOfProduct = await _dBContext.AvailabilityOfProducts.AsNoTracking()
-                            .FirstOrDefaultAsync(a => a.Sku == element.Sku
-                                && a.Count > 0);
+                            .FirstOrDefaultAsync(a => a.Sku == element.Sku);
 
-                if (availabilityOfProduct != null)
+                if (availabilityOfProduct.Count >= element.Count)
                     element.Cost = (float)availabilityOfProduct.Cost * element.Count;// без внешнего ключа
+                else
+                    element.AvailablуInStock = availabilityOfProduct.Count;
             }
 
             return elements;

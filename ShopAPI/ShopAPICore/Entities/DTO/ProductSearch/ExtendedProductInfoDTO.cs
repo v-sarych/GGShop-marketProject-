@@ -9,7 +9,7 @@ namespace ShopApiCore.Entities.DTO.ProductSearch
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public ICollection<SimpleAvailabilityDTO> AvailabilitisOfProduct { get; set; }
+        public ICollection<GetProductAvailabilityDTO> AvailabilitisOfProduct { get; set; }
         public ICollection<TagDTO> Tags { get; set; }
     }
 }
