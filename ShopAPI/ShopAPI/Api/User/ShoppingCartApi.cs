@@ -18,7 +18,7 @@ namespace ShopApiServer.Api.User
             => _shoppingCartRepository = shoppingCartRepository;
 
         [HttpPost("AddItem")]
-        public async Task<long> AddItem(AddShoppingCartItemDTO item)
+        public async Task AddItem(AddShoppingCartItemDTO item)
             => await _shoppingCartRepository.AddItem(item,
                 Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
 
@@ -28,8 +28,8 @@ namespace ShopApiServer.Api.User
                 Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
 
         [HttpDelete("Remove")]
-        public async Task Remove(long itemId)
-            => await _shoppingCartRepository.RemoveItem(itemId,
+        public async Task Remove(string sku)
+            => await _shoppingCartRepository.RemoveItem(sku,
                 Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
     }
 }

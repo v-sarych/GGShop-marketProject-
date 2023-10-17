@@ -20,8 +20,8 @@ namespace ShopApiCore.Repositories
         public async Task<ICollection<GetShoppingCartElementDTO>> Get(long userId)
         {
             List<GetShoppingCartElementDTO> elements = await _dBContext.UsersShoppingCartItems.AsNoTracking()
-                       .Include(item => item.Product)
                        .Include(item => item.AvailabilityOfProduct)
+                       .Include(item => item.AvailabilityOfProduct.Product)
                        .Where(item => item.UserId == userId)
                        .ProjectTo<GetShoppingCartElementDTO>(_mapper.ConfigurationProvider)
                        .ToListAsync();
@@ -39,30 +39,28 @@ namespace ShopApiCore.Repositories
             return elements;
         }
 
-        public async Task<long> AddItem(AddShoppingCartItemDTO item, long userId)
+        public async Task AddItem(AddShoppingCartItemDTO item, long userId)
         {
             UserShoppingCartItem dBItem = _mapper.Map<UserShoppingCartItem>(item);
             dBItem.UserId = userId;
 
             await _dBContext.UsersShoppingCartItems.AddAsync(dBItem);
             await _dBContext.SaveChangesAsync();
-
-            return dBItem.Id;
         }
 
         public async Task UpdateItemCount(UpdateShoppingCartItemDTO itemWithChanges, long userId)
         {
             UserShoppingCartItem dBItem = await _dBContext.UsersShoppingCartItems.FirstAsync(item => item.UserId == userId 
-                                                        && item.Id == itemWithChanges.Id);
+                                                        && item.Sku == itemWithChanges.Sku);
 
             dBItem.Count = itemWithChanges.Count;
             await _dBContext.SaveChangesAsync();
         }
 
-        public async Task RemoveItem(long itemId, long userId)
+        public async Task RemoveItem(string sku, long userId)
         {
             _dBContext.UsersShoppingCartItems.Remove(await _dBContext.UsersShoppingCartItems.FirstAsync(x => x.UserId == userId
-                                                                    && x.Id == itemId));
+                                                                    && x.Sku == sku));
 
             await _dBContext.SaveChangesAsync();
         }

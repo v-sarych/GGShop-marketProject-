@@ -25,8 +25,7 @@ namespace ShopApiCore.Repositories
             foreach (var shoppingCartItem in user.UserShoppingCartItems) 
             {
                 AvailabilityOfProduct availabilityOfProduct = await _dBContext.AvailabilityOfProducts.AsNoTracking()
-                                            .FirstOrDefaultAsync(a => a.Size == shoppingCartItem.Size
-                                                && a.ProductId == shoppingCartItem.Product.Id
+                                            .FirstOrDefaultAsync(a => a.Sku == shoppingCartItem.Sku
                                                 && a.Count > 0);
                 if (availabilityOfProduct != null)
                     shoppingCartItem.Cost = (float)availabilityOfProduct.Cost * shoppingCartItem.Count;

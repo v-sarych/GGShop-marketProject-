@@ -11,8 +11,6 @@ namespace ShopApiCore.Entities.DTO.ShoppingCart
         public float Cost { get; set; }
 
         public string Sku { get; set; }
-        public VisualAvailabilityDTO AvailabilityOfProduct { get; set; }
-
-        public SimpleProductDTO Product { get; set; }
+        public AvailabilityForGetShoppingCartDTO AvailabilityOfProduct { get; set; }
     }
 }

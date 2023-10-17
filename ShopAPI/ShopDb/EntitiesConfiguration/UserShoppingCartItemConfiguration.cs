@@ -8,9 +8,7 @@ namespace ShopDb.Configuration
     {
         public void Configure(EntityTypeBuilder<UserShoppingCartItem> builder)
         {
-            builder.HasKey(x => x.Id);
-
-            builder.HasAlternateKey(x => new { x.UserId, x.Sku});
+            builder.HasKey(x => new { x.Sku, x.UserId});
 
             builder.HasOne(x => x.AvailabilityOfProduct)
                 .WithMany(y => y.UserShoppingCartItems)
