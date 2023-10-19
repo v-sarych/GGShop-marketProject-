@@ -9,7 +9,6 @@ namespace ShopDb.Entities
         public int PlaceInSearch { get; set; }
         public string Name { get; set; } = "Noname";
         public string? Description { get; set; }
-        public string? PhotosFolder { get; set; }
         public bool CanBeFound { get; set; } = false;
 
         public ICollection<Tag>? Tags { get; set; }

@@ -6,7 +6,6 @@ using ShopDb;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper.QueryableExtensions;
-using System.Linq;
 
 namespace ShopApiCore.Repositories
 {
