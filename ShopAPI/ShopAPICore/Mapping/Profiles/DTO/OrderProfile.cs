@@ -12,8 +12,7 @@ namespace ShopApiCore.Mapping.Profiles.DTO
             CreateProjection<Order, GetUserOrderDTO>();
             CreateProjection<OrderItem, GetOrderItemDTO>();
 
-            CreateProjection<Order, GetFullOrderInfoDTO>()
-                .ForMember(m => m.UserPhoneNumber, opt => opt.MapFrom(i => i.User.PhoneNumber));
+            CreateProjection<Order, GetFullOrderInfoDTO>();
 
             //CreateMap<Order, GetUserOrderDTO>();
             CreateMap<CreateOrderDTO, Order>();

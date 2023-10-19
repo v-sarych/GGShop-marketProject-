@@ -9,7 +9,6 @@ using ShopApiCore.Interfaces.Repository;
 using ShopApiCore.Interfaces.Services;
 using ShopDb;
 using ShopDb.Entities;
-using System.Linq;
 
 namespace ShopApiCore.Repositories
 {
@@ -94,14 +93,6 @@ namespace ShopApiCore.Repositories
             order.Status = newStatus;
 
             await _dBContext.SaveChangesAsync();
-
-            /*Order order = new()
-            {
-                Id = id,
-                Status = newStatus,
-            };
-
-            await _dBContext.UpdatePropertiesWithoutNull<Order>(order, _dBContext.Orders);*/
         }
     }
 }

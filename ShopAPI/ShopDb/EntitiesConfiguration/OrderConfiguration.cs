@@ -10,6 +10,8 @@ namespace ShopDb.Configuration
         {
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.Type).IsRequired();
+
             builder.HasMany(x => x.OrderItems)
                 .WithOne(x => x.Order)
                 .HasPrincipalKey(y => y.Id)

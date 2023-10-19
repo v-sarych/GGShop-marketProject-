@@ -10,6 +10,7 @@ namespace ShopApiCore.Mapping.Profiles.DTO
         {
             CreateProjection<User, GetUserDTO>();
             CreateProjection<User, SimpleUserDTO>();
+            CreateProjection<User, OrderUserInfoDTO>();
 
             CreateMap<UpdateUserInfoDTO, User>();
         }

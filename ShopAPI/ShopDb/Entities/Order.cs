@@ -3,7 +3,8 @@
     public class Order
     {
         public Guid Id { get; set; }
-        public string DeliveryAddress { get; set; }
+        public string Type { get; set; }
+        public string AdditionalOrderInfo { get; set; }
         public DateTime DateOfCreation { get; set; }
         public string Status { get; set; } = OrderStatuses.Created;
         public bool IsPaidFor { get; set; } = false;
