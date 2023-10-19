@@ -6,6 +6,7 @@ namespace ShopApiCore.Entities.DTO.Order
     public class GetUserOrderDTO
     {
         public Guid Id { get; set; }
+        public string Type { get; set; }
         public string AdditionalOrderInfo { get; set; }
         public DateTime DateOfCreation { get; set; }
         public string Status { get; set; }
