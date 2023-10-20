@@ -1,4 +1,5 @@
 using IdentityServer.Model.Extentions;
+using Integrations.Cdek.Extentions;
 using Microsoft.EntityFrameworkCore;
 using ShopApiCore.Mapping;
 using ShopApiServer.Extentions;
@@ -39,6 +40,9 @@ void ConfigureServices(WebApplicationBuilder builder)
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    //Integratoins
+    builder.Services.AddCdekIntegration();
 }
 
 void ConfigureApp(WebApplication app)
