@@ -28,7 +28,7 @@ namespace Integrations.Cdek.Extentions
                 Client_secret = "PjLZkKBHEiLK3YsjtNrt3TGNG0ahs3kG",
                 Grant_type = "client_credentials",
                 ContentType = "x-www-form-urlencoded",
-                Url = "https://api.edu.cdek.ru/v2/oauth/tokenparameters"
+                Url = "https://api.edu.cdek.ru/v2/oauth/token"
             });
 
             using (var scope = services.CreateScope())
