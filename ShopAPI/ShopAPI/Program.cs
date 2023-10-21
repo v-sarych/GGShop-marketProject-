@@ -36,7 +36,9 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddControllersWithViews()
         .AddNewtonsoftJson(options => {
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-        }); 
+        });
+
+    builder.Services.AddHttpClient();
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
@@ -47,6 +49,7 @@ void ConfigureServices(WebApplicationBuilder builder)
 
 void ConfigureApp(WebApplication app)
 {
+    
     //if (app.Environment.IsDevelopment())
     //{
         app.UseSwagger();
