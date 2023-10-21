@@ -24,9 +24,11 @@ namespace Integrations.Cdek.Extentions
         {
             CdekIntegrationConfiguration cdekConfiguration = new CdekIntegrationConfiguration(new AuthorizeParametrs()
             {
-                Client_id = "",
-                Client_secret = "",
-                Grant_type = ""
+                Client_id = "EMscd6r9JnFiQ3bLoyjJY6eM78JrJceI",
+                Client_secret = "PjLZkKBHEiLK3YsjtNrt3TGNG0ahs3kG",
+                Grant_type = "client_credentials",
+                ContentType = "x-www-form-urlencoded",
+                Url = "https://api.edu.cdek.ru/v2/oauth/tokenparameters"
             });
 
             using (var scope = services.CreateScope())
