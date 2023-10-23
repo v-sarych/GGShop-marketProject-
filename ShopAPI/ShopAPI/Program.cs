@@ -56,8 +56,6 @@ void ConfigureApp(WebApplication app)
         app.UseSwaggerUI();
     //} - only for general development
 
-    app.Services.ConfigureCdekConfiguration();
-
     /*using(var scope = app.Services.CreateScope())
         using(var context = scope.ServiceProvider.GetService<ShopDbContext>())
         {

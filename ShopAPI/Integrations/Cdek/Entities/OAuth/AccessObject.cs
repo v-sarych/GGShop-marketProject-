@@ -10,7 +10,7 @@ namespace Integrations.Cdek.Entities.OAuth
     {
         public string Access_token { get; set; }
         public string Token_type { get; set; }
-        public string Expires_in { get; set; }
+        public int Expires_in { get; set; }
         public string Scope { get; set; }
         public string Jti { get; set;}
     }

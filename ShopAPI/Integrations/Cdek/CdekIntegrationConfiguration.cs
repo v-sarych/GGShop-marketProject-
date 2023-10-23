@@ -1,4 +1,6 @@
 ﻿using Integrations.Cdek.Entities.OAuth;
+using Integrations.Cdek.Entities.OAuth;
+using Integrations.Cdek.Entities.OAuth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,6 @@ namespace Integrations.Cdek
     public class CdekIntegrationConfiguration
     {
         public readonly AuthorizeParametrs AuthorizeParametrs;
-        public AccessObject AccessObject { get; set; }
 
         public CdekIntegrationConfiguration(AuthorizeParametrs authorizeParametrs)
         {

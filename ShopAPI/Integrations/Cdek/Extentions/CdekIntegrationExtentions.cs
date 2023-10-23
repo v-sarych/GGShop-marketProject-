@@ -13,15 +13,7 @@ namespace Integrations.Cdek.Extentions
         {
             services.AddScoped<IDeliveryService, CdekIntegrationDeliveryService>();
             services.AddScoped<IOAuthAuthorizationService, OAuthAuthorizationService>();
-            services.AddSingleton<CdekIntegrationConfiguration>(new CdekIntegrationConfiguration(new AuthorizeParametrs()));
 
-            Console.WriteLine("Cdek added successfuly");
-
-            return services;
-        }
-
-        public static IServiceProvider ConfigureCdekConfiguration(this IServiceProvider services)
-        {
             CdekIntegrationConfiguration cdekConfiguration = new CdekIntegrationConfiguration(new AuthorizeParametrs()
             {
                 Client_id = "EMscd6r9JnFiQ3bLoyjJY6eM78JrJceI",
@@ -30,18 +22,11 @@ namespace Integrations.Cdek.Extentions
                 ContentType = "x-www-form-urlencoded",
                 Url = "https://api.edu.cdek.ru/v2/oauth/token"
             });
+            services.AddSingleton<CdekIntegrationConfiguration>(new CdekIntegrationConfiguration(new AuthorizeParametrs()));
 
-            using (var scope = services.CreateScope())
-            {
-                cdekConfiguration.AccessObject = scope.ServiceProvider.GetService<IOAuthAuthorizationService>()
-                    .Authorizate(cdekConfiguration.AuthorizeParametrs).Result;
-            }
+            services.AddSingleton<IOAuthTokenFactory, OAuthTokenFactory>();
 
-            CdekIntegrationConfiguration currentConf = services.GetService<CdekIntegrationConfiguration>();
-            currentConf = cdekConfiguration;
-
-            Console.WriteLine("Cdek configuration configured successfuly, current conf: \n"
-                + JsonSerializer.Serialize(services.GetService<CdekIntegrationConfiguration>()));
+            Console.WriteLine("Cdek added successfuly");
 
             return services;
         }
