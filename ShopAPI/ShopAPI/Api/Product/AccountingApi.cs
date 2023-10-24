@@ -23,5 +23,19 @@ namespace ShopApiServer.Api.Product
         [HttpPatch("Update")]
         public async Task Update(UpdateProductAvailabilityDTO settings)
             => await _productAvailabilityRepository.Update(settings);
+
+
+
+        [HttpPost("PackageSizes/Create")]
+        public async Task CreatePackageSize(PackageSizeDTO packageSize)
+            => await _productAvailabilityRepository.CreatepackageSize(packageSize);
+
+        [HttpDelete("PackageSizes/Delete")]
+        public async Task DeletePackageSize(int id)
+            => await _productAvailabilityRepository.DeletePackageSize(id);
+
+        [HttpGet("PackageSizes/Get")]
+        public async Task<ICollection<FullPackageSizeInfoDTO>> GetPackageSize()
+            => await _productAvailabilityRepository.GetPackageSizes();
     }
 }

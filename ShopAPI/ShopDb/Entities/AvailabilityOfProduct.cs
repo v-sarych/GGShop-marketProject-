@@ -10,6 +10,10 @@ namespace ShopDb.Entities
         public string Size { get; set; }
         public float Cost { get; set; }
 
+        public int PackegeSizeId {  get; set; }
+        public PackegeSize PackegeSize { get; set; }
+        public int Weight {  get; set; }
+
         public int ProductId { get; set; }
         public Product Product { get; set; }
 

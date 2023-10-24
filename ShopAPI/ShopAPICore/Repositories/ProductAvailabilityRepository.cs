@@ -28,8 +28,26 @@ namespace ShopApiCore.Repositories
 
             availability.Cost = settings.Cost ?? availability.Cost;
             availability.Count = settings.Count ?? availability.Count;
+            availability.Weight = settings.Weight ?? availability.Weight;
+            availability.PackegeSizeId = settings.PackageId ?? availability.PackegeSizeId;
 
             await _dBContext.SaveChangesAsync();
+        }
+
+
+        public Task CreatepackageSize(PackageSizeDTO packageSize)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeletePackageSize(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ICollection<FullPackageSizeInfoDTO>> GetPackageSizes()
+        {
+            throw new NotImplementedException();
         }
     }
 }

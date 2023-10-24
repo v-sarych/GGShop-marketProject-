@@ -16,7 +16,18 @@ namespace ShopDb.Configuration
                 .HasPrincipalKey(z => z.Id)
                 .HasForeignKey(v => v.ProductId);
 
+            builder.HasOne(x => x.PackegeSize)
+                .WithMany()
+                .HasForeignKey(v => v.PackegeSizeId)
+                .HasPrincipalKey(z => z.Id);
+
             builder.Property(x => x.ProductId)
+                .IsRequired();
+
+            builder.Property(x => x.PackegeSizeId)
+                .IsRequired();
+
+            builder.Property(x => x.Weight)
                 .IsRequired();
 
             builder.Property(x => x.Size)
