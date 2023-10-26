@@ -4,6 +4,6 @@ namespace ShopApiCore.Interfaces.Services
 {
     public interface IDeliveryService
     {
-        Task TransferToDelivery(Order order);
+        Task TransferToDelivery(Guid orderId);
     }
 }
