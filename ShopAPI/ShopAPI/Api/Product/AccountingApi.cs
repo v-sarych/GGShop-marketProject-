@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShopApiCore.Entities.DTO.Package;
 using ShopApiCore.Entities.DTO.ProductAvailability;
 using ShopApiCore.Interfaces.Repository;
 using ShopDb.Entities;

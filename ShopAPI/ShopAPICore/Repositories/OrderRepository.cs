@@ -46,6 +46,8 @@ namespace ShopApiCore.Repositories
                 if (availability == null || availability.Count - orderItem.Count >= 0)
                     throw new NotInStockException();
 
+                orderItem.ProductId = availability.ProductId;
+
                 if (orderItem.Count > 0)
                 {
                     availability.Count -= orderItem.Count;

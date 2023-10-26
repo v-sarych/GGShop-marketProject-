@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ShopApiCore.Entities.DTO.ProductAvailability
 {
-    public class PackageSizeDTO
+    public class AvailabilityForGetOrderItemDTO
     {
-        public int Width { get; set; } = 0;
-        public int Height { get; set; } = 0;
-        public int Length { get; set; } = 0;
+        public string Sku {  get; set; }
+        public string Size {  get; set; }
     }
 }

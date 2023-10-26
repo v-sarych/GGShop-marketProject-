@@ -15,6 +15,10 @@ namespace ShopDb.Configuration
                 .HasForeignKey(y => y.ProductId)
                 .HasPrincipalKey(z => z.Id)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasOne(x => x.AvailabilityOfProduct)
+                .WithOne()
+                .HasForeignKey
         }
     }
 }

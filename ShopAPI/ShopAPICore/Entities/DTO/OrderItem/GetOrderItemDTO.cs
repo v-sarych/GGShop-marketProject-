@@ -1,14 +1,14 @@
-﻿using ShopApiCore.Entities.DTO.ProductSearch;
+﻿using ShopApiCore.Entities.DTO.ProductAvailability;
+using ShopApiCore.Entities.DTO.ProductSearch;
 
 namespace ShopApiCore.Entities.DTO.OrderItem
 {
     public class GetOrderItemDTO
     {
-        public string Sku { get; set; }
-        public string Size { get; set; }
         public int Count { get; set; }
         public float Cost { get; set; }
 
+        public AvailabilityForGetOrderItemDTO AvailabilityOfProduct {  get; set; }
         public SimpleProductDTO Product { get; set; }
     }
 }

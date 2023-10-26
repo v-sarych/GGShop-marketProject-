@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ShopApiCore.Entities.DTO.Package;
 using ShopApiCore.Entities.DTO.ProductAvailability;
 using ShopApiCore.Interfaces.Repository;
 using ShopDb;

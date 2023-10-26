@@ -1,4 +1,5 @@
-﻿using ShopDb.Entities;
+﻿using ShopApiCore.Entities.DTO.Package;
+using ShopDb.Entities;
 
 namespace ShopApiCore.Entities.DTO.ProductAvailability
 {

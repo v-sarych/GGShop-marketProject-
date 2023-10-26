@@ -1,4 +1,5 @@
-﻿using ShopApiCore.Entities.DTO.ProductAvailability;
+﻿using ShopApiCore.Entities.DTO.Package;
+using ShopApiCore.Entities.DTO.ProductAvailability;
 
 namespace ShopApiCore.Interfaces.Repository
 {
