@@ -1,4 +1,4 @@
-﻿using Integrations.Cdek.Entities.OAuth;
+﻿using Integrations.Cdek.Entities.RegisterOrderEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Integrations.Cdek.Interfaces
 {
-    public interface IOAuthTokenFactory
+    public interface IDeliveryDataFormatter
     {
-        Task<AccessObject> GetOAuthToken();
-        Task ReissueToken();
+        Task<RegisterOrder> GetOrder(Guid id);
     }
 }

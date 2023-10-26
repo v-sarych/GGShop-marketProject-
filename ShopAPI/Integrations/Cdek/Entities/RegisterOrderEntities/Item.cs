@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Integrations.Cdek.Entities.RegisterOrderEntities
 {
-    internal class Item
+    public class Item
     {
         public string Name {  get; set; }
         public string Ware_key {  get; set; }

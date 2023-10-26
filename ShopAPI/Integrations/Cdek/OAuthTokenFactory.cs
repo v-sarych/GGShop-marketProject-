@@ -13,19 +13,19 @@ namespace Integrations.Cdek
         private readonly IOAuthAuthorizationService _authorizationService;
 
         public readonly AuthorizeParametrs AuthorizeParametrs;
-        public AccessObject AccessObject {  get; private set; }
+        private AccessObject _accessObject {  get; set; }
 
         public OAuthTokenFactory(CdekIntegrationConfiguration cdekIntegrationConfiguration, IOAuthAuthorizationService oAuthAuthorizationService)
             => (_authorizationService, AuthorizeParametrs)  = (oAuthAuthorizationService, cdekIntegrationConfiguration.AuthorizeParametrs);
-        public async Task<string> GetOAuthToken()
+        public async Task<AccessObject> GetOAuthToken()
         {
-            if (AccessObject == null)
-                AccessObject = await _authorizationService.Authorizate(AuthorizeParametrs);
+            if (_accessObject == null)
+                _accessObject = await _authorizationService.Authorizate(AuthorizeParametrs);
 
-            return AccessObject.Access_token;
+            return _accessObject;
         }
 
         public async Task ReissueToken()
-            => AccessObject = await _authorizationService.Authorizate(AuthorizeParametrs);
+            => _accessObject = await _authorizationService.Authorizate(AuthorizeParametrs);
     }
 }

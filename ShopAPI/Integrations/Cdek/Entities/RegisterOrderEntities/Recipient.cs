@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Integrations.Cdek.Entities.RegisterOrderEntities
 {
-    internal class Recipient
+    public class Recipient
     {
         public string Name {  get; set; }
         public Phone[] Phones { get; set; }

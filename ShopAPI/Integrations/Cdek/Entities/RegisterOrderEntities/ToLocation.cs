@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Integrations.Cdek.Entities.RegisterOrderEntities
 {
-    internal class ToLocation
+    public class ToLocation
     {
         public string Address {  get; set; }
     }

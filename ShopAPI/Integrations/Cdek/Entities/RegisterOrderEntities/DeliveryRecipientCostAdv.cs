@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Integrations.Cdek.Entities.RegisterOrderEntities
 {
-    internal class DeliveryRecipientCostAdv
+    public class DeliveryRecipientCostAdv
     {
         public int Threshold { get; set; }
         public float sum {  get; set; }

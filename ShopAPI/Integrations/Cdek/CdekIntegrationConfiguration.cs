@@ -13,6 +13,8 @@ namespace Integrations.Cdek
     {
         public readonly AuthorizeParametrs AuthorizeParametrs;
 
+        public readonly string RegisterOrderUrl = "https://api.edu.cdek.ru/v2/orders";
+
         public CdekIntegrationConfiguration(AuthorizeParametrs authorizeParametrs)
         {
             AuthorizeParametrs = authorizeParametrs;

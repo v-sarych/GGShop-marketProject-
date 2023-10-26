@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Integrations.Cdek.Entities.RegisterOrderEntities
+﻿namespace Integrations.Cdek.Entities.RegisterOrderEntities
 {
-    internal class RegisterOrder
+    public class RegisterOrder
     {
         public Guid Number { get; set; }
         public int Tariff_code { get; set; }

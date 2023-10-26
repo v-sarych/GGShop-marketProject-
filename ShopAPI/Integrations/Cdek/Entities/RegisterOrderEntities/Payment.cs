@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Integrations.Cdek.Entities.RegisterOrderEntities
 {
-    internal class Payment
+    public class Payment
     {
         public float Value {  get; set; }
     }
