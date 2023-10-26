@@ -26,10 +26,12 @@ namespace ShopApiCore.Repositories
                        .ProjectTo<GetShoppingCartElementDTO>(_mapper.ConfigurationProvider)
                        .ToListAsync();
 
-            foreach(var element in elements)
+            List<AvailabilityOfProduct> availabilitiesOfProduct = await _dBContext.AvailabilityOfProducts.AsNoTracking()
+                .Where(a => elements.Select(e => e.Sku).Any(e => e == a.Sku))
+                .ToListAsync();
+            foreach (var element in elements)
             {
-                AvailabilityOfProduct availabilityOfProduct = await _dBContext.AvailabilityOfProducts.AsNoTracking()
-                            .FirstOrDefaultAsync(a => a.Sku == element.Sku);
+                AvailabilityOfProduct availabilityOfProduct = availabilitiesOfProduct.FirstOrDefault(a => a.Sku == element.Sku);
 
                 if (availabilityOfProduct.Count >= element.Count)
                     element.Cost = (float)availabilityOfProduct.Cost * element.Count;// без внешнего ключа
