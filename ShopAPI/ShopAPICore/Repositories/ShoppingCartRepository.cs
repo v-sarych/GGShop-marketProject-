@@ -29,6 +29,7 @@ namespace ShopApiCore.Repositories
             List<AvailabilityOfProduct> availabilitiesOfProduct = await _dBContext.AvailabilityOfProducts.AsNoTracking()
                 .Where(a => elements.Select(e => e.Sku).Any(e => e == a.Sku))
                 .ToListAsync();
+
             foreach (var element in elements)
             {
                 AvailabilityOfProduct availabilityOfProduct = availabilitiesOfProduct.FirstOrDefault(a => a.Sku == element.Sku);
