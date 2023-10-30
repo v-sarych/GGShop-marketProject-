@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Integrations.Cdek
 {
-    public class DeliveryDataFormater : IDeliveryDataFormatter
+    public class DeliveryDataFormatter : IDeliveryDataFormatter
     {
         private readonly IShopDbContext _dbContext;
         private readonly CdekIntegrationConfiguration _cdekConfiguration;
-        public DeliveryDataFormater(IShopDbContext dbContext, CdekIntegrationConfiguration cdekIntegrationConfiguration)
+        public DeliveryDataFormatter(IShopDbContext dbContext, CdekIntegrationConfiguration cdekIntegrationConfiguration)
             => (_dbContext, _cdekConfiguration) = (dbContext, cdekIntegrationConfiguration);
         public async Task<RegisterOrder> GetOrder(Guid id)
         {
