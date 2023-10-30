@@ -13,8 +13,8 @@
         public FromLocation? From_location { get; set; }
         public ToLocation? To_location { get; set; }
 
-        public DeliveryRecipientCost Delivery_recipient_cost {  get; set; }
-        public DeliveryRecipientCostAdv[] Delivery_recipient_cost_adv {  get; set; }
+        public DeliveryRecipientCost? Delivery_recipient_cost {  get; set; }
+        public DeliveryRecipientCostAdv[]? Delivery_recipient_cost_adv {  get; set; }
 
         public Package[] Packages { get; set; }
     }
