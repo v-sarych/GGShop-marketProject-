@@ -1,5 +1,6 @@
 ﻿using Integrations.Cdek.Entities.RegisterOrderEntities;
 using Integrations.Cdek.Interfaces;
+using Microsoft.Extensions.Logging;
 using ShopApiCore.Interfaces.Services;
 using ShopDb;
 using ShopDb.Entities;
@@ -16,10 +17,12 @@ namespace Integrations.Cdek
         private readonly IHttpClientFactory _httpClientFactory;
 
         private readonly CdekIntegrationConfiguration _configurration;
-        public CdekIntegrationDeliveryService(IHttpClientFactory httpClientFactory,IOAuthTokenFactory oAuthTokenFactory,
+
+        private readonly ILogger _logger;
+        public CdekIntegrationDeliveryService(IHttpClientFactory httpClientFactory, ILogger<CdekIntegrationDeliveryService> logger, IOAuthTokenFactory oAuthTokenFactory,
             IDeliveryDataFormatter deliveryDataFormatter, CdekIntegrationConfiguration cdekIntegrationConfiguration)
-                => (_httpClientFactory, _tokenFactory, _deliveryDataFormatter, _configurration) =
-                    (httpClientFactory, oAuthTokenFactory, deliveryDataFormatter, cdekIntegrationConfiguration);
+                => (_httpClientFactory, _logger, _tokenFactory, _deliveryDataFormatter, _configurration) =
+                    (httpClientFactory, logger, oAuthTokenFactory, deliveryDataFormatter, cdekIntegrationConfiguration);
         public async Task TransferToDelivery(Guid orderId)
         {
             RegisterOrder order = await _deliveryDataFormatter.GetOrder(orderId);
@@ -34,6 +37,7 @@ namespace Integrations.Cdek
 
             HttpResponseMessage response =  await client.SendAsync(request);
 
+            _logger.LogInformation("Register Order response", response.ToString());
         }
     }
 }
