@@ -10,6 +10,6 @@ namespace Integrations.YourPayments.Interfaces
 {
     internal interface IPaymentDataCreator
     {
-        Task<AuthorizePaymentData> FromDTO(PaymentInfoDTO dto, PaymentConfiguration configuration);
+        Task<AuthorizePaymentData> FromDTO(PaymentInfoDTO dto);
     }
 }
