@@ -9,7 +9,7 @@ namespace Integrations.YourPayments
     internal class PaymentConfiguration
     {
         public readonly string MerchantId = "merchant";
-        public readonly string Signature = "key";
+        public readonly string SecretKey = "key";
 
         public PaymentConfiguration() { }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Integrations.YourPayments.Entities
+namespace Integrations.YourPayments.Entities.AuthorizePayment
 {
     internal class ClientEntity
     {

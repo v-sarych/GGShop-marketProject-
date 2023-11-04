@@ -1,14 +1,12 @@
 ﻿using Integrations.YourPayments.Entities;
+using Integrations.YourPayments.Entities.AuthorizePayment;
 using Integrations.YourPayments.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ShopApiCore.Entities.DTO.Payments;
 using ShopDb;
 using ShopDb.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Integrations.YourPayments
 {
@@ -19,7 +17,7 @@ namespace Integrations.YourPayments
         public PaymentDataCreator(PaymentConfiguration paymentConfiguration, IShopDbContext shopDbContext)
             => (_configuration, _dbContext) = (paymentConfiguration, _dbContext);
 
-        public async Task<AuthorizePaymentData> FromDTO(PaymentInfoDTO dto)
+        public async Task<AuthorizePaymentData> GetAuthorizePaymentData(PaymentInfoDTO dto)
         {
             AuthorizePaymentData result = new AuthorizePaymentData();
 
@@ -29,6 +27,14 @@ namespace Integrations.YourPayments
                 .Include(o => o.OrderItems)
                     .ThenInclude(i => i.AvailabilityOfProduct)
                 .First(o => o.Id == dto.OrderId);
+
+            result.Authorize = new AuthorizeEntity()
+            {
+                PaymentMethod = dto.PaymentMethod,
+                UsePaymentPage = true
+            };
+
+            result.Currency = dto.Currency;
 
             if(dto.paymentClientDTO != null)
                 result.Client = new ClientEntity()
@@ -59,6 +65,20 @@ namespace Integrations.YourPayments
                 });
 
             return result;
+        }
+
+        public async Task<string> GetMerchant()
+            => _configuration.MerchantId;
+
+        public async Task<string> GetSignature(SignatureParameters parameters)
+        {
+            byte[] hashedData = Encoding.UTF8.GetBytes(parameters.Merchant + parameters.Date + parameters.HttpMethod + parameters.BaseUrl + parameters.MD5BodySum);
+
+            byte[] hash;
+            using (var hasher = new HMACSHA256(Encoding.UTF8.GetBytes(_configuration.SecretKey)))
+                hash = hasher.ComputeHash(hashedData);
+
+            return BitConverter.ToString(hash).ToLower();
         }
     }
 }
