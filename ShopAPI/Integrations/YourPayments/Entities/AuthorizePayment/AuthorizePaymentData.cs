@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Integrations.YourPayments.Entities.AuthorizePayment
 {
-    internal class AuthorizePaymentData
+    public class AuthorizePaymentData
     {
         public string MerchantPaymentReference { get; set; }
         public string ReturnUrl { get; set; }

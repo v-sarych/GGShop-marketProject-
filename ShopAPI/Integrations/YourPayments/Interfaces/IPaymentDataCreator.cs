@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Integrations.YourPayments.Interfaces
 {
-    internal interface IPaymentDataCreator
+    public interface IPaymentDataCreator
     {
         Task<AuthorizePaymentData> GetAuthorizePaymentData(PaymentInfoDTO dto);
         Task<string> GetSignature(SignatureParameters parameters);

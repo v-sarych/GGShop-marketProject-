@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Integrations.YourPayments.Entities
 {
-    internal class SignatureParameters
+    public class SignatureParameters
     {
         public string Merchant {  get; set; }
         public string Date { get; set; }

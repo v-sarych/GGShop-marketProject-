@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Integrations.YourPayments.Entities.AuthorizePayment
 {
-    internal class ProductEntity
+    public class ProductEntity
     {
         public string Name { get; set; }
         public string Sku { get; set; }

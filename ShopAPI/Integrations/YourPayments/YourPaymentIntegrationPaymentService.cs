@@ -1,4 +1,5 @@
-﻿using ShopApiCore.Entities.DTO.Payments;
+﻿using Integrations.YourPayments.Interfaces;
+using ShopApiCore.Entities.DTO.Payments;
 using ShopApiCore.Interfaces.Services;
 
 namespace Integrations.YourPayments
@@ -6,11 +7,12 @@ namespace Integrations.YourPayments
     public class YourPaymentIntegrationPaymentService : IPaymentService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public YourPaymentIntegrationPaymentService(IHttpClientFactory httpClientFactory)
-            => _httpClientFactory = httpClientFactory;
-        public Task<string> CreateAndAuthorizePayment(PaymentInfoDTO info)
+        private readonly IPaymentDataCreator _paymentDataCreator;
+        public YourPaymentIntegrationPaymentService(IHttpClientFactory httpClientFactory, IPaymentDataCreator paymentDataCreator)
+            => (_httpClientFactory, _paymentDataCreator) = (httpClientFactory, paymentDataCreator);
+        public async Task<string> CreateAndAuthorizePayment(PaymentInfoDTO info)
         {
-            throw new NotImplementedException();
+            return "";
         }
     }
 }
