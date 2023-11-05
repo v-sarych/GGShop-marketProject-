@@ -80,5 +80,14 @@ namespace Integrations.YourPayments
 
             return BitConverter.ToString(hash).ToLower();
         }
+
+        public async Task<string> GetMD5(string data)
+        {
+            byte[] md5Sum;
+            using(var md5 = MD5.Create())
+                md5Sum = md5.ComputeHash(Encoding.UTF8.GetBytes(data));
+
+            return BitConverter.ToString(md5Sum).ToLower();
+        }
     }
 }

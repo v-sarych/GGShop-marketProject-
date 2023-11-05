@@ -14,5 +14,6 @@ namespace Integrations.YourPayments.Interfaces
         Task<AuthorizePaymentData> GetAuthorizePaymentData(PaymentInfoDTO dto);
         Task<string> GetSignature(SignatureParameters parameters);
         Task<string> GetMerchant();
+        Task<string> GetMD5(string data);
     }
 }
