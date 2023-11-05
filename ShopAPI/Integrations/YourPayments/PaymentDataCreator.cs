@@ -67,9 +67,6 @@ namespace Integrations.YourPayments
             return result;
         }
 
-        public async Task<string> GetMerchant()
-            => _configuration.MerchantId;
-
         public async Task<string> GetSignature(SignatureParameters parameters)
         {
             byte[] hashedData = Encoding.UTF8.GetBytes(parameters.Merchant + parameters.Date + parameters.HttpMethod + parameters.BaseUrl + parameters.MD5BodySum);

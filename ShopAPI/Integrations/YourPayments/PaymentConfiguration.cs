@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Integrations.YourPayments
 {
-    internal class PaymentConfiguration
+    public class PaymentConfiguration
     {
         public readonly string MerchantId = "merchant";
         public readonly string SecretKey = "key";
+
+        public readonly string AuthorizePaymentUrl = "";
 
         public PaymentConfiguration() { }
     }
