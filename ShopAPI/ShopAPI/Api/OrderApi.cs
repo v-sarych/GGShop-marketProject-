@@ -1,9 +1,11 @@
 ﻿using IdentityServer.Model.Entities.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using ShopApiCore.Entities.DTO.Order;
 using ShopApiCore.Entities.DTO.Payments;
 using ShopApiCore.Interfaces.Repository;
+using ShopApiCore.Interfaces.Services;
 using ShopDb.Entities;
 
 namespace ShopApiServer.Api
@@ -13,6 +15,7 @@ namespace ShopApiServer.Api
     public class OrderApi : ControllerBase
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IDeliveryService _deliveryService;
 
         public OrderApi(IOrderRepository orderRepository) => _orderRepository = orderRepository;
 
@@ -38,5 +41,10 @@ namespace ShopApiServer.Api
         [HttpPut("UpdateStatus")]
         public async Task UpdateStatus(Guid id, string newStatus)
             => await _orderRepository.UpdateStatus(id, newStatus);
+
+        [Authorize]
+        [HttpPost("TransferToDelivery")]
+        public async Task TransferToDelivery(Guid orderId)
+             => await _deliveryService.TransferToDelivery(orderId);
     }
 }
