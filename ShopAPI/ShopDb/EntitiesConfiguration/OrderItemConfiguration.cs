@@ -17,8 +17,9 @@ namespace ShopDb.Configuration
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder.HasOne(x => x.AvailabilityOfProduct)
-                .WithOne()
-                .HasForeignKey
+                .WithMany()
+                .HasPrincipalKey(x => x.Sku)
+                .HasForeignKey(x => x.Sku);
         }
     }
 }

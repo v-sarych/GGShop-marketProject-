@@ -10,6 +10,8 @@
         public bool IsPaidFor { get; set; } = false;
         public float Cost { get; set; } = 0;
 
+        public string WebHookKey {  get; set; }
+
         public long UserId { get; set; }
         public User User { get; set; }
 
