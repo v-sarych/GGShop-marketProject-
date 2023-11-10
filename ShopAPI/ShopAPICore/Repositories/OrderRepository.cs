@@ -9,6 +9,7 @@ using ShopApiCore.Interfaces.Repository;
 using ShopApiCore.Interfaces.Services;
 using ShopDb;
 using ShopDb.Entities;
+using System.Security.Cryptography;
 
 namespace ShopApiCore.Repositories
 {
@@ -16,10 +17,9 @@ namespace ShopApiCore.Repositories
     {
         private readonly IShopDbContext _dBContext;
         private readonly IMapper _mapper;
-        private readonly IPaymentService _paymentService;
 
-        public OrderRepository(IShopDbContext dBContext, IMapper mapper, IPaymentService paymentService)
-            => (_dBContext, _mapper, _paymentService) = (dBContext, mapper, paymentService);
+        public OrderRepository(IShopDbContext dBContext, IMapper mapper)
+            => (_dBContext, _mapper) = (dBContext, mapper);
 
         public async Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings, long userId)
         {
@@ -29,6 +29,7 @@ namespace ShopApiCore.Repositories
             Order creatingOrder = _mapper.Map<Order>(createSettings);
 
             creatingOrder.UserId = userId;
+            creatingOrder.WebHookKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             creatingOrder.DateOfCreation = DateTime.UtcNow;
 
             creatingOrder.Id = Guid.NewGuid();
@@ -61,9 +62,6 @@ namespace ShopApiCore.Repositories
 
             return await _dBContext.Orders.AsNoTracking().ProjectTo<GetUserOrderDTO>(_mapper.ConfigurationProvider).FirstAsync(x => x.Id == creatingOrder.Id);
         }
-
-        public Task<string> CreateAndAuthorizeOrderPayment(PaymentInfoDTO info)
-            => _paymentService.CreateAndAuthorizePayment(info);
 
         public async Task<OrderStatusesDTO> GetAvailableStatuses()
            => new OrderStatusesDTO(); 

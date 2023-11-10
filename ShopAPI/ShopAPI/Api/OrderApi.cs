@@ -16,8 +16,10 @@ namespace ShopApiServer.Api
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IDeliveryService _deliveryService;
+        private readonly IPaymentService _paymentService;
 
-        public OrderApi(IOrderRepository orderRepository) => _orderRepository = orderRepository;
+        public OrderApi(IOrderRepository orderRepository, IPaymentService paymentService, IDeliveryService deliveryService)
+            => (_orderRepository, _paymentService, _deliveryService) = (orderRepository, paymentService, deliveryService);
 
         [Authorize(Roles = "Admin")]
         [HttpPost("Search")]
@@ -26,7 +28,7 @@ namespace ShopApiServer.Api
 
         [HttpPost("Pay")]
         public async Task<string> Pay(PaymentInfoDTO info)
-            => await _orderRepository.CreateAndAuthorizeOrderPayment(info);
+            => await _paymentService.CreateAndAuthorizePayment(info);
 
         [HttpGet("GetAvailableStatuses")]
         public async Task<OrderStatusesDTO> GetAvailableStatuses() 
