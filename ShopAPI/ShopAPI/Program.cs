@@ -1,5 +1,6 @@
 using IdentityServer.Model.Extentions;
 using Integrations.Cdek.Extentions;
+using Integrations.YourPayments.Extentions;
 using Microsoft.EntityFrameworkCore;
 using ShopApiCore.Mapping;
 using ShopApiServer.Extentions;
@@ -29,7 +30,6 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddCastomAuthentication();
 
     builder.Services.AddRepositories();
-    builder.Services.AddServices();
 
     builder.Services.AddAutoMapper(cfg => { AutoMapperConfiguration.GetConfiguration(cfg); });
 
@@ -45,6 +45,7 @@ void ConfigureServices(WebApplicationBuilder builder)
 
     //Integratoins
     builder.Services.AddCdekIntegration();
+    builder.Services.AddYourPaymentsIntegration();
 }
 
 void ConfigureApp(WebApplication app)
