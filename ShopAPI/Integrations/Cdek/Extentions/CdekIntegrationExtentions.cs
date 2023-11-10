@@ -11,11 +11,6 @@ namespace Integrations.Cdek.Extentions
     {
         public static IServiceCollection AddCdekIntegration(this IServiceCollection services)
         {
-            services.AddScoped<IDeliveryService, CdekIntegrationDeliveryService>();
-            services.AddScoped<IDeliveryDataFormatter, DeliveryDataFormatter>();
-
-            services.AddScoped<IOAuthAuthorizationService, OAuthAuthorizationService>();
-
             CdekIntegrationConfiguration cdekConfiguration = new CdekIntegrationConfiguration(new AuthorizeParametrs()
             {
                 Client_id = "EMscd6r9JnFiQ3bLoyjJY6eM78JrJceI",
@@ -27,6 +22,11 @@ namespace Integrations.Cdek.Extentions
             services.AddSingleton<CdekIntegrationConfiguration>(new CdekIntegrationConfiguration(new AuthorizeParametrs()));
 
             services.AddSingleton<IOAuthTokenFactory, OAuthTokenFactory>();
+
+            services.AddScoped<IDeliveryService, CdekIntegrationDeliveryService>();
+            services.AddScoped<IDeliveryDataFormatter, DeliveryDataFormatter>();
+
+            services.AddScoped<IOAuthAuthorizationService, OAuthAuthorizationService>();
 
             Console.WriteLine("Cdek added successfuly");
 
