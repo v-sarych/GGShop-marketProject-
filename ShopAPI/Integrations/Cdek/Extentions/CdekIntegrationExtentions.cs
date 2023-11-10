@@ -21,12 +21,11 @@ namespace Integrations.Cdek.Extentions
             });
             services.AddSingleton<CdekIntegrationConfiguration>(new CdekIntegrationConfiguration(new AuthorizeParametrs()));
 
+            services.AddSingleton<IOAuthAuthorizationService, OAuthAuthorizationService>();
             services.AddSingleton<IOAuthTokenFactory, OAuthTokenFactory>();
 
             services.AddScoped<IDeliveryService, CdekIntegrationDeliveryService>();
             services.AddScoped<IDeliveryDataFormatter, DeliveryDataFormatter>();
-
-            services.AddScoped<IOAuthAuthorizationService, OAuthAuthorizationService>();
 
             Console.WriteLine("Cdek added successfuly");
 
