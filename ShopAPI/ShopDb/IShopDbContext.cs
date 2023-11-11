@@ -12,6 +12,7 @@ namespace ShopDb
         DbSet<Comment> Comments { get; set; }
         DbSet<Tag> Tags { get; set; }
         DbSet<AvailabilityOfProduct> AvailabilityOfProducts { get; set; }
+        DbSet<PackageSize> PackageSizes { get; set; }
         DbSet<Order> Orders { get; set; }
         DbSet<OrderItem> OrdersItems { get; set; }
 
