@@ -30,7 +30,10 @@ namespace ShopApiServer.Api.Product
             => await _productAvailabilityRepository.Update(settings);
 
 
-
+        /// <response code="200">Sucess</response>
+        /// <response code="400">AlreadyExist</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("PackageSizes/Create")]
         public async Task CreatePackageSize(PackageSizeDTO packageSize)
             => await _productAvailabilityRepository.CreatepackageSize(packageSize);

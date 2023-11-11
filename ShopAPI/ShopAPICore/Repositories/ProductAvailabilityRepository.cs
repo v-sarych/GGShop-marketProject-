@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ShopApiCore.Entities.DTO.Package;
 using ShopApiCore.Entities.DTO.ProductAvailability;
@@ -30,7 +31,7 @@ namespace ShopApiCore.Repositories
 
         public async Task Update(UpdateProductAvailabilityDTO settings)
         { 
-            AvailabilityOfProduct availability = _dBContext.AvailabilityOfProducts.FirstOrDefault(x => x.Sku == settings.Sku);
+            AvailabilityOfProduct availability = _dBContext.AvailabilityOfProducts.First(x => x.Sku == settings.Sku);
 
             availability.Cost = settings.Cost ?? availability.Cost;
             availability.Count = settings.Count ?? availability.Count;
@@ -41,19 +42,24 @@ namespace ShopApiCore.Repositories
         }
 
 
-        public Task CreatepackageSize(PackageSizeDTO packageSize)
+        public async Task CreatepackageSize(PackageSizeDTO packageSize)
         {
-            throw new NotImplementedException();
+            if(await _dBContext.PackageSizes.AsNoTracking().AnyAsync(x => x.Height == packageSize.Height && x.Width == packageSize.Width && x.Length == packageSize.Length))
+                throw new AlreadyExistException();
+
+            PackageSize package = _mapper.Map<PackageSize>(packageSize);
+            await _dBContext.PackageSizes.AddAsync(package);
+
+            await _dBContext.SaveChangesAsync();
         }
 
-        public Task DeletePackageSize(int id)
+        public async Task DeletePackageSize(int id)
         {
-            throw new NotImplementedException();
+            _dBContext.PackageSizes.Remove(_dBContext.PackageSizes.AsTracking().First(x => x.Id == id));
+            await _dBContext.SaveChangesAsync();
         }
 
-        public Task<ICollection<FullPackageSizeInfoDTO>> GetPackageSizes()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<ICollection<FullPackageSizeInfoDTO>> GetPackageSizes()
+            => await _dBContext.PackageSizes.ProjectTo<FullPackageSizeInfoDTO>(_mapper.ConfigurationProvider).ToListAsync();
     }
 }
