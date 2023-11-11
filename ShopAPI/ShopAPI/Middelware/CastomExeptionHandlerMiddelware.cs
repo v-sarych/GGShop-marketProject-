@@ -40,13 +40,17 @@ namespace ShopApiServer.Middelware
                 case NoPermissionsException:
                     context.Response.StatusCode = 403;
                     break;
+
+                case AlreadyExistException:
+                    context.Response.StatusCode = 400;
+                    await context.Response.WriteAsync("AlreadyExist");
+                    break;
                     
                 default:
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(exception.Message));
                     break;
             }
-
-            await context.Response.WriteAsync(JsonSerializer.Serialize(exception.Message));
         }
     }
 }
