@@ -8,7 +8,9 @@ namespace ShopApiServer.Middelware
     public class CastomExeptionHandlerMiddelware
     {
         private readonly RequestDelegate _next;
-        public CastomExeptionHandlerMiddelware(RequestDelegate next) => _next = next;
+        private readonly ILogger _logger;
+        public CastomExeptionHandlerMiddelware(RequestDelegate next, ILogger<CastomExeptionHandlerMiddelware> logger)
+            => (_next, _logger) = (next, logger);
 
         public async Task Invoke(HttpContext context)
         {
@@ -18,12 +20,15 @@ namespace ShopApiServer.Middelware
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.ToString());
+
                 await _handleExeption(context, ex);
             }
         }
 
         private async Task _handleExeption(HttpContext context, Exception exception)
         {
+
             context.Response.ContentType = "application/json";
 
             switch (exception)
