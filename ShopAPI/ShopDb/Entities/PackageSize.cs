@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopDb.Entities
 {
-    public class PackegeSize
+    public class PackageSize
     {
         [Key]
         public int Id { get; set; }

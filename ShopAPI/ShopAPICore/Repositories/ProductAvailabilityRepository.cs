@@ -35,7 +35,7 @@ namespace ShopApiCore.Repositories
             availability.Cost = settings.Cost ?? availability.Cost;
             availability.Count = settings.Count ?? availability.Count;
             availability.Weight = settings.Weight ?? availability.Weight;
-            availability.PackegeSizeId = settings.PackageId ?? availability.PackegeSizeId;
+            availability.PackageSizeId = settings.PackageId ?? availability.PackageSizeId;
 
             await _dBContext.SaveChangesAsync();
         }

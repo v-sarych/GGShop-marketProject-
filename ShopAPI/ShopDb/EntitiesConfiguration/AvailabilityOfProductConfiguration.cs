@@ -16,16 +16,16 @@ namespace ShopDb.Configuration
                 .HasPrincipalKey(z => z.Id)
                 .HasForeignKey(v => v.ProductId);
 
-            builder.HasOne(x => x.PackegeSize)
+            builder.HasOne(x => x.PackageSize)
                 .WithMany()
-                .HasForeignKey(v => v.PackegeSizeId)
+                .HasForeignKey(v => v.PackageSizeId)
                 .HasPrincipalKey(z => z.Id)
                 .OnDelete(DeleteBehavior.SetNull);
 
             builder.Property(x => x.ProductId)
                 .IsRequired();
 
-            builder.Property(x => x.PackegeSizeId)
+            builder.Property(x => x.PackageSizeId)
                 .IsRequired();
 
             builder.Property(x => x.Weight)

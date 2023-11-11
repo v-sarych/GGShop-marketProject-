@@ -54,9 +54,9 @@ namespace Integrations.Cdek
                 for (int j = 0; j < orderItem.Count; j++)
                 {
                     order.Packages[i].Number = Convert.ToString(i);
-                    order.Packages[i].Height = orderItem.AvailabilityOfProduct.PackegeSize.Height;
-                    order.Packages[i].Length = orderItem.AvailabilityOfProduct.PackegeSize.Length;
-                    order.Packages[i].Width = orderItem.AvailabilityOfProduct.PackegeSize.Width;
+                    order.Packages[i].Height = orderItem.AvailabilityOfProduct.PackageSize.Height;
+                    order.Packages[i].Length = orderItem.AvailabilityOfProduct.PackageSize.Length;
+                    order.Packages[i].Width = orderItem.AvailabilityOfProduct.PackageSize.Width;
                     order.Packages[i].Weight = orderItem.AvailabilityOfProduct.Weight;
 
                     order.Packages[i].Items = new Item[1];

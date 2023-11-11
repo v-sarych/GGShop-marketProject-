@@ -16,7 +16,7 @@ namespace ShopDb
         public DbSet<Product> Products { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<AvailabilityOfProduct> AvailabilityOfProducts { get; set; }
-        public DbSet<PackegeSize> PackegeSizes { get; set; }
+        public DbSet<PackageSize> PackageSizes { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrdersItems { get; set; }
