@@ -19,7 +19,10 @@ namespace ShopApiCore.Repositories
 
         public async Task Create(CreateCommentDTO creatingSettings, long userId)
         {
-            if (!_dbContext.OrdersItems.AsNoTracking().Any(i => i.ProductId == creatingSettings.ProductId && i.Order.UserId == userId))
+            if (await _dbContext.Comments.AsNoTracking().AnyAsync(x => x.UserId == userId && x.ProductId == creatingSettings.ProductId))
+                throw new AlreadyExistException();
+
+            if (! await _dbContext.OrdersItems.AsNoTracking().AnyAsync(i => i.ProductId == creatingSettings.ProductId && i.Order.UserId == userId))
                 throw new NotFoundException();
 
             Comment comment = new Comment {
