@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ShopApiCore.Entities.DTO.Package;
 using ShopApiCore.Entities.DTO.ProductAvailability;
+using ShopApiCore.Exceptions;
 using ShopApiCore.Interfaces.Repository;
 using ShopDb;
 using ShopDb.Entities;
@@ -17,6 +19,9 @@ namespace ShopApiCore.Repositories
 
         public async Task Create(CreateProductAvailabilityDTO settings)
         {
+            if (await _dBContext.AvailabilityOfProducts.AsNoTracking().AnyAsync(x => x.Sku == settings.Sku))
+                throw new AlreadyExistException();
+
             AvailabilityOfProduct availabilityOfProduct = _mapper.Map<AvailabilityOfProduct>(settings);
             await _dBContext.AvailabilityOfProducts.AddAsync(availabilityOfProduct);
 

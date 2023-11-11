@@ -3,6 +3,7 @@ using AutoMapper.Execution;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ShopApiCore.Entities.DTO.ShoppingCart;
+using ShopApiCore.Exceptions;
 using ShopApiCore.Interfaces.Repository;
 using ShopDb;
 using ShopDb.Entities;
@@ -45,6 +46,9 @@ namespace ShopApiCore.Repositories
 
         public async Task AddItem(AddShoppingCartItemDTO item, long userId)
         {
+            if (await _dBContext.UsersShoppingCartItems.AsNoTracking().AnyAsync(x => x.UserId == userId && x.Sku == item.Sku))
+                throw new AlreadyExistException();
+
             UserShoppingCartItem dBItem = _mapper.Map<UserShoppingCartItem>(item);
             dBItem.UserId = userId;
 

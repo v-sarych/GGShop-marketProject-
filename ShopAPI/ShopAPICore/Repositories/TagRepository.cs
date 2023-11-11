@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ShopApiCore.Entities.DTO.Tag;
+using ShopApiCore.Exceptions;
 using ShopApiCore.Interfaces.Repository;
 using ShopDb;
 using ShopDb.Entities;
@@ -18,6 +19,9 @@ namespace ShopApiCore.Repositories
 
         public async Task<int> Create(string name)
         {
+            if (await _dBContext.Tags.AsNoTracking().AnyAsync(x => x.Name == name))
+                throw new AlreadyExistException();
+
             Tag creatingTag = new() { Name = name };
             await _dBContext.Tags.AddAsync(creatingTag);
 
