@@ -17,6 +17,10 @@ namespace ShopApiServer.Api.User
         public ShoppingCartApi(IShoppingCartRepository shoppingCartRepository)
             => _shoppingCartRepository = shoppingCartRepository;
 
+        /// <response code="200">Sucess</response>
+        /// <response code="400">AlreadyExist</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("AddItem")]
         public async Task AddItem(AddShoppingCartItemDTO item)
             => await _shoppingCartRepository.AddItem(item,

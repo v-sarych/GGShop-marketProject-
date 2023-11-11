@@ -26,6 +26,10 @@ namespace ShopApiServer.Api
             => await _commentRepository.Edit(edittingSettings, 
                 Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
 
+        /// <response code="200">Sucess</response>
+        /// <response code="400">AlreadyExist</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize]
         [HttpPost("Create")]
         public async Task Create(CreateCommentDTO createtingSettings)

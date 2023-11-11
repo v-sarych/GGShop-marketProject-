@@ -17,6 +17,10 @@ namespace ShopApiServer.Api.Product
         public AccountingApi(IProductAvailabilityRepository productAvailabilityRepository)
             => _productAvailabilityRepository = productAvailabilityRepository;
 
+        /// <response code="200">Sucess</response>
+        /// <response code="400">AlreadyExist</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("Create")]
         public async Task Create(CreateProductAvailabilityDTO settings)
             => await _productAvailabilityRepository.Create(settings);

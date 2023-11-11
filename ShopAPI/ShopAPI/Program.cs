@@ -41,7 +41,10 @@ void ConfigureServices(WebApplicationBuilder builder)
     builder.Services.AddHttpClient();
 
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(config =>
+    {
+        config.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+    });
 
     //Integratoins
     builder.Services.AddCdekIntegration();

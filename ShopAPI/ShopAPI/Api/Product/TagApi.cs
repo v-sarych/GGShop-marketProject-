@@ -15,6 +15,11 @@ namespace ShopApiServer.Api.Product
 
         public TagApi(ITagRepository tagRepository) => _tagRepository= tagRepository;
 
+        /// <returns>tag id that was created</returns>
+        /// <response code="200">Sucess</response>
+        /// <response code="400">AlreadyExist</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = Roles.Admin)]
         [HttpPost("Create")]
         public async Task<int> Create(string name)
