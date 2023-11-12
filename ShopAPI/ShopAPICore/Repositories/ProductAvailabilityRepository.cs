@@ -42,7 +42,7 @@ namespace ShopApiCore.Repositories
         }
 
 
-        public async Task CreatepackageSize(PackageSizeDTO packageSize)
+        public async Task<int> CreatepackageSize(PackageSizeDTO packageSize)
         {
             if(await _dBContext.PackageSizes.AsNoTracking().AnyAsync(x => x.Height == packageSize.Height && x.Width == packageSize.Width && x.Length == packageSize.Length))
                 throw new AlreadyExistException();
@@ -51,6 +51,9 @@ namespace ShopApiCore.Repositories
             await _dBContext.PackageSizes.AddAsync(package);
 
             await _dBContext.SaveChangesAsync();
+
+            return (await _dBContext.PackageSizes.AsNoTracking()
+                .FirstAsync(x => x.Height == packageSize.Height && x.Width == packageSize.Width && x.Length == packageSize.Length)).Id;
         }
 
         public async Task DeletePackageSize(int id)

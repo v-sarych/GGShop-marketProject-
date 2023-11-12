@@ -35,7 +35,7 @@ namespace ShopApiServer.Api.Product
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("PackageSizes/Create")]
-        public async Task CreatePackageSize(PackageSizeDTO packageSize)
+        public async Task<int> CreatePackageSize(PackageSizeDTO packageSize)
             => await _productAvailabilityRepository.CreatepackageSize(packageSize);
 
         [HttpDelete("PackageSizes/Delete")]
