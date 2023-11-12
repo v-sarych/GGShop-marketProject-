@@ -25,8 +25,13 @@ namespace ShopApiServer.Api.Product
             => await _productSearchRepository.Search(searchSettings);
 
         [HttpPost("Search/WithoutAccounting")]
-        public async Task<ICollection<SimpleProductDTO>> SearchWithoutAccounting(ProductSearchSettingsDTO searchSettings)
-            => await _productSearchRepository.SearchWithoutAccounting(searchSettings);
+        public async Task<ICollection<SimpleProductDTO>> SearchWithoutAccountingWithCanBeFound(ProductSearchSettingsDTO searchSettings)
+            => await _productSearchRepository.SearchWithoutAccounting(searchSettings, true);
+
+        [Authorize(Roles = Roles.Admin)]
+        [HttpPost("Search/WithoutAccounting/All")]
+        public async Task<ICollection<SimpleProductDTO>> SearchWithoutAccountingWithoutCanBeFound(ProductSearchSettingsDTO searchSettings)
+            => await _productSearchRepository.SearchWithoutAccounting(searchSettings, false);
 
         [HttpGet("GetExtendedInfo")]
         public async Task<ExtendedProductInfoDTO> GetExtendedProductInfo(int id)

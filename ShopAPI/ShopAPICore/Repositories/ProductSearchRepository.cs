@@ -43,9 +43,12 @@ namespace ShopApiCore.Repositories
             return await resultQuery.ProjectTo<ProductSearchResultDTO>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
-        public async Task<ICollection<SimpleProductDTO>> SearchWithoutAccounting(ProductSearchSettingsDTO settings)
+        public async Task<ICollection<SimpleProductDTO>> SearchWithoutAccounting(ProductSearchSettingsDTO settings, bool useCanBeFound)
         {
             IQueryable<Product> resultQuery = _dBContext.Products.AsNoTracking();
+
+            if (useCanBeFound)
+                resultQuery = resultQuery.Where(product => product.CanBeFound);
 
             if (settings.Name != null)
                 resultQuery = resultQuery.Where(p => EF.Functions.Like(p.Name, $"%{settings.Name}%"));
