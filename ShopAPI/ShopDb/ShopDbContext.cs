@@ -15,6 +15,7 @@ namespace ShopDb
         public DbSet<UserShoppingCartItem> UsersShoppingCartItems { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<ProductTag> ProductTags { get; set; }
         public DbSet<AvailabilityOfProduct> AvailabilityOfProducts { get; set; }
         public DbSet<PackageSize> PackageSizes { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -33,6 +34,7 @@ namespace ShopDb
             builder.ApplyConfiguration<Order>(new OrderConfiguration());
             builder.ApplyConfiguration<OrderItem>(new OrderItemConfiguration());
             builder.ApplyConfiguration<AvailabilityOfProduct>(new AvailabilityOfProductConfiguration());
+            builder.ApplyConfiguration<PackageSize>(new PackageSizeConfiguration());
             builder.ApplyConfiguration<Tag>(new TagConfiguration());
 
             base.OnModelCreating(builder);
@@ -40,7 +42,7 @@ namespace ShopDb
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=87.242.127.113;Port=5432;Database=ShopDb;Username=postgres;Password=ggdb89329kjdhfdkfjh!_?");
+            //optionsBuilder.UseNpgsql("Host=87.242.127.113;Port=5432;Database=ShopDb;Username=postgres;Password=ggdb89329kjdhfdkfjh!_?");
                 //используется только при миграциях
             
             base.OnConfiguring(optionsBuilder);
