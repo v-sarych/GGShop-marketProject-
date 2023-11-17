@@ -12,12 +12,12 @@ namespace ShopApiCore.Mapping.Profiles.DTO
         {
             CreateProjection<Product, AllProductInfoDTO>();
             CreateProjection<Product, ExtendedProductInfoDTO>();
-            CreateProjection<Product, SimpleProductDTO>();
 
             CreateProjection<Product, ProductSearchResultDTO>();
 
             CreateMap<UpdateProductDTO, Product>()
                 .ForMember(prop => prop.Tags, opt => opt.Ignore());
+            CreateMap<Product, SimpleProductDTO>();
         }
     }
 }

@@ -13,8 +13,8 @@ namespace ShopApiCore.Mapping.Profiles.DTO
             CreateMap<UpdateProductAvailabilityDTO, AvailabilityOfProduct>();
             CreateMap<CreateProductAvailabilityDTO, AvailabilityOfProduct>();
             CreateMap<AvailabilityOfProduct, SimpleAvailabilityDTO>();
-            CreateMap<AvailabilityOfProduct, AvailabilityForGetShoppingCartDTO>()
-                .ForMember(x => x.Product, y => y.Ignore());
+            CreateMap<AvailabilityOfProduct, AvailabilityForGetShoppingCartDTO>();
+                //.ForMember(x => x.Product, y => y.Ignore());
         }
     }
 }

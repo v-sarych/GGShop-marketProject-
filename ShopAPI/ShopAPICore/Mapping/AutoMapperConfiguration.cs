@@ -7,13 +7,13 @@ namespace ShopApiCore.Mapping
     {
         public static IMapperConfigurationExpression GetConfiguration(IMapperConfigurationExpression cfg)
         {
-            cfg.AddProfile<CommentProfile>();
+            cfg.AddProfile<UserProfile>();
             cfg.AddProfile<OrderProfile>();
+            cfg.AddProfile<ShoppingCartProfile>();
+            cfg.AddProfile<CommentProfile>();
             cfg.AddProfile<ProductAvailabilityProfile>();
             cfg.AddProfile<ProductProfile>();
-            cfg.AddProfile<ShoppingCartProfile>();
             cfg.AddProfile<TagProfile>();
-            cfg.AddProfile<UserProfile>();
 
             return cfg;
         }
