@@ -4,6 +4,7 @@ using ShopDb.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -256,6 +257,29 @@ namespace Tests.Common
                     {
                         Sku = "product3_m",
                         Count = 5
+                    }
+                }
+            });
+
+            context.Orders.AddRange(new Order()
+            {
+                Id = Guid.NewGuid(),
+                DateOfCreation = DateTime.Now,
+                AdditionalOrderInfo = "s",
+                Status = OrderStatuses.Created,
+                UserId = 2,
+                IsPaidFor = false,
+                Type = OrderTypes.Order,
+                Cost = 100,
+                WebHookKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32)),
+                OrderItems = new List<OrderItem>()
+                {
+                    new OrderItem()
+                    {
+                        Count = 1,
+                        Sku = "product1_s",
+                        Cost = 100,
+                        ProductId = 1,
                     }
                 }
             });
