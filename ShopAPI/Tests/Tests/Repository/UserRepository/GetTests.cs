@@ -11,7 +11,7 @@ namespace Tests.Tests.Repository.UserRepository
     public class GetTests : RepositoryTestBase
     {
         [Fact]
-        public async Task Get_ProductsNotNullInItems()
+        public async Task Get2id_ProductsNotNullInItems()
         {
             var repository = new ShopApiCore.Repositories.UserRepository(DbContext, Mapper);
             long id = 2;
@@ -22,7 +22,7 @@ namespace Tests.Tests.Repository.UserRepository
         }
 
         [Fact]
-        public async Task Get_AvailabilityNotNullInItems()
+        public async Task Get2id_AvailabilityNotNullInItems()
         {
             var repository = new ShopApiCore.Repositories.UserRepository(DbContext, Mapper);
             long id = 2;
