@@ -263,7 +263,7 @@ namespace Tests.Common
 
             context.Orders.AddRange(new Order()
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("ecabc8b5-93e9-4732-84b8-e2401dd2119c"),
                 DateOfCreation = DateTime.Now,
                 AdditionalOrderInfo = "s",
                 Status = OrderStatuses.Created,
@@ -280,6 +280,12 @@ namespace Tests.Common
                         Sku = "product1_s",
                         Cost = 100,
                         ProductId = 1,
+                    }, new OrderItem()
+                    {
+                        Count = 3,
+                        Sku = "product3_m",
+                        Cost = 30,
+                        ProductId = 3,
                     }
                 }
             });

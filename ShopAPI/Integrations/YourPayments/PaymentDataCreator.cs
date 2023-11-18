@@ -10,12 +10,12 @@ using System.Text;
 
 namespace Integrations.YourPayments
 {
-    internal class PaymentDataCreator : IPaymentDataCreator
+    public class PaymentDataCreator : IPaymentDataCreator
     {
         private readonly IShopDbContext _dbContext;
         private readonly PaymentConfiguration _configuration;
         public PaymentDataCreator(PaymentConfiguration paymentConfiguration, IShopDbContext shopDbContext)
-            => (_configuration, _dbContext) = (paymentConfiguration, _dbContext);
+            => (_configuration, _dbContext) = (paymentConfiguration, shopDbContext);
 
         public async Task<AuthorizePaymentData> GetAuthorizePaymentData(PaymentInfoDTO dto)
         {
@@ -26,6 +26,8 @@ namespace Integrations.YourPayments
                 .Include(o => o.User)
                 .Include(o => o.OrderItems)
                     .ThenInclude(i => i.AvailabilityOfProduct)
+                .Include(o => o.OrderItems)
+                    .ThenInclude(i => i.Product)
                 .First(o => o.Id == dto.OrderId);
 
             result.Authorize = new AuthorizeEntity()
@@ -55,6 +57,7 @@ namespace Integrations.YourPayments
                     Phone = order.User.PhoneNumber
                 };
 
+            result.Products = new List<ProductEntity>();
             foreach (var item in order.OrderItems)
                 result.Products.Add(new ProductEntity()
                 {

@@ -44,14 +44,14 @@ namespace Tests.Tests.Repository.UserRepository
         }
 
         [Fact]
-        public async Task Get2id_1OrderShouldHave1Item()
+        public async Task Get2id_1OrderShouldHave2Items()
         {
             var repository = new ShopApiCore.Repositories.UserRepository(DbContext, Mapper);
             long id = 2;
 
             var user = await repository.Get(2);
 
-            Assert.Equal(1, user.Orders.First().OrderItems.Count);
+            Assert.Equal(2, user.Orders.First().OrderItems.Count);
         }
     }
 }
