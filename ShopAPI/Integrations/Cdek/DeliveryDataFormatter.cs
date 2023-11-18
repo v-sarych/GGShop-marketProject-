@@ -24,6 +24,7 @@ namespace Integrations.Cdek
                 .Include(o => o.User)
                 .Include(o => o.OrderItems)
                     .ThenInclude(i => i.AvailabilityOfProduct)
+                .Include(o => o.OrderItems)
                     .ThenInclude(i => i.Product)
                 .First(o => o.Id == id);
 
