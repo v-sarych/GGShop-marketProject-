@@ -20,7 +20,7 @@ namespace ShopDb.Configuration
                 .WithMany()
                 .HasForeignKey(v => v.PackageSizeId)
                 .HasPrincipalKey(z => z.Id)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.Property(x => x.ProductId)
                 .IsRequired();
