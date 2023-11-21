@@ -15,6 +15,8 @@
         public long UserId { get; set; }
         public User User { get; set; }
 
+        public Payment Payment { get; set; }
+
         public ICollection<OrderItem> OrderItems { get; set; }
     }
 }
