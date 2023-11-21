@@ -17,6 +17,13 @@ namespace ShopDb.Configuration
                 .HasPrincipalKey(y => y.Id)
                 .HasForeignKey(z => z.OrderId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasOne(x => x.Payment)
+                .WithOne(x => x.Order)
+                .HasPrincipalKey<Order>(x => x.Id)
+                .HasForeignKey<Payment>(x => x.Id)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

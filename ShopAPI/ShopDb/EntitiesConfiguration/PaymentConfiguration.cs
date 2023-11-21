@@ -17,6 +17,8 @@ namespace ShopDb.EntitiesConfiguration
 
             builder.HasOne(x => x.Order)
                 .WithOne(x => x.Payment)
+                .HasPrincipalKey<Payment>(x => x.Id)
+                .HasForeignKey<Order>(x => x.Id)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.User)
