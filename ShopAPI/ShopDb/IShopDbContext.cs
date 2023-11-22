@@ -16,6 +16,7 @@ namespace ShopDb
         DbSet<PackageSize> PackageSizes { get; set; }
         DbSet<Order> Orders { get; set; }
         DbSet<OrderItem> OrdersItems { get; set; }
+        DbSet<Payment> Payments { get; set; }
 
         Task<TEntity> UpdatePropertiesWithoutNull<TEntity>(TEntity entity, DbSet<TEntity> set)// - зарезервированно
             where TEntity : class;

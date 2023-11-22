@@ -21,6 +21,7 @@ namespace ShopDb
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrdersItems { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         public ShopDbContext() : base() { }
         public ShopDbContext(DbContextOptions<ShopDbContext> options) : base(options) { }
@@ -33,6 +34,7 @@ namespace ShopDb
             builder.ApplyConfiguration<Comment>(new CommentConfiguration());
             builder.ApplyConfiguration<Order>(new OrderConfiguration());
             builder.ApplyConfiguration<OrderItem>(new OrderItemConfiguration());
+            builder.ApplyConfiguration<Payment>(new PaymentConfiguration());
             builder.ApplyConfiguration<AvailabilityOfProduct>(new AvailabilityOfProductConfiguration());
             builder.ApplyConfiguration<PackageSize>(new PackageSizeConfiguration());
             builder.ApplyConfiguration<Tag>(new TagConfiguration());
