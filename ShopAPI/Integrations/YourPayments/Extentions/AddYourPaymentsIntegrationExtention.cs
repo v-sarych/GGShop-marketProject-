@@ -16,6 +16,8 @@ namespace Integrations.YourPayments.Extentions
             services.AddSingleton<PaymentConfiguration>(new PaymentConfiguration());
 
             services.AddScoped<IPaymentDataCreator, PaymentDataCreator>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<PaymentServiceUnitOfWork>();
             services.AddScoped<IPaymentService, YourPaymentIntegrationPaymentService>();
 
             return services;
