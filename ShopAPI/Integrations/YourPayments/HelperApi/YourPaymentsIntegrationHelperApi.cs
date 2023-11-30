@@ -34,11 +34,11 @@ namespace Integrations.YourPayments.HelperApi
                 AdditionalInfo = HttpContext.Request.Body.ToString()
             };
 
-            if (dto.OrderData.Status == "")
+            if (dto.OrderData.Status == "COMPLETE")
                 paymentDTO.Status = PaymentStatuses.Success;
-            else if (dto.OrderData.Status == "")
+            else if (dto.OrderData.Status == "INVALID")
                 paymentDTO.Status = PaymentStatuses.Failed;
-            else if (dto.OrderData.Status == "")
+            else
                 paymentDTO.Status = PaymentStatuses.WaitGateway;
 
             await _repository.UpdatePaymnentData(paymentDTO);
