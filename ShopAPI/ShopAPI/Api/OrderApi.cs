@@ -30,6 +30,10 @@ namespace ShopApiServer.Api
         public async Task<string> Pay(PaymentInfoDTO info)
             => await _paymentService.CreateAndAuthorizePayment(info);
 
+        [HttpPost("CheckPaymentStatus")]
+        public async Task<string> CheckPaymentStatus(Guid OrderId)
+            => await _paymentService.CheckPaymentStatus(OrderId);
+
         [HttpGet("GetAvailableStatuses")]
         public async Task<OrderStatusesDTO> GetAvailableStatuses() 
             => await _orderRepository.GetAvailableStatuses();

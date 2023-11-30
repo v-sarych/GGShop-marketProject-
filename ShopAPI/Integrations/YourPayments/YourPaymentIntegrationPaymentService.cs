@@ -15,6 +15,10 @@ namespace Integrations.YourPayments
         private readonly PaymentServiceUnitOfWork _unitOfWork;
         public YourPaymentIntegrationPaymentService(PaymentServiceUnitOfWork unitOfWork)
             => _unitOfWork = unitOfWork;
+
+        public async Task<string> CheckPaymentStatus(Guid OrderId)
+            => await _unitOfWork.PaymentRepository.GetPaymentStatus(OrderId);
+
         public async Task<string> CreateAndAuthorizePayment(PaymentInfoDTO info)
         {
             if (!await _unitOfWork.PaymentRepository.CanCreatePayment(info.OrderId))

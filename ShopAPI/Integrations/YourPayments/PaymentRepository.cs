@@ -39,6 +39,9 @@ namespace Integrations.YourPayments
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<string> GetPaymentStatus(Guid id)
+            => (await _dbContext.Payments.AsNoTracking().FirstAsync(x => x.Id == id)).Status;
+
         public async Task UpdatePaymnentData(UpdatePaymentDTO info)
         {
             Payment payment = await _dbContext.Payments.AsTracking().FirstAsync(x => x.Id == info.Id && x.IdInPaymentGateway == info.IdInGateway);

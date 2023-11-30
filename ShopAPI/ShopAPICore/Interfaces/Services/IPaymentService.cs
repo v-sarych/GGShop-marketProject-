@@ -5,5 +5,6 @@ namespace ShopApiCore.Interfaces.Services
     public interface IPaymentService
     {
         Task<string> CreateAndAuthorizePayment(PaymentInfoDTO info);
+        Task<string> CheckPaymentStatus(Guid OrderId);
     }
 }
