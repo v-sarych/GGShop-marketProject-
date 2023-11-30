@@ -8,12 +8,12 @@ namespace Integrations.YourPayments
 {
     public class PaymentConfiguration
     {
-        public readonly string MerchantId = "merchant";
-        public readonly string SecretKey = "key";
+        public readonly string MerchantId = "sidyfwuf";
+        public readonly string SecretKey = "RL(GS1^5(5s3)l8b3&9&";
 
         public readonly string WebHookKey = ";jflslkjflksdnglksdnvdnglsdkfnlsdfnlsldkfshg;l;gm'slgjS";
 
-        public readonly string AuthorizePaymentUrl = "";
+        public readonly string AuthorizePaymentUrl = "https://sandbox.payu.ru/api/v4/payments/authorize";
 
         public PaymentConfiguration() { }
     }
