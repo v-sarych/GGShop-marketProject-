@@ -16,8 +16,4 @@
     <ProjectReference Include="..\ShopDb\ShopDb.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="YourPayments\Entities\PaymentWebHookData\" />
-  </ItemGroup>
-
 </Project>

@@ -11,6 +11,8 @@ namespace Integrations.YourPayments
         public readonly string MerchantId = "merchant";
         public readonly string SecretKey = "key";
 
+        public readonly string WebHookKey = ";jflslkjflksdnglksdnvdnglsdkfnlsdfnlsldkfshg;l;gm'slgjS";
+
         public readonly string AuthorizePaymentUrl = "";
 
         public PaymentConfiguration() { }

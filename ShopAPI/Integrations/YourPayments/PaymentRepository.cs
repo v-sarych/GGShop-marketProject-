@@ -1,4 +1,4 @@
-﻿using Integrations.YourPayments.Entities;
+﻿using Integrations.YourPayments.Entities.Payment;
 using Integrations.YourPayments.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using ShopDb;
@@ -35,6 +35,16 @@ namespace Integrations.YourPayments
                 UserId = (await _dbContext.Orders.AsNoTracking().FirstAsync(o => o.Id == payment.OrderId)).UserId
             };
             await _dbContext.Payments.AddAsync(dbPayment);
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdatePaymnentData(UpdatePaymentDTO info)
+        {
+            Payment payment = await _dbContext.Payments.AsTracking().FirstAsync(x => x.Id == info.Id && x.IdInPaymentGateway == info.IdInGateway);
+
+            payment.Status = info.Status;
+            payment.AdditionalDetails = info.AdditionalInfo;
 
             await _dbContext.SaveChangesAsync();
         }

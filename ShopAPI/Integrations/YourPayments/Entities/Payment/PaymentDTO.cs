@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Integrations.YourPayments.Entities
+namespace Integrations.YourPayments.Entities.Payment
 {
     public class PaymentDTO
     {

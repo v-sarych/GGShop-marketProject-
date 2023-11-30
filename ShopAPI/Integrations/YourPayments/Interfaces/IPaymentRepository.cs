@@ -1,4 +1,4 @@
-﻿using Integrations.YourPayments.Entities;
+﻿using Integrations.YourPayments.Entities.Payment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +11,6 @@ namespace Integrations.YourPayments.Interfaces
     {
         Task<bool> CanCreatePayment(Guid id);
         Task CreatePayment(PaymentDTO payment);
+        Task UpdatePaymnentData(UpdatePaymentDTO info);
     }
 }
