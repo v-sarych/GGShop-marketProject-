@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ShopDb.Entities;
 using ShopDb;
 using System.Xml.Linq;
 using AutoMapper;
@@ -8,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using ShopApiCore.Interfaces.Repository;
 using ShopApiCore.Entities.DTO.SearchResults;
 using ShopApiCore.Entities.DTO.ProductSearch;
+using ShopDb.Enums;
 
 namespace ShopApiServer.Api.Product
 {

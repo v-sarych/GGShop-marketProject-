@@ -1,4 +1,4 @@
-﻿using ShopDb.Entities;
+﻿using ShopDb.Enums;
 
 namespace ShopApiCore.Entities.DTO.Order
 {

@@ -6,7 +6,7 @@ using ShopApiCore.Entities.DTO.Order;
 using ShopApiCore.Entities.DTO.Payments;
 using ShopApiCore.Interfaces.Repository;
 using ShopApiCore.Interfaces.Services;
-using ShopDb.Entities;
+using ShopDb.Enums;
 
 namespace ShopApiServer.Api
 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopDb;
 using ShopDb.Entities;
+using ShopDb.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopDb.Entities
+namespace ShopDb.Enums
 {
     public static class OrderTypes
     {

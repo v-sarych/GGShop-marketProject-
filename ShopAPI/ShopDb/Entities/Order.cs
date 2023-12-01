@@ -1,4 +1,6 @@
-﻿namespace ShopDb.Entities
+﻿using ShopDb.Enums;
+
+namespace ShopDb.Entities
 {
     public class Order
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShopApiCore.Entities.DTO.Package;
 using ShopApiCore.Entities.DTO.ProductAvailability;
 using ShopApiCore.Interfaces.Repository;
-using ShopDb.Entities;
+using ShopDb.Enums;
 
 namespace ShopApiServer.Api.Product
 {

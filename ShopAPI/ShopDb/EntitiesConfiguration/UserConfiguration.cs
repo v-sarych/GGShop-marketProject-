@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShopDb.Entities;
+using ShopDb.Enums;
 
 namespace ShopDb.Configuration
 {

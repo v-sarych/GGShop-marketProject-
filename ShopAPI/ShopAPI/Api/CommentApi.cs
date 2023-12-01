@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShopApiServer.Extentions;
 using ShopApiCore.Entities.DTO.Comment;
 using ShopApiCore.Interfaces.Repository;
-using ShopDb.Entities;
+using ShopDb.Enums;
 
 namespace ShopApiServer.Api
 {

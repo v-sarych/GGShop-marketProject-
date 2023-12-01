@@ -1,4 +1,4 @@
-﻿namespace ShopDb.Entities
+﻿namespace ShopDb.Enums
 {
     public class OrderStatuses
     {

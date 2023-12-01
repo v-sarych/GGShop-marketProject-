@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using ShopApiCore.Entities.DTO.Tag;
 using ShopApiCore.Interfaces.Repository;
-using ShopDb.Entities;
+using ShopDb.Enums;
 
 namespace ShopApiServer.Api.Product
 {
