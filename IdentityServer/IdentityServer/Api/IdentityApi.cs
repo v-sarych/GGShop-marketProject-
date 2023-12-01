@@ -1,5 +1,6 @@
 ﻿using IdentityServer.Model.Entities.DTO;
 using IdentityServer.Model.Entities.Identity;
+using IdentityServer.Model.Exeptions;
 using IdentityServer.Model.interfaces;
 using IdentityServer.Model.interfaces.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -96,8 +97,7 @@ namespace IdentityServer.Controllers
             Session session = await _sessionRepository.FindSessionOrDefault(sessionId);
             if (session == null)
             {
-                Response.StatusCode = 404;
-                return "Not found";
+                throw new NotFoundException();
             }
             if(session.UserId != Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value))
             {
