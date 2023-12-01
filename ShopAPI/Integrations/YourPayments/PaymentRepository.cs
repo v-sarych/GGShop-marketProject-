@@ -44,9 +44,14 @@ namespace Integrations.YourPayments
 
         public async Task UpdatePaymnentData(UpdatePaymentDTO info)
         {
-            Payment payment = await _dbContext.Payments.AsTracking().FirstAsync(x => x.Id == info.Id && x.IdInPaymentGateway == info.IdInGateway);
+            Payment payment = await _dbContext.Payments.AsTracking()
+                .Include(p => p.Order)
+                .FirstAsync(x => x.Id == info.Id && x.IdInPaymentGateway == info.IdInGateway);
 
             payment.Status = info.Status;
+            if (info.Status == PaymentStatuses.Success)
+                payment.Order.IsPaidFor = true;
+
             payment.AdditionalDetails = info.AdditionalInfo;
 
             await _dbContext.SaveChangesAsync();
