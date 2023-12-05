@@ -44,7 +44,7 @@ namespace ShopDb
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseNpgsql("Host=87.242.127.113;Port=5432;Database=ShopDb;Username=postgres;Password=ggdb89329kjdhfdkfjh!_?");
+            optionsBuilder.UseNpgsql("Host=87.242.127.113;Port=5432;Database=ShopDb;Username=postgres;Password=ggdb89329kjdhfdkfjh!_?");
                 //используется только при миграциях
             
             base.OnConfiguring(optionsBuilder);
