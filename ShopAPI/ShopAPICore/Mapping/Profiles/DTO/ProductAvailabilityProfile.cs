@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ShopApiCore.Entities.DTO.Package;
 using ShopApiCore.Entities.DTO.ProductAvailability;
 using ShopDb.Entities;
 
@@ -15,6 +16,9 @@ namespace ShopApiCore.Mapping.Profiles.DTO
             CreateMap<AvailabilityOfProduct, SimpleAvailabilityDTO>();
             CreateMap<AvailabilityOfProduct, AvailabilityForGetShoppingCartDTO>();
                 //.ForMember(x => x.Product, y => y.Ignore());
+
+            CreateMap<PackageSize, PackageSizeDTO>();
+            CreateMap<PackageSize, FullPackageSizeInfoDTO>();
         }
     }
 }
