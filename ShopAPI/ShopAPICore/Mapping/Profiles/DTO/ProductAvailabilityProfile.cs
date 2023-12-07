@@ -18,7 +18,8 @@ namespace ShopApiCore.Mapping.Profiles.DTO
                 //.ForMember(x => x.Product, y => y.Ignore());
 
             CreateMap<PackageSize, PackageSizeDTO>();
-            CreateMap<PackageSize, FullPackageSizeInfoDTO>();
+            CreateMap<PackageSizeDTO, PackageSize>();
+            CreateProjection<PackageSize, FullPackageSizeInfoDTO>();
         }
     }
 }
