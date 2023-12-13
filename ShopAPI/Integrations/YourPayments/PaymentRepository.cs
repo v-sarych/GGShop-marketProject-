@@ -21,8 +21,8 @@ namespace Integrations.YourPayments
         }
 
         public async Task<bool> CanCreatePayment(Guid id)
-            => await _dbContext.Payments.AsNoTracking()
-                .AnyAsync(p => p.Id == id && p.Status != PaymentStatuses.Success && p.Status != PaymentStatuses.WaitGateway);
+            => !(await _dbContext.Payments.AsNoTracking()
+                .AnyAsync(p => p.Id == id && (p.Status == PaymentStatuses.Success || p.Status == PaymentStatuses.WaitGateway)));
 
         public async Task CreatePayment(PaymentDTO payment)
         {

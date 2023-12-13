@@ -21,7 +21,7 @@ namespace Integrations.YourPayments
 
         public async Task<string> CreateAndAuthorizePayment(PaymentInfoDTO info)
         {
-            if (!await _unitOfWork.PaymentRepository.CanCreatePayment(info.OrderId))
+            if (!(await _unitOfWork.PaymentRepository.CanCreatePayment(info.OrderId)))
                 throw new AlreadyExistException();
 
             HttpClient client = _unitOfWork.HttpClientFactory.CreateClient();
