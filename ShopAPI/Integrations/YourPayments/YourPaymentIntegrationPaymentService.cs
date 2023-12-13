@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using ShopApiCore.Entities.DTO.Payments;
 using ShopApiCore.Exceptions;
 using ShopApiCore.Interfaces.Services;
+using System.Globalization;
 using System.Net.Http.Json;
 using System.Reflection.PortableExecutable;
 using System.Text.Json;
@@ -52,7 +53,7 @@ namespace Integrations.YourPayments
             message.Content = new StringContent(contentString);
 
             string merchant = _unitOfWork.Configuration.MerchantId;
-            string date = DateTime.Now.ToString();
+            string date = DateTime.UtcNow.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz", CultureInfo.InvariantCulture); ;
 
             message.Headers.Add("X-Header-Merchant", merchant);
             message.Headers.Add("X-Header-Date", date);

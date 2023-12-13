@@ -13,7 +13,7 @@ namespace Integrations.YourPayments
 
         public readonly string WebHookKey = ";jflslkjflksdnglksdnvdnglsdkfnlsdfnlsldkfshg;l;gm'slgjS";
 
-        public readonly string AuthorizePaymentUrl = "https://sandbox.payu.ru/api/v4/payments/authorize";
+        public readonly string AuthorizePaymentUrl = "https://sandbox.ypmn.ru/api/v4/payments/authorize";
 
         public PaymentConfiguration() { }
     }
