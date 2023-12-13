@@ -45,7 +45,12 @@ namespace ShopApiServer.Middelware
                     context.Response.StatusCode = 400;
                     await context.Response.WriteAsync("AlreadyExist");
                     break;
-                    
+
+                case NotInStockException:
+                    context.Response.StatusCode = 500;
+                    await context.Response.WriteAsync("NotInStock");
+                    break;
+
                 default:
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     await context.Response.WriteAsync(JsonSerializer.Serialize(exception.Message));

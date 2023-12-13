@@ -44,7 +44,7 @@ namespace ShopApiCore.Repositories
             foreach (var orderItem in creatingOrder.OrderItems)
             {
                 var availability = availabilities.FirstOrDefault(x => x.Sku == orderItem.Sku);
-                if (availability == null || availability.Count - orderItem.Count >= 0)
+                if (availability == null || availability.Count - orderItem.Count < 0)
                     throw new NotInStockException();
 
                 orderItem.ProductId = availability.ProductId;
