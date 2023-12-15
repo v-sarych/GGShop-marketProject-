@@ -26,10 +26,10 @@ namespace Integrations.Cdek
                     (httpClientFactory, logger, oAuthTokenFactory, deliveryDataFormatter, cdekIntegrationConfiguration);
         public async Task TransferToDelivery(Guid orderId)
         {
+            HttpClient client = _httpClientFactory.CreateClient();
+
             RegisterOrder order = await _deliveryDataFormatter.CreateRegisterOrderObject(orderId);
             string bearerToken = "Bearer " + (await _tokenFactory.GetOAuthToken()).Access_token;
-
-            HttpClient client = _httpClientFactory.CreateClient();
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _configurration.RegisterOrderUrl);
             request.Content = new StringContent(JsonSerializer.Serialize(order),  System.Text.Encoding.UTF8, "application/json");

@@ -15,6 +15,6 @@ namespace Integrations.Cdek.Entities.RegisterOrderEntities
         public Payment Payment { get; set; }
 
         public int Weight {  get; set; }
-        public int Ammount {  get; set; }
+        public int Amount {  get; set; }
     }
 }

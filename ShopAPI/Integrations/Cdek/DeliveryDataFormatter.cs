@@ -66,10 +66,11 @@ namespace Integrations.Cdek
                     order.Packages[i].Items = new Item[1];
                     order.Packages[i].Items[0] = new Item()
                     {
+                        Payment = new(),
                         Weight = orderItem.AvailabilityOfProduct.Weight,
                         Ware_key = orderItem.Sku,
                         Name = orderItem.Product.Name,
-                        Ammount = 1,
+                        Amount = 1,
                         Cost = orderItem.Cost / orderItem.Count
                     };
 
