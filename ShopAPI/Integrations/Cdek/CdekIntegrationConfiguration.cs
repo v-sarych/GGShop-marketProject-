@@ -15,7 +15,7 @@ namespace Integrations.Cdek
 
         public readonly string RegisterOrderUrl = "https://api.edu.cdek.ru/v2/orders";
 
-        public readonly int TariffCode;
+        public readonly int TariffCode = 0;
 
         public CdekIntegrationConfiguration(AuthorizeParametrs authorizeParametrs)
         {

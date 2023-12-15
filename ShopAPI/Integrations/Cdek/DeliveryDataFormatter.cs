@@ -24,6 +24,7 @@ namespace Integrations.Cdek
                 .Include(o => o.User)
                 .Include(o => o.OrderItems)
                     .ThenInclude(i => i.AvailabilityOfProduct)
+                    .ThenInclude(a => a.PackageSize)
                 .Include(o => o.OrderItems)
                     .ThenInclude(i => i.Product)
                 .First(o => o.Id == id);
@@ -54,6 +55,8 @@ namespace Integrations.Cdek
             {
                 for (int j = 0; j < orderItem.Count; j++)
                 {
+                    order.Packages[i] = new Package();
+
                     order.Packages[i].Number = Convert.ToString(i);
                     order.Packages[i].Height = orderItem.AvailabilityOfProduct.PackageSize.Height;
                     order.Packages[i].Length = orderItem.AvailabilityOfProduct.PackageSize.Length;

@@ -30,7 +30,7 @@ namespace Integrations.Cdek
                     break;
 
                 default:
-                    throw new Exception("Incorrect ContentType");
+                    throw new Exception("Incorrect ContentType in configuration");
             }
 
             HttpResponseMessage response = await httpClient.PostAsync(parametrs.Url, httpContent);

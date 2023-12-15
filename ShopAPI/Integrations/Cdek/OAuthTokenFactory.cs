@@ -24,7 +24,6 @@ namespace Integrations.Cdek
             if (_accessObject == null)
             {
                 _accessObject = await _authorizationService.Authorizate(AuthorizeParametrs);
-                _logger.LogInformation("Cdek oauth token is reissue");
             }
 
             return _accessObject;

@@ -31,8 +31,8 @@ namespace Integrations.Cdek
             HttpClient client = _httpClientFactory.CreateClient();
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _configurration.RegisterOrderUrl);
-            request.Content = new StringContent(JsonSerializer.Serialize<RegisterOrder>(order), 
-                System.Text.Encoding.UTF8, "application/json");
+            //request.Headers.Add("Content-Type", "application/json");
+            request.Content = new StringContent(JsonSerializer.Serialize(order));
             request.Headers.Add("Authorization", bearerToken);
 
             HttpResponseMessage response =  await client.SendAsync(request);

@@ -40,7 +40,7 @@ namespace Integrations.YourPayments
                     IdInPaymentGateway = Guid.NewGuid()
                 });
 
-            return await response.Content.ReadAsStringAsync();
+            return responseText;
         }
 
         private async Task<HttpRequestMessage> _createAuthorizeMessage(PaymentInfoDTO info)
@@ -53,7 +53,8 @@ namespace Integrations.YourPayments
             message.Content = new StringContent(contentString);
 
             string merchant = _unitOfWork.Configuration.MerchantId;
-            string date = DateTime.UtcNow.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffffffzzz", CultureInfo.InvariantCulture); ;
+            string date = DateTime.Now.ToString("yyyy-MM-dd\\THH:mm:sszzz");
+            _unitOfWork.Logger.LogInformation(date);
 
             message.Headers.Add("X-Header-Merchant", merchant);
             message.Headers.Add("X-Header-Date", date);
