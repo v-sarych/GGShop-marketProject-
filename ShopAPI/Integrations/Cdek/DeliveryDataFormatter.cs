@@ -17,7 +17,7 @@ namespace Integrations.Cdek
         private readonly CdekIntegrationConfiguration _cdekConfiguration;
         public DeliveryDataFormatter(IShopDbContext dbContext, CdekIntegrationConfiguration cdekIntegrationConfiguration)
             => (_dbContext, _cdekConfiguration) = (dbContext, cdekIntegrationConfiguration);
-        public async Task<RegisterOrder> GetOrder(Guid id)
+        public async Task<RegisterOrder> CreateRegisterOrderObject(Guid id)
         {
             RegisterOrder result = new();
             Order order = _dbContext.Orders.AsNoTracking()

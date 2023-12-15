@@ -9,6 +9,6 @@ namespace Integrations.Cdek.Interfaces
 {
     public interface IDeliveryDataFormatter
     {
-        Task<RegisterOrder> GetOrder(Guid id);
+        Task<RegisterOrder> CreateRegisterOrderObject(Guid id);
     }
 }

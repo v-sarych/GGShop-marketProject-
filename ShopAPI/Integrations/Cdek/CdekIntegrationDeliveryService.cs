@@ -25,7 +25,7 @@ namespace Integrations.Cdek
                     (httpClientFactory, logger, oAuthTokenFactory, deliveryDataFormatter, cdekIntegrationConfiguration);
         public async Task TransferToDelivery(Guid orderId)
         {
-            RegisterOrder order = await _deliveryDataFormatter.GetOrder(orderId);
+            RegisterOrder order = await _deliveryDataFormatter.CreateRegisterOrderObject(orderId);
             string bearerToken = "Bearer " + (await _tokenFactory.GetOAuthToken()).Access_token;
 
             HttpClient client = _httpClientFactory.CreateClient();
