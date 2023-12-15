@@ -1,5 +1,6 @@
 ﻿using Integrations.Cdek.Entities.RegisterOrderEntities;
 using Integrations.Cdek.Interfaces;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Logging;
 using ShopApiCore.Interfaces.Services;
 using ShopDb;
@@ -31,13 +32,15 @@ namespace Integrations.Cdek
             HttpClient client = _httpClientFactory.CreateClient();
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _configurration.RegisterOrderUrl);
-            //request.Headers.Add("Content-Type", "application/json");
-            request.Content = new StringContent(JsonSerializer.Serialize(order));
+            request.Content = new StringContent(JsonSerializer.Serialize(order),  System.Text.Encoding.UTF8, "application/json");
             request.Headers.Add("Authorization", bearerToken);
 
             HttpResponseMessage response =  await client.SendAsync(request);
 
-            _logger.LogInformation("Register Order response", response);
+            if (response.IsSuccessStatusCode)
+                _logger.LogInformation("Registerating Order is success. Response - " + await response.Content.ReadAsStringAsync());
+            else
+                throw new Exception("Registerating Order is not success. Response - " + await response.Content.ReadAsStringAsync());
         }
     }
 }
