@@ -37,7 +37,7 @@ namespace Integrations.Cdek
 
             HttpResponseMessage response =  await client.SendAsync(request);
 
-            _logger.LogInformation("Register Order response", response.ToString());
+            _logger.LogInformation("Register Order response", response);
         }
     }
 }

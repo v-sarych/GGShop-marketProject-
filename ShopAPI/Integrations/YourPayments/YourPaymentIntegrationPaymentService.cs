@@ -47,7 +47,7 @@ namespace Integrations.YourPayments
         {
             AuthorizePaymentData authorizeData = await _unitOfWork.PaymentDataCreator.GetAuthorizePaymentData(info);
 
-            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, _unitOfWork.Configuration.AuthorizePaymentUrl);
+            HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, _unitOfWork.Configuration.GatewayHost + _unitOfWork.Configuration.AuthorizePaymentUrl);
 
             string contentString = JsonSerializer.Serialize(authorizeData);
             message.Content = new StringContent(contentString);
@@ -59,7 +59,7 @@ namespace Integrations.YourPayments
             message.Headers.Add("X-Header-Merchant", merchant);
             message.Headers.Add("X-Header-Date", date);
 
-            string mD5BodySum = await _unitOfWork.PaymentDataCreator.GetMD5(contentString);
+            string mD5BodySum = await _unitOfWork.PaymentDataCreator.GetMD5(await message.Content.ReadAsByteArrayAsync());
             message.Headers.Add("X-Header-Signature", await _unitOfWork.PaymentDataCreator.GetSignature(new Entities.SignatureParameters()
             {
                 BaseUrl = _unitOfWork.Configuration.AuthorizePaymentUrl,

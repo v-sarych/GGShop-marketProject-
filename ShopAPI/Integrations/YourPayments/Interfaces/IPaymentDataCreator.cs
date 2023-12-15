@@ -13,6 +13,6 @@ namespace Integrations.YourPayments.Interfaces
     {
         Task<AuthorizePaymentData> GetAuthorizePaymentData(PaymentInfoDTO dto);
         Task<string> GetSignature(SignatureParameters parameters);
-        Task<string> GetMD5(string data);
+        Task<string> GetMD5(byte[] data);
     }
 }

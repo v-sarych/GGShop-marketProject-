@@ -19,7 +19,7 @@ namespace Integrations.Cdek.Extentions
                 ContentType = "x-www-form-urlencoded",
                 Url = "https://api.edu.cdek.ru/v2/oauth/token"
             });
-            services.AddSingleton<CdekIntegrationConfiguration>(new CdekIntegrationConfiguration(new AuthorizeParametrs()));
+            services.AddSingleton<CdekIntegrationConfiguration>(cdekConfiguration);
 
             services.AddSingleton<IOAuthAuthorizationService, OAuthAuthorizationService>();
             services.AddSingleton<IOAuthTokenFactory, OAuthTokenFactory>();
