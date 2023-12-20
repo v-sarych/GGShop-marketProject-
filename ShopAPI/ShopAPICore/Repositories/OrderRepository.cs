@@ -18,10 +18,12 @@ namespace ShopApiCore.Repositories
         private readonly IShopDbContext _dBContext;
         private readonly IMapper _mapper;
 
-        public OrderRepository(IShopDbContext dBContext, IMapper mapper)
-            => (_dBContext, _mapper) = (dBContext, mapper);
+        private readonly IDeliveryService _deliveryService;
 
-        public async Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings, long userId)
+        public OrderRepository(IShopDbContext dBContext, IMapper mapper, IDeliveryService deliveryService)
+            => (_dBContext, _mapper, _deliveryService) = (dBContext, mapper, deliveryService);
+
+        public async Task<GetUserOrderDTO> CreateWithDelivery(CreateOrderDTO createSettings, long userId)
         {
             if(createSettings.OrderItems.Count < 1)
                 throw new Exception();
@@ -31,6 +33,7 @@ namespace ShopApiCore.Repositories
             creatingOrder.UserId = userId;
             creatingOrder.WebHookKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             creatingOrder.DateOfCreation = DateTime.UtcNow;
+            creatingOrder.AdditionalFees += await _deliveryService.CalculateDeliveryCost(createSettings.AdditionalOrderInfo);
 
             creatingOrder.Id = Guid.NewGuid();
             foreach(var item in creatingOrder.OrderItems)

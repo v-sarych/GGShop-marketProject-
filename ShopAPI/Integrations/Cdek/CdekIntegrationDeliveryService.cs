@@ -24,6 +24,12 @@ namespace Integrations.Cdek
             IDeliveryDataFormatter deliveryDataFormatter, CdekIntegrationConfiguration cdekIntegrationConfiguration)
                 => (_httpClientFactory, _logger, _tokenFactory, _deliveryDataFormatter, _configurration) =
                     (httpClientFactory, logger, oAuthTokenFactory, deliveryDataFormatter, cdekIntegrationConfiguration);
+
+        public async Task<float> CalculateDeliveryCost(string deliveryInfo)
+        {
+            return 0;
+        }
+
         public async Task TransferToDelivery(Guid orderId)
         {
             HttpClient client = _httpClientFactory.CreateClient();

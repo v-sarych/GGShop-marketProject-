@@ -41,7 +41,7 @@ namespace ShopApiServer.Api
         [Authorize]
         [HttpPost("Create")]
         public async Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings)
-            => await _orderRepository.Create(createSettings, Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
+            => await _orderRepository.CreateWithDelivery(createSettings, Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
 
         [Authorize(Roles = Roles.Admin)]
         [HttpPut("UpdateStatus")]
