@@ -10,6 +10,7 @@ namespace ShopApiCore.Entities.DTO.Order
         public DateTime DateOfCreation { get; set; }
         public string Status { get; set; }
         public bool IsPaidFor { get; set; }
+        public float AdditionalFees { get; set; }
         public float Cost { get; set; }
 
         public OrderUserInfoDTO User { get; set; }

@@ -9,7 +9,9 @@ namespace ShopDb.Entities
         public string AdditionalOrderInfo { get; set; }
         public DateTime DateOfCreation { get; set; }
         public string Status { get; set; } = OrderStatuses.Created;
+
         public bool IsPaidFor { get; set; } = false;
+        public float AdditionalFees { get; set; } = 0;
         public float Cost { get; set; } = 0;
 
         public string WebHookKey {  get; set; }
