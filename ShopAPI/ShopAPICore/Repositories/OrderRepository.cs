@@ -59,6 +59,7 @@ namespace ShopApiCore.Repositories
                     creatingOrder.Cost += orderItem.Cost;
                 }
             }
+            creatingOrder.Cost += creatingOrder.AdditionalFees;
 
             await _dBContext.Orders.AddAsync(creatingOrder);
             await _dBContext.SaveChangesAsync();
