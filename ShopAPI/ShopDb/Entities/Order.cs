@@ -6,7 +6,8 @@ namespace ShopDb.Entities
     {
         public Guid Id { get; set; }
         public string Type { get; set; }
-        public string AdditionalOrderInfo { get; set; }
+        public string? DeliveryInfo { get; set; }
+        public string? AdditionalOrderInfo { get; set; }
         public DateTime DateOfCreation { get; set; }
         public string Status { get; set; } = OrderStatuses.Created;
 

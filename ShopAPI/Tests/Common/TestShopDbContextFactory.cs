@@ -266,7 +266,7 @@ namespace Tests.Common
             {
                 Id = Guid.Parse("ecabc8b5-93e9-4732-84b8-e2401dd2119c"),
                 DateOfCreation = DateTime.Now,
-                AdditionalOrderInfo = "s",
+                DeliveryInfo = "s",
                 Status = OrderStatuses.Created,
                 UserId = 2,
                 IsPaidFor = false,
