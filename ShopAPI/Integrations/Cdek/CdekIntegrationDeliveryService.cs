@@ -13,7 +13,7 @@ namespace Integrations.Cdek
 {
     public class CdekIntegrationDeliveryService : IDeliveryService
     {
-        private readonly IDeliveryDataFormatter _deliveryDataFormatter;
+        private readonly IDeliveryDataCreator _deliveryDataFormatter;
         private readonly IOAuthTokenFactory _tokenFactory;
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -21,13 +21,29 @@ namespace Integrations.Cdek
 
         private readonly ILogger _logger;
         public CdekIntegrationDeliveryService(IHttpClientFactory httpClientFactory, ILogger<CdekIntegrationDeliveryService> logger, IOAuthTokenFactory oAuthTokenFactory,
-            IDeliveryDataFormatter deliveryDataFormatter, CdekIntegrationConfiguration cdekIntegrationConfiguration)
+            IDeliveryDataCreator deliveryDataFormatter, CdekIntegrationConfiguration cdekIntegrationConfiguration)
                 => (_httpClientFactory, _logger, _tokenFactory, _deliveryDataFormatter, _configurration) =
                     (httpClientFactory, logger, oAuthTokenFactory, deliveryDataFormatter, cdekIntegrationConfiguration);
 
         public async Task<float> CalculateDeliveryCost(string deliveryInfo)
         {
-            return 0;
+            HttpClient client = _httpClientFactory.CreateClient();
+
+            string bearerToken = "Bearer " + (await _tokenFactory.GetOAuthToken()).Access_token;
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _configurration.RegisterOrderUrl);
+            request.Content = new StringContent(deliveryInfo, System.Text.Encoding.UTF8, "application/json");
+            request.Headers.Add("Authorization", bearerToken);
+
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            string responseContent = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+                _logger.LogInformation("CalculatingDeliveryCost is success. Response - " + responseContent);
+            else
+                throw new Exception("CalculatingDeliveryCost is not success. Response - " + responseContent);
+            
+            return JsonDocument.Parse(await response.Content.ReadAsStringAsync()).RootElement.GetProperty("total_sum").GetSingle();
         }
 
         public async Task TransferToDelivery(Guid orderId)
@@ -43,10 +59,11 @@ namespace Integrations.Cdek
 
             HttpResponseMessage response =  await client.SendAsync(request);
 
+            string responseContent = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
-                _logger.LogInformation("Registerating Order is success. Response - " + await response.Content.ReadAsStringAsync());
+                _logger.LogInformation("CalculatingDeliveryCost is success. Response - " + responseContent);
             else
-                throw new Exception("Registerating Order is not success. Response - " + await response.Content.ReadAsStringAsync());
+                throw new Exception("CalculatingDeliveryCost is not success. Response - " + responseContent);
         }
     }
 }
