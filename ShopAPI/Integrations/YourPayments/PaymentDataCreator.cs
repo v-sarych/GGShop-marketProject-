@@ -1,4 +1,5 @@
-﻿using Integrations.YourPayments.Entities;
+﻿using Integrations.Cdek.Entities.RegisterOrderEntities;
+using Integrations.YourPayments.Entities;
 using Integrations.YourPayments.Entities.AuthorizePayment;
 using Integrations.YourPayments.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +66,15 @@ namespace Integrations.YourPayments
                     Sku = item.Sku,
                     Quantity = Convert.ToUInt16(item.Count),
                     UnitPrice = Convert.ToString(item.Cost / item.Count)
+                });
+
+            if(order.AdditionalFees != 0)
+                result.Products.Add(new ProductEntity()
+                {
+                    Name = "AdditionalFees",
+                    Sku = "AdditionalFees",
+                    Quantity = 1,
+                    UnitPrice = Convert.ToString(order.AdditionalFees)
                 });
 
             return result;
