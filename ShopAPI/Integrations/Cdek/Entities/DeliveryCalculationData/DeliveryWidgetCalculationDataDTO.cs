@@ -9,8 +9,7 @@ namespace Integrations.Cdek.Entities.DeliveryCalculationData
 {
     public class DeliveryWidgetCalculationDataDTO
     {
-        public FromLocation From_location { get; set; }
-        public ToLocation To_location { get; set; }
+        public FromLocation[] From_locations { get; set; }
 
         public Package[] Packages { get; set; }
     }

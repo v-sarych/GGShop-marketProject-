@@ -1,6 +1,7 @@
 ﻿using Integrations.Cdek.Entities.OAuth;
 using Integrations.Cdek.Entities.OAuth;
 using Integrations.Cdek.Entities.OAuth;
+using Integrations.Cdek.Entities.RegisterOrderEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Integrations.Cdek
 
         public readonly string RegisterOrderUrl = "https://api.edu.cdek.ru/v2/orders";
 
-        public readonly int TariffCode = 0;
+        public FromLocation[] From_locations { get; set; }
 
         public CdekIntegrationConfiguration(AuthorizeParametrs authorizeParametrs)
         {

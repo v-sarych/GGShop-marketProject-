@@ -39,8 +39,6 @@ namespace Integrations.Cdek
                 Phones = new Phone[1]{ new Phone(){ Number =  order.User.PhoneNumber } }
             };
 
-            result.Tariff_code = _cdekConfiguration.TariffCode;
-
             DeliveryUserData deliveryUserData = _getDeliveryUserData(order.DeliveryInfo);
             result.Tariff_code = (int)deliveryUserData.Tariff_code;
             result.To_location = deliveryUserData.To_location;
@@ -51,22 +49,13 @@ namespace Integrations.Cdek
             return result;
         }
 
-        public async Task<DeliveryWidgetCalculationDataDTO> GetDataForWidget(Guid id)
+        public async Task<DeliveryWidgetCalculationDataDTO> GetDataForWidget(ICollection<OrderItem> orderItems)
         {
             DeliveryWidgetCalculationDataDTO result = new();
-            Order order = _dbContext.Orders.AsNoTracking()
-                .Include(o => o.OrderItems)
-                    .ThenInclude(i => i.AvailabilityOfProduct)
-                    .ThenInclude(a => a.PackageSize)
-                .Include(o => o.OrderItems)
-                    .ThenInclude(i => i.Product)
-                .First(o => o.Id == id);
 
-            result.Packages = _createPackages(order.OrderItems);
+            result.Packages = _createPackages(orderItems);
 
-            DeliveryUserData deliveryUserData = _getDeliveryUserData(order.DeliveryInfo);
-            result.To_location = deliveryUserData.To_location;
-            result.From_location = deliveryUserData.From_location;
+            result.From_locations = _cdekConfiguration.From_locations;
 
             return result;
         }
