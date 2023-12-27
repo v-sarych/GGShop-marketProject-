@@ -1,5 +1,6 @@
 ﻿using Integrations.Cdek.Entities.DeliveryCalculationData;
 using Integrations.Cdek.Entities.RegisterOrderEntities;
+using ShopApiCore.Entities.DTO.OrderItem;
 using ShopDb.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,6 @@ namespace Integrations.Cdek.Interfaces
     public interface IDeliveryDataCreator
     {
         Task<RegisterOrder> CreateRegisterOrderObject(Guid id);
-        Task<DeliveryWidgetCalculationDataDTO> GetDataForWidget(ICollection<OrderItem> orderItems);
+        Task<DeliveryWidgetCalculationDataDTO> GetDataForWidget(ICollection<CreateOrderItemDTO> orderItems);
     }
 }

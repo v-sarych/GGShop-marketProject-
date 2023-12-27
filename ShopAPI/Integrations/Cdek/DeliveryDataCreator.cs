@@ -2,6 +2,7 @@
 using Integrations.Cdek.Entities.RegisterOrderEntities;
 using Integrations.Cdek.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using ShopApiCore.Entities.DTO.OrderItem;
 using ShopDb;
 using ShopDb.Entities;
 using System;
@@ -49,11 +50,29 @@ namespace Integrations.Cdek
             return result;
         }
 
-        public async Task<DeliveryWidgetCalculationDataDTO> GetDataForWidget(ICollection<OrderItem> orderItems)
+        public async Task<DeliveryWidgetCalculationDataDTO> GetDataForWidget(ICollection<CreateOrderItemDTO> orderItems)
         {
             DeliveryWidgetCalculationDataDTO result = new();
 
-            result.Packages = _createPackages(orderItems);
+            List<AvailabilityOfProduct> availabilityOfProducts = await _dbContext.AvailabilityOfProducts
+                .Include(a => a.PackageSize)
+                .Include(a => a.Product)
+                .Where(a => orderItems.Select(i => i.Sku).Any(i => i == a.Sku))
+                .ToListAsync();
+            List<OrderItem> dbOrderItems = new();
+            foreach (var item in orderItems)
+            {
+                AvailabilityOfProduct availabilityOfProduct = availabilityOfProducts.First(a => a.Sku == item.Sku);
+                dbOrderItems.Add(new OrderItem()
+                {
+                    AvailabilityOfProduct = availabilityOfProduct,
+                    Count = item.Count,
+                    Sku = item.Sku,
+                    Product = availabilityOfProduct.Product,
+                });
+            }
+
+            result.Packages = _createPackages(dbOrderItems);
 
             result.From_locations = _cdekConfiguration.From_locations;
 

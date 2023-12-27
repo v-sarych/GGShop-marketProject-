@@ -1,5 +1,7 @@
-﻿using Integrations.Cdek.Interfaces;
+﻿using Integrations.Cdek.Entities.DeliveryCalculationData;
+using Integrations.Cdek.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using ShopApiCore.Entities.DTO.OrderItem;
 using ShopDb.Entities;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -22,7 +24,7 @@ namespace Integrations.Cdek.HelperApi
         }
 
         [HttpPost("GetDataForWidget")]
-        public async Task GetDataForWidget([Required][FromBody] ICollection<OrderItem> orderItems)
+        public async Task<DeliveryWidgetCalculationDataDTO> GetDataForWidget([Required][FromBody] ICollection<CreateOrderItemDTO> orderItems)
             => await _dataCreator.GetDataForWidget(orderItems);
     }
 }
