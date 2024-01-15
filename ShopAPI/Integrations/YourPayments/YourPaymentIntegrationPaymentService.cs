@@ -1,5 +1,6 @@
 ﻿using Integrations.YourPayments.Entities.AuthorizePayment;
 using Integrations.YourPayments.Interfaces;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Logging;
 using ShopApiCore.Entities.DTO.Payments;
 using ShopApiCore.Exceptions;
@@ -50,7 +51,7 @@ namespace Integrations.YourPayments
             HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, _unitOfWork.Configuration.GatewayHost + _unitOfWork.Configuration.AuthorizePaymentUrl);
 
             string contentString = JsonSerializer.Serialize(authorizeData);
-            message.Content = new StringContent(contentString);
+            message.Content = new StringContent(contentString, System.Text.Encoding.UTF8, "application/json");
 
             string merchant = _unitOfWork.Configuration.MerchantId;
             string date = DateTime.Now.ToString("yyyy-MM-dd\\THH:mm:sszzz");

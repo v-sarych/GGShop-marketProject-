@@ -88,7 +88,7 @@ namespace Integrations.YourPayments
             using (var hasher = new HMACSHA256(Encoding.UTF8.GetBytes(_configuration.SecretKey)))
                 hash = hasher.ComputeHash(hashedData);
 
-            return BitConverter.ToString(hash).ToLower();
+            return BitConverter.ToString(hash).ToLower().Replace("-", "");
         }
 
         public async Task<string> GetMD5(byte[] data)
