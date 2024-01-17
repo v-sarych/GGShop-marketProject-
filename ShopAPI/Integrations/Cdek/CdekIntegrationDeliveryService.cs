@@ -61,9 +61,9 @@ namespace Integrations.Cdek
 
             string responseContent = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
-                _logger.LogInformation("CalculatingDeliveryCost is success. Response - " + responseContent);
+                _logger.LogInformation("TransferToDelivery is success. Response - " + responseContent);
             else
-                throw new Exception("CalculatingDeliveryCost is not success. Response - " + responseContent);
+                throw new Exception("TransferToDelivery is not success. Response - " + responseContent);
         }
     }
 }
