@@ -16,6 +16,7 @@ namespace Integrations.YourPayments
         public readonly string GatewayHost = "https://sandbox.ypmn.ru";
         public readonly string AuthorizePaymentUrl = "/api/v4/payments/authorize";
 
+        public readonly string AuthorizePaymentReturnUrl = "http://gg-lab.ru";
         public PaymentConfiguration() { }
     }
 }

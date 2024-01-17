@@ -31,10 +31,12 @@ namespace Integrations.YourPayments
                     .ThenInclude(i => i.Product)
                 .First(o => o.Id == dto.OrderId);
 
+            result.ReturnUrl = _configuration.AuthorizePaymentReturnUrl;
+
             result.Authorize = new AuthorizeEntity()
             {
                 PaymentMethod = dto.PaymentMethod,
-                UsePaymentPage = true
+                UsePaymentPage = "YES"
             };
 
             result.Currency = dto.Currency;
