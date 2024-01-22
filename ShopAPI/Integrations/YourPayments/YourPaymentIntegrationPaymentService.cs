@@ -28,6 +28,8 @@ namespace Integrations.YourPayments
 
             HttpClient client = _unitOfWork.HttpClientFactory.CreateClient();
 
+            HttpRequestMessage request = await _createAuthorizeMessage(info);
+
             HttpResponseMessage response = await client.SendAsync(await _createAuthorizeMessage(info));
             string responseText = await response.Content.ReadAsStringAsync();
 
@@ -50,7 +52,11 @@ namespace Integrations.YourPayments
 
             HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, _unitOfWork.Configuration.GatewayHost + _unitOfWork.Configuration.AuthorizePaymentUrl);
 
-            string contentString = JsonSerializer.Serialize(authorizeData);
+            string contentString = JsonSerializer.Serialize(authorizeData, new JsonSerializerOptions()
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            });
             message.Content = new StringContent(contentString, System.Text.Encoding.UTF8, "application/json");
 
             string merchant = _unitOfWork.Configuration.MerchantId;

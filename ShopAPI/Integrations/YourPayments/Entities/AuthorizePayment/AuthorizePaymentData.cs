@@ -12,7 +12,7 @@ namespace Integrations.YourPayments.Entities.AuthorizePayment
         public string ReturnUrl { get; set; }
         public string Currency { get; set; }
 
-        public AuthorizeEntity Authorize { get; set; }
+        public AuthorizeEntity Authorization { get; set; }
         public ClientEntity Client { get; set; }
         public ICollection<ProductEntity> Products { get; set; }
     }

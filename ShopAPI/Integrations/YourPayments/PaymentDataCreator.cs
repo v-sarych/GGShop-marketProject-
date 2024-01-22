@@ -32,8 +32,9 @@ namespace Integrations.YourPayments
                 .First(o => o.Id == dto.OrderId);
 
             result.ReturnUrl = _configuration.AuthorizePaymentReturnUrl;
+            result.MerchantPaymentReference = order.Id.ToString();
 
-            result.Authorize = new AuthorizeEntity()
+            result.Authorization = new AuthorizeEntity()
             {
                 PaymentMethod = dto.PaymentMethod,
                 UsePaymentPage = "YES"
@@ -54,7 +55,7 @@ namespace Integrations.YourPayments
                 result.Client = new ClientEntity()
                 {
                     FirstName = order.User.Name,
-                    CountryCode = "",
+                    CountryCode = "RU",
                     Email = "",
                     LastName = "",
                     Phone = order.User.PhoneNumber
