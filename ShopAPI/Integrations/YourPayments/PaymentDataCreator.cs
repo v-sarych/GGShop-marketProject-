@@ -42,8 +42,9 @@ namespace Integrations.YourPayments
 
             result.Currency = dto.Currency;
 
-            if(dto.paymentClientDTO != null)
-                result.Client = new ClientEntity()
+            result.Client = new ClientEntity();
+            if (dto.paymentClientDTO != null)
+                result.Client.Billing = new BillingEntity()
                 {
                     FirstName = dto.paymentClientDTO.FirstName,
                     CountryCode = dto.paymentClientDTO.CountryCode,
@@ -52,7 +53,7 @@ namespace Integrations.YourPayments
                     Phone = order.User.PhoneNumber
                 };
             else 
-                result.Client = new ClientEntity()
+                result.Client.Billing = new BillingEntity()
                 {
                     FirstName = order.User.Name,
                     CountryCode = "RU",

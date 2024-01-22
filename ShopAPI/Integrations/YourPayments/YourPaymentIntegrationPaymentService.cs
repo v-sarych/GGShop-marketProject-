@@ -30,7 +30,22 @@ namespace Integrations.YourPayments
 
             HttpRequestMessage request = await _createAuthorizeMessage(info);
 
-            HttpResponseMessage response = await client.SendAsync(await _createAuthorizeMessage(info));
+            ////////logging            Console.WriteLine("Request:");
+            Console.WriteLine(request.ToString()); if (request.Content != null)
+            {
+                Console.WriteLine(await request.Content.ReadAsStringAsync());
+            }
+            Console.WriteLine();
+            HttpResponseMessage response = await client.SendAsync(request);
+            Console.WriteLine("Response:");
+            Console.WriteLine(response.ToString()); if (response.Content != null)
+            {
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
+            Console.WriteLine();
+            ///////
+
+            //HttpResponseMessage response = await client.SendAsync(await _createAuthorizeMessage(info));
             string responseText = await response.Content.ReadAsStringAsync();
 
             _unitOfWork.Logger.LogInformation(responseText);
