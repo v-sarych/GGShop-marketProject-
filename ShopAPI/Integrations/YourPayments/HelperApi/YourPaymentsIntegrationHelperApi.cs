@@ -2,11 +2,13 @@
 using Integrations.YourPayments.Entities.PaymentWebHookData;
 using Integrations.YourPayments.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ShopDb.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Integrations.YourPayments.HelperApi
@@ -18,14 +20,18 @@ namespace Integrations.YourPayments.HelperApi
         private readonly PaymentConfiguration _configuration;
         private readonly IPaymentRepository _repository;
 
-        public YourPaymentsIntegrationHelperApi(PaymentConfiguration configuration, IPaymentRepository repository)
-            => (_configuration, _repository) = (configuration, repository);
+        private readonly ILogger _logger;
+
+        public YourPaymentsIntegrationHelperApi(PaymentConfiguration configuration, IPaymentRepository repository, ILogger<YourPaymentsIntegrationHelperApi> logger)
+            => (_configuration, _repository, _logger) = (configuration, repository, logger);
 
         [HttpPost("WebHooks/PaymentData")]
         public async Task PaymentDataWebHook([FromBody]WebHookDataDTO dto, [FromQuery]string webHookKey)
         {
             if (webHookKey != _configuration.WebHookKey)
                 return;
+
+            _logger.LogInformation($"req:{Request.Body.ToString()} data: {JsonSerializer.Serialize(dto)}");
 
             UpdatePaymentDTO paymentDTO = new UpdatePaymentDTO()
             {

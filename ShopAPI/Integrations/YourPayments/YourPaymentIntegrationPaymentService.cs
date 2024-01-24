@@ -30,7 +30,8 @@ namespace Integrations.YourPayments
 
             HttpRequestMessage request = await _createAuthorizeMessage(info);
 
-            ////////logging            Console.WriteLine("Request:");
+            ////////logging            
+            Console.WriteLine("Request:");
             Console.WriteLine(request.ToString()); if (request.Content != null)
             {
                 Console.WriteLine(await request.Content.ReadAsStringAsync());
