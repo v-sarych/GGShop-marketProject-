@@ -1,4 +1,5 @@
 ﻿using Integrations.YourPayments.Entities.AuthorizePayment;
+using Integrations.YourPayments.Entities.AuthorizePayment.Response;
 using Integrations.YourPayments.Interfaces;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Logging;
@@ -56,7 +57,7 @@ namespace Integrations.YourPayments
                 {
                     OrderId = info.OrderId,
                     AdditionalDetails = responseText,
-                    IdInPaymentGateway = Guid.NewGuid()
+                    IdInPaymentGateway = JsonSerializer.Deserialize<AuthorizePaymentResponse>(responseText).PayuPaymentReference
                 });
 
             return responseText;

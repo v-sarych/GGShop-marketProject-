@@ -9,7 +9,7 @@ namespace Integrations.YourPayments.Entities.Payment
 {
     public class PaymentDTO
     {
-        public Guid? IdInPaymentGateway { get; set; }
+        public string? IdInPaymentGateway { get; set; }
         public string AdditionalDetails { get; set; }
         public Guid OrderId { get; set; }
     }

@@ -36,7 +36,7 @@ namespace Integrations.YourPayments.HelperApi
             UpdatePaymentDTO paymentDTO = new UpdatePaymentDTO()
             {
                 Id = Guid.Parse(dto.OrderData.MerchantPaymentReference),
-                IdInGateway = Guid.Parse(dto.OrderData.PayuPaymentReference),
+                IdInGateway = dto.OrderData.PayuPaymentReference,
                 AdditionalInfo = HttpContext.Request.Body.ToString()
             };
 
@@ -48,6 +48,12 @@ namespace Integrations.YourPayments.HelperApi
                 paymentDTO.Status = PaymentStatuses.WaitGateway;
 
             await _repository.UpdatePaymnentData(paymentDTO);
+        }
+
+        [HttpGet("WebHooks/PaymentData")]
+        public async Task IpnCheker()
+        {
+            return;
         }
     }
 }

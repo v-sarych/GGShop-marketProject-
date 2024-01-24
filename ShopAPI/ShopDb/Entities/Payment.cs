@@ -9,7 +9,7 @@ namespace ShopDb.Entities
     public class Payment
     {
         public string Status { get; set; }
-        public Guid? IdInPaymentGateway { get; set; }
+        public string? IdInPaymentGateway { get; set; }
         public string AdditionalDetails { get; set; }
 
         public Guid Id { get; set; }
