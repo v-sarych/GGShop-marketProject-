@@ -43,6 +43,11 @@ namespace ShopApiServer.Api
         public async Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings)
             => await _orderRepository.CreateWithDelivery(createSettings, Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
 
+        [Authorize]
+        [HttpPost("CreateWithoutDelivery")]
+        public async Task<GetUserOrderDTO> CreateWithoutDelivery(CreateOrderDTO createSettings)
+            => await _orderRepository.Create(createSettings, Convert.ToInt64(Request.HttpContext.User.FindFirst(ClaimTypes.UserId).Value));
+
         [Authorize(Roles = Roles.Admin)]
         [HttpPut("UpdateStatus")]
         public async Task UpdateStatus(Guid id, string newStatus)

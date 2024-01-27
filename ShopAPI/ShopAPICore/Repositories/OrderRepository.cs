@@ -23,50 +23,6 @@ namespace ShopApiCore.Repositories
         public OrderRepository(IShopDbContext dBContext, IMapper mapper, IDeliveryService deliveryService)
             => (_dBContext, _mapper, _deliveryService) = (dBContext, mapper, deliveryService);
 
-        public async Task<GetUserOrderDTO> CreateWithDelivery(CreateOrderDTO createSettings, long userId)
-        {
-            if(createSettings.OrderItems.Count < 1)
-                throw new Exception();
-
-            Order creatingOrder = _mapper.Map<Order>(createSettings);
-
-            creatingOrder.UserId = userId;
-            creatingOrder.WebHookKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-            creatingOrder.DateOfCreation = DateTime.UtcNow;
-            creatingOrder.AdditionalFees += await _deliveryService.CalculateDeliveryCost(createSettings.AdditionalOrderInfo);
-
-            creatingOrder.Id = Guid.NewGuid();
-            foreach(var item in creatingOrder.OrderItems)
-                item.OrderId = creatingOrder.Id;
-
-            IQueryable<AvailabilityOfProduct> aviabilitiesQuery = _dBContext.AvailabilityOfProducts;
-            List<AvailabilityOfProduct> availabilities = await aviabilitiesQuery
-                .Where(a => createSettings.OrderItems.Select(i => i.Sku).Any(i => i == a.Sku))
-                .ToListAsync();
-
-            foreach (var orderItem in creatingOrder.OrderItems)
-            {
-                var availability = availabilities.FirstOrDefault(x => x.Sku == orderItem.Sku);
-                if (availability == null || availability.Count - orderItem.Count < 0)
-                    throw new NotInStockException();
-
-                orderItem.ProductId = availability.ProductId;
-
-                if (orderItem.Count > 0)
-                {
-                    availability.Count -= orderItem.Count;
-                    orderItem.Cost = (float)availability.Cost * orderItem.Count;
-                    creatingOrder.Cost += orderItem.Cost;
-                }
-            }
-            creatingOrder.Cost += creatingOrder.AdditionalFees;
-
-            await _dBContext.Orders.AddAsync(creatingOrder);
-            await _dBContext.SaveChangesAsync();
-
-            return await _dBContext.Orders.AsNoTracking().ProjectTo<GetUserOrderDTO>(_mapper.ConfigurationProvider).FirstAsync(x => x.Id == creatingOrder.Id);
-        }
-
         public async Task<OrderStatusesDTO> GetAvailableStatuses()
            => new OrderStatusesDTO(); 
 
@@ -97,6 +53,77 @@ namespace ShopApiCore.Repositories
             order.Status = newStatus;
 
             await _dBContext.SaveChangesAsync();
+        }
+
+        public async Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings, long userId)
+        {
+            if (createSettings.OrderItems.Count < 1)
+                throw new Exception();
+
+            Order creatingOrder = _mapper.Map<Order>(createSettings);
+
+            creatingOrder.UserId = userId;
+            creatingOrder.WebHookKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+            creatingOrder.DateOfCreation = DateTime.UtcNow;
+
+            creatingOrder.Id = Guid.NewGuid();
+
+            await AddExistingItemsToOrder(creatingOrder, createSettings);
+
+            await _dBContext.Orders.AddAsync(creatingOrder);
+            await _dBContext.SaveChangesAsync();
+
+            return await _dBContext.Orders.AsNoTracking().ProjectTo<GetUserOrderDTO>(_mapper.ConfigurationProvider).FirstAsync(x => x.Id == creatingOrder.Id);
+        }
+
+        public async Task<GetUserOrderDTO> CreateWithDelivery(CreateOrderDTO createSettings, long userId)
+        {
+            if (createSettings.OrderItems.Count < 1)
+                throw new Exception();
+
+            Order creatingOrder = _mapper.Map<Order>(createSettings);
+
+            creatingOrder.UserId = userId;
+            creatingOrder.WebHookKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+            creatingOrder.DateOfCreation = DateTime.UtcNow;
+            creatingOrder.AdditionalFees += await _deliveryService.CalculateDeliveryCost(createSettings.AdditionalOrderInfo);
+
+            creatingOrder.Id = Guid.NewGuid();
+
+            await AddExistingItemsToOrder(creatingOrder, createSettings);
+
+            await _dBContext.Orders.AddAsync(creatingOrder);
+            await _dBContext.SaveChangesAsync();
+
+            return await _dBContext.Orders.AsNoTracking().ProjectTo<GetUserOrderDTO>(_mapper.ConfigurationProvider).FirstAsync(x => x.Id == creatingOrder.Id);
+        }
+
+        private async Task AddExistingItemsToOrder(Order creatingOrder, CreateOrderDTO createSettings)
+        {
+            foreach (var item in creatingOrder.OrderItems)
+                item.OrderId = creatingOrder.Id;
+
+            IQueryable<AvailabilityOfProduct> aviabilitiesQuery = _dBContext.AvailabilityOfProducts;
+            List<AvailabilityOfProduct> availabilities = await aviabilitiesQuery
+                .Where(a => createSettings.OrderItems.Select(i => i.Sku).Any(i => i == a.Sku))
+                .ToListAsync();
+
+            foreach (var orderItem in creatingOrder.OrderItems)
+            {
+                var availability = availabilities.FirstOrDefault(x => x.Sku == orderItem.Sku);
+                if (availability == null || availability.Count - orderItem.Count < 0)
+                    throw new NotInStockException();
+
+                orderItem.ProductId = availability.ProductId;
+
+                if (orderItem.Count > 0)
+                {
+                    availability.Count -= orderItem.Count;
+                    orderItem.Cost = (float)availability.Cost * orderItem.Count;
+                    creatingOrder.Cost += orderItem.Cost;
+                }
+            }
+            creatingOrder.Cost += creatingOrder.AdditionalFees;
         }
     }
 }
