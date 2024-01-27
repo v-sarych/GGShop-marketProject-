@@ -49,11 +49,11 @@ namespace IdentityServer.Model
 
         public async Task<string> Update(TokenPayload payload)
         {
-            if (!(await _sessionRepository.TryFind(payload.Id)))
+            if (!(await _sessionRepository.TryFind(payload.Id, payload.RefreshToken)))
                 throw new NotFoundException();
 
             string newRefreshToken = _createRandomToken();
-            Session session = await _sessionRepository.Update(payload.Id, payload.RefreshToken, newRefreshToken);
+            Session session = await _sessionRepository.Update(payload.Id, newRefreshToken);
 
             payload.RefreshToken = newRefreshToken;
 

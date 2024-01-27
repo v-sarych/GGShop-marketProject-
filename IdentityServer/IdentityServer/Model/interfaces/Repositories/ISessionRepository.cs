@@ -8,9 +8,10 @@ namespace IdentityServer.Model.interfaces.Repositories
     {
         Task<ICollection<SessionDTO>> GetAll(long userId);
         Task<bool> TryFind(Guid Id);
+        Task<bool> TryFind(Guid Id, string refreshTokenHash);
         Task<Session> FindSessionOrDefault(Guid id);
         Task<Session> Create(SessionCreateInfo info);
-        Task<Session> Update(Guid Id, string refreshToken, string newRefreshToken);
+        Task<Session> Update(Guid Id, string newRefreshToken);
         Task Delete(Guid sessionId);
     }
 }

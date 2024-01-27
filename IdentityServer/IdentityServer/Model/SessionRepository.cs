@@ -51,12 +51,15 @@ namespace IdentityServer.Model
         public async Task<bool> TryFind(Guid id)
             =>  await _context.Sessions.FirstOrDefaultAsync(session => session.Id == id) != null;
 
+        public async Task<bool> TryFind(Guid id, string refreshTokenHash)
+            => await _context.Sessions.FirstOrDefaultAsync(session => session.Id == id && session.RefreshTokenHash == refreshTokenHash) != null;
+
         public async Task<Session> FindSessionOrDefault(Guid id)
         {
             return await _context.Sessions.AsNoTracking().FirstOrDefaultAsync(session => session.Id == id);
         }
 
-        public async Task<Session> Update(Guid id,string refreshToken, string newRefreshToken)
+        public async Task<Session> Update(Guid id, string newRefreshToken)
         {
             Session session = await _context.Sessions.FirstAsync(session => session.Id ==id);
 
