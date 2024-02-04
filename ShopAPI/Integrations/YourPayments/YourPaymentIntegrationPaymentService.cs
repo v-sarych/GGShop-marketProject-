@@ -56,8 +56,7 @@ namespace Integrations.YourPayments
                 await _unitOfWork.PaymentRepository.CreatePayment(new()
                 {
                     OrderId = info.OrderId,
-                    AdditionalDetails = responseText,
-                    IdInPaymentGateway = JsonSerializer.Deserialize<AuthorizePaymentResponse>(responseText).PayuPaymentReference
+                    AdditionalDetails = responseText
                 });
 
             return responseText;

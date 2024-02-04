@@ -36,7 +36,6 @@ namespace Integrations.YourPayments.HelperApi
             UpdatePaymentDTO paymentDTO = new UpdatePaymentDTO()
             {
                 Id = Guid.Parse(dto.OrderData.MerchantPaymentReference),
-                IdInGateway = dto.OrderData.PayuPaymentReference,
                 AdditionalInfo = HttpContext.Request.Body.ToString()
             };
 

@@ -31,7 +31,6 @@ namespace Integrations.YourPayments
                 Id = payment.OrderId,
                 Status = PaymentStatuses.WaitGateway,
                 AdditionalDetails = payment.AdditionalDetails,
-                IdInPaymentGateway = payment.IdInPaymentGateway,
                 UserId = (await _dbContext.Orders.AsNoTracking().FirstAsync(o => o.Id == payment.OrderId)).UserId
             };
             await _dbContext.Payments.AddAsync(dbPayment);
@@ -46,7 +45,7 @@ namespace Integrations.YourPayments
         {
             Payment payment = await _dbContext.Payments.AsTracking()
                 .Include(p => p.Order)
-                .FirstAsync(x => x.Id == info.Id && x.IdInPaymentGateway == info.IdInGateway);
+                .FirstAsync(x => x.Id == info.Id);
 
             payment.Status = info.Status;
             if (info.Status == PaymentStatuses.Success)
