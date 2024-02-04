@@ -40,7 +40,7 @@ namespace Integrations.YourPayments.HelperApi
                 AdditionalInfo = HttpContext.Request.Body.ToString()
             };
 
-            if (dto.OrderData.Status == "COMPLETE")
+            if (dto.OrderData.Status == "COMPLETE" || dto.OrderData.Status == "PAYMENT_AUTHORIZED")
                 paymentDTO.Status = PaymentStatuses.Success;
             else if (dto.OrderData.Status == "INVALID")
                 paymentDTO.Status = PaymentStatuses.Failed;
