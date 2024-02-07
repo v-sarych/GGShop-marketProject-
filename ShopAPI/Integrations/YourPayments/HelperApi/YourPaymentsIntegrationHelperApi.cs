@@ -31,12 +31,13 @@ namespace Integrations.YourPayments.HelperApi
             if (webHookKey != _configuration.WebHookKey)
                 return;
 
-            _logger.LogInformation($"req:{Request.Body.ToString()} data: {JsonSerializer.Serialize(dto)}");
+            string dtoString = JsonSerializer.Serialize(dto);
+            _logger.LogInformation($"req:{Request.Body.ToString()} data: {dtoString}");
 
             UpdatePaymentDTO paymentDTO = new UpdatePaymentDTO()
             {
                 Id = Guid.Parse(dto.OrderData.MerchantPaymentReference),
-                AdditionalInfo = HttpContext.Request.Body.ToString()
+                AdditionalInfo = dtoString
             };
 
             if (dto.OrderData.Status == "COMPLETE" || dto.OrderData.Status == "PAYMENT_AUTHORIZED")
