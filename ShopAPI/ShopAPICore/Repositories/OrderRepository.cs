@@ -86,7 +86,7 @@ namespace ShopApiCore.Repositories
             creatingOrder.UserId = userId;
             creatingOrder.WebHookKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
             creatingOrder.DateOfCreation = DateTime.UtcNow;
-            creatingOrder.AdditionalFees += await _deliveryService.CalculateDeliveryCost(createSettings.AdditionalOrderInfo);
+            creatingOrder.AdditionalFees += await _deliveryService.CalculateDeliveryCost(createSettings.DeliveryInfo);
 
             creatingOrder.Id = Guid.NewGuid();
 

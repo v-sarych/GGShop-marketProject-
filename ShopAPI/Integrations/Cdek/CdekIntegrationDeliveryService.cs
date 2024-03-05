@@ -31,7 +31,7 @@ namespace Integrations.Cdek
 
             string bearerToken = "Bearer " + (await _tokenFactory.GetOAuthToken()).Access_token;
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _configurration.RegisterOrderUrl);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _configurration.CalculateDeliveryUlr);
             request.Content = new StringContent(deliveryInfo, System.Text.Encoding.UTF8, "application/json");
             request.Headers.Add("Authorization", bearerToken);
 
