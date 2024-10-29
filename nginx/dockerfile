@@ -1,0 +1,10 @@
+FROM nginx:latest
+WORKDIR /
+
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+#docker build -f nginx/dockerfile -t nginx .
+#docker run -p 80:80 nginx

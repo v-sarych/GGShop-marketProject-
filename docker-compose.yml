@@ -1,18 +1,47 @@
-
+#docker-compose up --build -d
+#docker-compose down  
 version: "3"
 
 services:
 
   api:
-    build: ./ShopAPI/ShopAPI
-    ports:
-      - 5002:80
+    build: 
+      context: "./"
+      dockerfile: ./ShopAPI/ShopAPI/dockerfile
+    networks:
+      - internal-network
+
 
   identity:
-    build: IdentityServer/IdentityServer
+    build:
+      context: "./"
+      dockerfile: IdentityServer/IdentityServer/dockerfile
+    networks:
+      - internal-network
+
+
+  file:
+    build:
+      context: "./"
+      dockerfile: FileServer/FileServer/dockerfile
+    networks:
+      - internal-network
+
 
   nginx:
-    build: IdentityServer/IdentityServer
-    network_mode: host
+    build:
+      context: "./"
+      dockerfile: nginx/dockerfile
+    ports:
+      - "80:80"
     depends_on:
-      - server
+      - api
+      - identity
+      - file
+    networks:
+      - internal-network
+
+networks:
+  internal-network:
+    driver: bridge
+
