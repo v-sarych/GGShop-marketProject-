@@ -1,4 +1,9 @@
 # GGShop-marketProject-
+This project was closed too far and this code in master branch
+
+The options for deploying docker in the release branch, because I needed to rebuild most of the project to do this since the project is too old
+(Основной код в ветке мастер, перестроенный код с развертыванием в докере в ветке релиз)
+
 
 Befor Publication change secure keys from IdentityServer 
  
