@@ -1,6 +1,6 @@
-﻿using IdentityServer.Model.Exeptions;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
+using Identity.Core.Model.Exceptions;
 
 namespace ShopApi.Middelware
 {

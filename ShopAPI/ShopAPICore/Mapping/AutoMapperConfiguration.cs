@@ -1,21 +1,20 @@
 ﻿using AutoMapper;
-using ShopApiCore.Mapping.Profiles.DTO;
+using ShopAPICore.Mapping.Profiles.DTO;
 
-namespace ShopApiCore.Mapping
+namespace ShopAPICore.Mapping;
+
+public static class AutoMapperConfiguration
 {
-    public static class AutoMapperConfiguration
+    public static IMapperConfigurationExpression GetConfiguration(IMapperConfigurationExpression cfg)
     {
-        public static IMapperConfigurationExpression GetConfiguration(IMapperConfigurationExpression cfg)
-        {
-            cfg.AddProfile<UserProfile>();
-            cfg.AddProfile<OrderProfile>();
-            cfg.AddProfile<ShoppingCartProfile>();
-            cfg.AddProfile<CommentProfile>();
-            cfg.AddProfile<ProductAvailabilityProfile>();
-            cfg.AddProfile<ProductProfile>();
-            cfg.AddProfile<TagProfile>();
+        cfg.AddProfile<UserProfile>();
+        cfg.AddProfile<OrderProfile>();
+        cfg.AddProfile<ShoppingCartProfile>();
+        cfg.AddProfile<CommentProfile>();
+        cfg.AddProfile<ProductAvailabilityProfile>();
+        cfg.AddProfile<ProductProfile>();
+        cfg.AddProfile<TagProfile>();
 
-            return cfg;
-        }
+        return cfg;
     }
 }

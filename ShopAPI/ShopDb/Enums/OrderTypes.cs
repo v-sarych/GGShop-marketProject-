@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ShopDb.Enums;
 
-namespace ShopDb.Enums
+public static class OrderTypes
 {
-    public static class OrderTypes
-    {
-        public static readonly string Order = "Order";
-        public static readonly string Refund = "Refund";
-    }
+    public static readonly string Order = "Order";
+    public static readonly string Refund = "Refund";
 }

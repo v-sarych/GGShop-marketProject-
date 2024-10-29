@@ -1,10 +1,9 @@
-﻿namespace ShopApiCore.Entities.DTO.ProductAvailability
+﻿namespace ShopAPICore.Entities.DTO.ProductAvailability;
+
+public class SimpleAvailabilityDTO
 {
-    public class SimpleAvailabilityDTO
-    {
-        public string Sku { get; set; }
-        public string Size { get; set; }
-        public float Cost { get; set; }
-        public int Count { get; set; }
-    }
+    public string Sku { get; set; }
+    public string Size { get; set; }
+    public float Cost { get; set; }
+    public int Count { get; set; }
 }

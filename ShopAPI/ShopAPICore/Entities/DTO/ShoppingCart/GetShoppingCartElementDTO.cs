@@ -1,17 +1,14 @@
-﻿using ShopApiCore.Entities.DTO.ProductAvailability;
-using ShopApiCore.Entities.DTO.ProductSearch;
-using ShopDb.Entities;
+﻿using ShopAPICore.Entities.DTO.ProductAvailability;
 
-namespace ShopApiCore.Entities.DTO.ShoppingCart
+namespace ShopAPICore.Entities.DTO.ShoppingCart;
+
+public class GetShoppingCartElementDTO
 {
-    public class GetShoppingCartElementDTO
-    {
-        public int Count { get; set; }
-        public float Cost { get; set; }
+    public int Count { get; set; }
+    public float Cost { get; set; }
 
-        public int? AvailablуInStock { get; set; }
+    public int? AvailablуInStock { get; set; }
 
-        public string Sku { get; set; }
-        public AvailabilityForGetShoppingCartDTO AvailabilityOfProduct { get; set; }
-    }
+    public string Sku { get; set; }
+    public AvailabilityForGetShoppingCartDTO AvailabilityOfProduct { get; set; }
 }

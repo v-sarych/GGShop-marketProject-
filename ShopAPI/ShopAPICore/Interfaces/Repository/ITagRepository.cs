@@ -1,11 +1,10 @@
-﻿using ShopApiCore.Entities.DTO.Tag;
+﻿using ShopAPICore.Entities.DTO.Tag;
 
-namespace ShopApiCore.Interfaces.Repository
+namespace ShopAPICore.Interfaces.Repository;
+
+public interface ITagRepository
 {
-    public interface ITagRepository
-    {
-        Task<int> Create(string name);
-        Task Delete(int tagId);
-        Task<ICollection<TagDTO>> GetAll();
-    }
+    Task<int> Create(string name);
+    Task Delete(int tagId);
+    Task<ICollection<TagDTO>> GetAll();
 }

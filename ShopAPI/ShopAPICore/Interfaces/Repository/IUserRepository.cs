@@ -1,11 +1,9 @@
-﻿using ShopApiCore.Entities.DTO.User;
-using ShopDb.Entities;
+﻿using ShopAPICore.Entities.DTO.User;
 
-namespace ShopApiCore.Interfaces.Repository
+namespace ShopAPICore.Interfaces.Repository;
+
+public interface IUserRepository
 {
-    public interface IUserRepository
-    {
-        Task<GetUserDTO> Get(long id);
-        Task UpdateInfo(UpdateUserInfoDTO updateInfo, long id);
-    }
+    Task<GetUserDTO> Get(long id);
+    Task UpdateInfo(UpdateUserInfoDTO updateInfo, long id);
 }

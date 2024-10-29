@@ -1,11 +1,9 @@
-using IdentityServer.Model;
-using IdentityServer.Model.interfaces;
-using IdentityServer.Model.interfaces.Repositories;
-using IdentityServer.Model.Extentions;
+using Identity.Core.Model;
+using Identity.Core.Model.interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using IdentityServer.Model.Mapper;
+using ShopApiServer.Extentions;
 using ShopDb;
-using ShopApi.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 

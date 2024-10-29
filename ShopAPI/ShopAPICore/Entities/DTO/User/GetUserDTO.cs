@@ -1,17 +1,14 @@
-﻿using ShopApiCore.Entities.DTO.Comment;
-using ShopApiCore.Entities.DTO.Order;
-using ShopApiCore.Entities.DTO.ShoppingCart;
-using ShopDb.Entities;
+﻿using ShopAPICore.Entities.DTO.Order;
+using ShopAPICore.Entities.DTO.ShoppingCart;
 
-namespace ShopApiCore.Entities.DTO.User
+namespace ShopAPICore.Entities.DTO.User;
+
+public class GetUserDTO
 {
-    public class GetUserDTO
-    {
-        public string Name { get; set; }
-        public string Role { get; set; }
-        public string PhoneNumber { get; set; }
+    public string Name { get; set; }
+    public string Role { get; set; }
+    public string PhoneNumber { get; set; }
 
-        public ICollection<GetShoppingCartElementDTO> UserShoppingCartItems { get; set; }
-        public ICollection<GetUserOrderDTO> Orders { get; set; }
-    }
+    public ICollection<GetShoppingCartElementDTO> UserShoppingCartItems { get; set; }
+    public ICollection<GetUserOrderDTO> Orders { get; set; }
 }

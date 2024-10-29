@@ -1,6 +1,5 @@
-﻿namespace ShopApiCore.Exceptions
+﻿namespace ShopAPICore.Exceptions;
+
+public class NotInStockException : Exception
 {
-    public class NotInStockException : Exception
-    {
-    }
 }

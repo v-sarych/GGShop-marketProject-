@@ -1,15 +1,15 @@
-﻿using IdentityServer.Model.Entities.DTO;
-using IdentityServer.Model.Entities.Identity;
-using IdentityServer.Model.Exeptions;
-using IdentityServer.Model.interfaces;
-using IdentityServer.Model.interfaces.Repositories;
+﻿using Identity.Core.Model.Entities.DTO;
+using Identity.Core.Model.Entities.Identity;
+using Identity.Core.Model.Exceptions;
+using Identity.Core.Model.interfaces;
+using Identity.Core.Model.interfaces.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using ShopDb.Entities;
+using Identity.Core.Model.Entities.Identity;
 using System.Security.Claims;
-using ClaimTypes = IdentityServer.Model.Entities.Identity.ClaimTypes;
+using ClaimTypes = Identity.Core.Model.Entities.Identity.ClaimTypes;
 
 namespace IdentityServer.Controllers
 {
@@ -77,7 +77,7 @@ namespace IdentityServer.Controllers
             List<Claim> claims = (await _authenticationService.GetJwtClaims(jwtString)).ToList();
             TokenPayload payload = new TokenPayload() {
                 UsertId = Convert.ToInt64(claims.First(x => x.Type == ClaimTypes.UserId).Value),
-                Role = claims.First(x => x.Type == ClaimTypes.Role).Value,
+                Role = claims.First(x => x.Type == System.Security.Claims.ClaimTypes.Role).Value,
                 Id = Guid.Parse(claims.First(x => x.Type == ClaimTypes.SessionId).Value),
                 RefreshToken = claims.First(x => x.Type == ClaimTypes.RefreshToken).Value
             };

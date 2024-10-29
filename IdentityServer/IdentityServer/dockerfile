@@ -1,0 +1,27 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder 
+
+WORKDIR /IdentityServer
+
+COPY ["IdentityServer/IdentityServer/IdentityServer.csproj", "./IdentityServer/"]
+COPY ["IdentityServer/Identity.Core/Identity.Core.csproj", "./Identity.Core/"]
+
+COPY ["ShopAPI/ShopDb/ShopDb.csproj", "/ShopAPI/ShopDb/"]
+
+RUN dotnet restore "./IdentityServer/IdentityServer.csproj"
+
+COPY . /
+
+RUN dotnet build "./IdentityServer/IdentityServer.csproj"
+RUN dotnet publish "./IdentityServer/IdentityServer.csproj" -o "/app/publish"
+
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /app
+
+COPY --from=builder /app/publish .
+
+EXPOSE 80
+ENTRYPOINT ["dotnet", "IdentityServer.dll"]
+
+#docker build -f IdentityServer/IdentityServer/dockerfile -t identity-server .
+#docker run -p 5003:80 identity-server

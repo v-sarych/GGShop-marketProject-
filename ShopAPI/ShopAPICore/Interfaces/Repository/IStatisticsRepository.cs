@@ -1,9 +1,8 @@
-﻿using ShopApiCore.Entities.DTO.Statistics;
+﻿using ShopAPICore.Entities.DTO.Statistics;
 
-namespace ShopApiCore.Interfaces.Repository
+namespace ShopAPICore.Interfaces.Repository;
+
+public interface IStatisticsRepository
 {
-    public interface IStatisticsRepository
-    {
-        Task<BaseStatisticsDTO> GetBaseStatistics(DateTime beginingPeriod, DateTime endPeriod);
-    }
+    Task<BaseStatisticsDTO> GetBaseStatistics(DateTime beginingPeriod, DateTime endPeriod);
 }

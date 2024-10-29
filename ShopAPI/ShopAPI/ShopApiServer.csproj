@@ -16,14 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\IdentityServer\Identity.Core\Identity.Core.csproj" />
     <ProjectReference Include="..\Integrations\Integrations.csproj" />
     <ProjectReference Include="..\ShopAPICore\ShopAPICore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="IdentityServer">
-      <HintPath>..\..\IdentityServer\IdentityServer\bin\Release\net6.0\IdentityServer.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

@@ -4,56 +4,50 @@ using Microsoft.EntityFrameworkCore;
 using ShopDb;
 using ShopDb.Entities;
 using ShopDb.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Integrations.YourPayments
+namespace Integrations.YourPayments;
+
+public class PaymentRepository : IPaymentRepository
 {
-    public class PaymentRepository : IPaymentRepository
+    private readonly IShopDbContext _dbContext;
+    public PaymentRepository(IShopDbContext dbContext)
     {
-        private readonly IShopDbContext _dbContext;
-        public PaymentRepository(IShopDbContext dbContext)
+        _dbContext= dbContext;
+    }
+
+    public async Task<bool> CanCreatePayment(Guid id)
+        => !(await _dbContext.Payments.AsNoTracking()
+            .AnyAsync(p => p.Id == id && (p.Status == PaymentStatuses.Success || p.Status == PaymentStatuses.WaitGateway)));
+
+    public async Task CreatePayment(PaymentDTO payment)
+    {
+        Payment dbPayment = new()
         {
-            _dbContext= dbContext;
-        }
+            Id = payment.OrderId,
+            Status = PaymentStatuses.WaitGateway,
+            AdditionalDetails = payment.AdditionalDetails,
+            UserId = (await _dbContext.Orders.AsNoTracking().FirstAsync(o => o.Id == payment.OrderId)).UserId
+        };
+        await _dbContext.Payments.AddAsync(dbPayment);
 
-        public async Task<bool> CanCreatePayment(Guid id)
-            => !(await _dbContext.Payments.AsNoTracking()
-                .AnyAsync(p => p.Id == id && (p.Status == PaymentStatuses.Success || p.Status == PaymentStatuses.WaitGateway)));
+        await _dbContext.SaveChangesAsync();
+    }
 
-        public async Task CreatePayment(PaymentDTO payment)
-        {
-            Payment dbPayment = new()
-            {
-                Id = payment.OrderId,
-                Status = PaymentStatuses.WaitGateway,
-                AdditionalDetails = payment.AdditionalDetails,
-                UserId = (await _dbContext.Orders.AsNoTracking().FirstAsync(o => o.Id == payment.OrderId)).UserId
-            };
-            await _dbContext.Payments.AddAsync(dbPayment);
+    public async Task<string> GetPaymentStatus(Guid id)
+        => (await _dbContext.Payments.AsNoTracking().FirstAsync(x => x.Id == id)).Status;
 
-            await _dbContext.SaveChangesAsync();
-        }
+    public async Task UpdatePaymnentData(UpdatePaymentDTO info)
+    {
+        var payment = await _dbContext.Payments.AsTracking()
+            .Include(p => p.Order)
+            .FirstAsync(x => x.Id == info.Id);
 
-        public async Task<string> GetPaymentStatus(Guid id)
-            => (await _dbContext.Payments.AsNoTracking().FirstAsync(x => x.Id == id)).Status;
+        payment.Status = info.Status;
+        if (info.Status == PaymentStatuses.Success)
+            payment.Order.IsPaidFor = true;
 
-        public async Task UpdatePaymnentData(UpdatePaymentDTO info)
-        {
-            Payment payment = await _dbContext.Payments.AsTracking()
-                .Include(p => p.Order)
-                .FirstAsync(x => x.Id == info.Id);
+        payment.AdditionalDetails = info.AdditionalInfo;
 
-            payment.Status = info.Status;
-            if (info.Status == PaymentStatuses.Success)
-                payment.Order.IsPaidFor = true;
-
-            payment.AdditionalDetails = info.AdditionalInfo;
-
-            await _dbContext.SaveChangesAsync();
-        }
+        await _dbContext.SaveChangesAsync();
     }
 }

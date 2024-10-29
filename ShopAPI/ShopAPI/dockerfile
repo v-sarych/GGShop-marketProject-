@@ -1,0 +1,31 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder 
+
+WORKDIR /ShopAPI
+
+
+COPY ["ShopAPI/ShopAPI/ShopApiServer.csproj", "./ShopAPI/"]
+COPY ["ShopAPI/ShopDb/ShopDb.csproj", "./ShopDb/"]
+COPY ["ShopAPI/ShopAPICore/ShopAPICore.csproj", "./ShopAPICore/"]
+COPY ["ShopAPI/Integrations/Integrations.csproj", "./Integrations/"]
+
+COPY ["IdentityServer/Identity.Core/Identity.Core.csproj", "/IdentityServer/Identity.Core/"]
+
+
+RUN dotnet restore "./ShopAPI/ShopApiServer.csproj"
+
+COPY . /
+
+RUN dotnet build "./ShopAPI/ShopApiServer.csproj"
+RUN dotnet publish "./ShopAPI/ShopApiServer.csproj" -o "/app/publish"
+
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /app
+
+COPY --from=builder /app/publish .
+
+EXPOSE 80
+ENTRYPOINT ["dotnet", "ShopApiServer.dll"]
+
+#docker build -f ShopAPI/ShopAPI/dockerfile -t shop-api .
+#docker run -p 5002:80 shop-api

@@ -19,9 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ShopDb">
-      <HintPath>..\..\ShopAPI\ShopDb\bin\Release\net6.0\ShopDb.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\ShopAPI\ShopDb\ShopDb.csproj" />
+    <ProjectReference Include="..\Identity.Core\Identity.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,6 @@
-﻿namespace ShopApiCore.Entities.DTO.User
+﻿namespace ShopAPICore.Entities.DTO.User;
+
+public class UpdateUserInfoDTO
 {
-    public class UpdateUserInfoDTO
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }

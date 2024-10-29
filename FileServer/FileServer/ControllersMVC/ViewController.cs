@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopDb.Entities;
+using ShopDb.Enums;
 
 namespace FileServer.ControllersMVC
 {

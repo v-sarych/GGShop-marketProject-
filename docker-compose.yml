@@ -1,0 +1,18 @@
+
+version: "3"
+
+services:
+
+  api:
+    build: ./ShopAPI/ShopAPI
+    ports:
+      - 5002:80
+
+  identity:
+    build: IdentityServer/IdentityServer
+
+  nginx:
+    build: IdentityServer/IdentityServer
+    network_mode: host
+    depends_on:
+      - server

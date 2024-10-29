@@ -1,10 +1,9 @@
-﻿using ShopApiCore.Entities.DTO.Payments;
+﻿using ShopAPICore.Entities.DTO.Payments;
 
-namespace ShopApiCore.Interfaces.Services
+namespace ShopAPICore.Interfaces.Services;
+
+public interface IPaymentService
 {
-    public interface IPaymentService
-    {
-        Task<string> CreateAndAuthorizePayment(PaymentInfoDTO info);
-        Task<string> CheckPaymentStatus(Guid OrderId);
-    }
+    Task<string> CreateAndAuthorizePayment(PaymentInfoDTO info);
+    Task<string> CheckPaymentStatus(Guid OrderId);
 }

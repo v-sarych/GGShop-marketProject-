@@ -1,61 +1,60 @@
 ﻿using ShopApiServer.Extentions;
-using ShopApiCore.Exceptions;
 using System.Net;
 using System.Text.Json;
+using ShopAPICore.Exceptions;
 
-namespace ShopApiServer.Middelware
+namespace ShopApiServer.Middelware;
+
+public class CastomExeptionHandlerMiddelware
 {
-    public class CastomExeptionHandlerMiddelware
+    private readonly RequestDelegate _next;
+    private readonly ILogger _logger;
+    public CastomExeptionHandlerMiddelware(RequestDelegate next, ILogger<CastomExeptionHandlerMiddelware> logger)
+        => (_next, _logger) = (next, logger);
+
+    public async Task Invoke(HttpContext context)
     {
-        private readonly RequestDelegate _next;
-        private readonly ILogger _logger;
-        public CastomExeptionHandlerMiddelware(RequestDelegate next, ILogger<CastomExeptionHandlerMiddelware> logger)
-            => (_next, _logger) = (next, logger);
-
-        public async Task Invoke(HttpContext context)
+        try
         {
-            try
-            {
-                await _next.Invoke(context);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.ToString());
-
-                await _handleExeption(context, ex);
-            }
+            await _next.Invoke(context);
         }
-
-        private async Task _handleExeption(HttpContext context, Exception exception)
+        catch (Exception ex)
         {
+            _logger.LogError(ex.ToString());
 
-            context.Response.ContentType = "application/json";
+            await _handleExeption(context, ex);
+        }
+    }
 
-            switch (exception)
-            {
-                case NotFoundException:
-                    context.Response.StatusCode = 404;
-                    break;
+    private async Task _handleExeption(HttpContext context, Exception exception)
+    {
 
-                case NoPermissionsException:
-                    context.Response.StatusCode = 403;
-                    break;
+        context.Response.ContentType = "application/json";
 
-                case AlreadyExistException:
-                    context.Response.StatusCode = 400;
-                    await context.Response.WriteAsync("AlreadyExist");
-                    break;
+        switch (exception)
+        {
+            case NotFoundException:
+                context.Response.StatusCode = 404;
+                break;
 
-                case NotInStockException:
-                    context.Response.StatusCode = 500;
-                    await context.Response.WriteAsync("NotInStock");
-                    break;
+            case NoPermissionsException:
+                context.Response.StatusCode = 403;
+                break;
 
-                default:
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    await context.Response.WriteAsync(JsonSerializer.Serialize(exception.Message));
-                    break;
-            }
+            case AlreadyExistException:
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync("AlreadyExist");
+                break;
+
+            case NotInStockException:
+                context.Response.StatusCode = 500;
+                await context.Response.WriteAsync("NotInStock");
+                break;
+
+            default:
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await context.Response.WriteAsync(JsonSerializer.Serialize(exception.Message));
+                break;
         }
     }
 }

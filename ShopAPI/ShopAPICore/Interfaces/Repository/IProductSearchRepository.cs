@@ -1,15 +1,12 @@
-﻿using ShopApiCore.Entities.DTO.ProductSearch;
-using ShopApiCore.Entities.DTO.SearchResults;
-using ShopApiCore.Entities.DTO.Tag;
+﻿using ShopAPICore.Entities.DTO.ProductSearch;
 
-namespace ShopApiCore.Interfaces.Repository
+namespace ShopAPICore.Interfaces.Repository;
+
+public interface IProductSearchRepository
 {
-    public interface IProductSearchRepository
-    {
-        Task<ICollection<ProductSearchResultDTO>> Search(ProductSearchSettingsDTO settings);
-        Task<ICollection<SimpleProductDTO>> SearchWithoutAccounting(ProductSearchSettingsDTO settings, bool useCanBeFound);
+    Task<ICollection<ProductSearchResultDTO>> Search(ProductSearchSettingsDTO settings);
+    Task<ICollection<SimpleProductDTO>> SearchWithoutAccounting(ProductSearchSettingsDTO settings, bool useCanBeFound);
 
-        Task<AllProductInfoDTO> GetAllProductInfo(int id);
-        Task<ExtendedProductInfoDTO> GetExtendedProductInfo(int id);
-    }
+    Task<AllProductInfoDTO> GetAllProductInfo(int id);
+    Task<ExtendedProductInfoDTO> GetExtendedProductInfo(int id);
 }

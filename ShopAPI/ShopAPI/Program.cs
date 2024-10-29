@@ -1,12 +1,10 @@
-using IdentityServer.Model.Extentions;
 using Integrations.Cdek.Extentions;
 using Integrations.YourPayments.Extentions;
 using Microsoft.EntityFrameworkCore;
-using ShopApiCore.Mapping;
 using ShopApiServer.Extentions;
 using ShopDb;
 using System.Reflection;
-using System.Text;
+using ShopAPICore.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 

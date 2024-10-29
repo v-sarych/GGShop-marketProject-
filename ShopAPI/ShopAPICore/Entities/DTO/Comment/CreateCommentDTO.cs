@@ -1,9 +1,8 @@
-﻿namespace ShopApiCore.Entities.DTO.Comment
+﻿namespace ShopAPICore.Entities.DTO.Comment;
+
+public class CreateCommentDTO
 {
-    public class CreateCommentDTO
-    {
-        public int ProductId { get; set; }
-        public int Stars { get; set; }
-        public string Text { get; set; }
-    }
+    public int ProductId { get; set; }
+    public int Stars { get; set; }
+    public string Text { get; set; }
 }

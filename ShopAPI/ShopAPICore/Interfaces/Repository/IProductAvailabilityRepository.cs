@@ -1,15 +1,14 @@
-﻿using ShopApiCore.Entities.DTO.Package;
-using ShopApiCore.Entities.DTO.ProductAvailability;
+﻿using ShopAPICore.Entities.DTO.Package;
+using ShopAPICore.Entities.DTO.ProductAvailability;
 
-namespace ShopApiCore.Interfaces.Repository
+namespace ShopAPICore.Interfaces.Repository;
+
+public interface IProductAvailabilityRepository
 {
-    public interface IProductAvailabilityRepository
-    {
-        Task Create(CreateProductAvailabilityDTO settings);
-        Task Update(UpdateProductAvailabilityDTO settings);
+    Task Create(CreateProductAvailabilityDTO settings);
+    Task Update(UpdateProductAvailabilityDTO settings);
 
-        Task<int> CreatepackageSize(PackageSizeDTO packageSize);
-        Task DeletePackageSize(int id);
-        Task<ICollection<FullPackageSizeInfoDTO>> GetPackageSizes();
-    }
+    Task<int> CreatepackageSize(PackageSizeDTO packageSize);
+    Task DeletePackageSize(int id);
+    Task<ICollection<FullPackageSizeInfoDTO>> GetPackageSizes();
 }

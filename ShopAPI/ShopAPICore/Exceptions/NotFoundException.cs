@@ -1,6 +1,5 @@
-﻿namespace ShopApiCore.Exceptions
+﻿namespace ShopAPICore.Exceptions;
+
+public class NotFoundException : Exception
 {
-    public class NotFoundException : Exception
-    {
-    }
 }

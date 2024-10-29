@@ -1,28 +1,28 @@
-﻿using ShopApiCore.Interfaces.Repository;
-using ShopApiCore.Repositories;
+﻿using ShopAPICore.Interfaces.Repository;
+using ShopAPICore.Repositories;
+using UserRepository = ShopAPICore.Repositories.UserRepository;
 
-namespace ShopApiServer.Extentions
+namespace ShopApiServer.Extentions;
+
+internal static class AddRepositoriesExtention
 {
-    internal static class AddRepositoriesExtention
+    internal static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        internal static IServiceCollection AddRepositories(this IServiceCollection services)
-        {
-            services.AddScoped<IProductControllRepository, ProductControllRepository>();
-            services.AddScoped<IProductAvailabilityRepository, ProductAvailabilityRepository>();
-            services.AddScoped<IProductSearchRepository, ProductSearchRepository>();
+        services.AddScoped<IProductControllRepository, ProductControllRepository>();
+        services.AddScoped<IProductAvailabilityRepository, ProductAvailabilityRepository>();
+        services.AddScoped<IProductSearchRepository, ProductSearchRepository>();
 
-            services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
 
-            services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<ITagRepository, TagRepository>();
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 
-            services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
 
-            services.AddScoped<IStatisticsRepository, StatisticsRepository>();
+        services.AddScoped<IStatisticsRepository, StatisticsRepository>();
 
-            return services;
-        }
+        return services;
     }
 }

@@ -1,0 +1,28 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder 
+
+WORKDIR /FileServer
+
+
+COPY ["FileServer/FileServer/FileServer.csproj", "./FileServer/"]
+COPY ["ShopAPI/ShopDb/ShopDb.csproj", "/ShopAPI/ShopDb/"]
+COPY ["IdentityServer/Identity.Core/Identity.Core.csproj", "/IdentityServer/Identity.Core/"]
+
+
+RUN dotnet restore "./FileServer/FileServer.csproj"
+
+COPY . /
+
+RUN dotnet build "./FileServer/FileServer.csproj"
+RUN dotnet publish "./FileServer/FileServer.csproj" -o "/app/publish"
+
+
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /app
+
+COPY --from=builder /app/publish .
+
+EXPOSE 80
+ENTRYPOINT ["dotnet", "FileServer.dll"]
+
+#docker build -f FileServer/FileServer/dockerfile -t file-server .
+#docker run -p 5004:80 file-server

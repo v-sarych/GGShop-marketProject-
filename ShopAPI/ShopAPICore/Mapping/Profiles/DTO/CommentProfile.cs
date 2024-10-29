@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
-using ShopApiCore.Entities.DTO.Comment;
+using ShopAPICore.Entities.DTO.Comment;
 using ShopDb.Entities;
 
-namespace ShopApiCore.Mapping.Profiles.DTO
+namespace ShopAPICore.Mapping.Profiles.DTO;
+
+public class CommentProfile : Profile
 {
-    public class CommentProfile : Profile
+    public CommentProfile()
     {
-        public CommentProfile()
-        {
-            CreateProjection<Comment, CommentDTO>();
-        }
+        CreateProjection<Comment, CommentDTO>();
     }
 }

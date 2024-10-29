@@ -1,8 +1,7 @@
-﻿namespace ShopApiCore.Entities.DTO.Tag
+﻿namespace ShopAPICore.Entities.DTO.Tag;
+
+public class TagDTO
 {
-    public class TagDTO
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+    public int Id { get; set; }
+    public string Name { get; set; }
 }

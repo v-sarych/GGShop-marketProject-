@@ -1,23 +1,21 @@
 ﻿using AutoMapper;
-using ShopApiCore.Entities.DTO.ProductControll;
-using ShopApiCore.Entities.DTO.ProductSearch;
-using ShopApiCore.Entities.DTO.SearchResults;
+using ShopAPICore.Entities.DTO.ProductControll;
+using ShopAPICore.Entities.DTO.ProductSearch;
 using ShopDb.Entities;
 
-namespace ShopApiCore.Mapping.Profiles.DTO
+namespace ShopAPICore.Mapping.Profiles.DTO;
+
+public class ProductProfile : Profile
 {
-    public class ProductProfile : Profile
+    public ProductProfile()
     {
-        public ProductProfile()
-        {
-            CreateProjection<Product, AllProductInfoDTO>();
-            CreateProjection<Product, ExtendedProductInfoDTO>();
+        CreateProjection<Product, AllProductInfoDTO>();
+        CreateProjection<Product, ExtendedProductInfoDTO>();
 
-            CreateProjection<Product, ProductSearchResultDTO>();
+        CreateProjection<Product, ProductSearchResultDTO>();
 
-            CreateMap<UpdateProductDTO, Product>()
-                .ForMember(prop => prop.Tags, opt => opt.Ignore());
-            CreateMap<Product, SimpleProductDTO>();
-        }
+        CreateMap<UpdateProductDTO, Product>()
+            .ForMember(prop => prop.Tags, opt => opt.Ignore());
+        CreateMap<Product, SimpleProductDTO>();
     }
 }

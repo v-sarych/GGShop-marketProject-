@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ShopAPICore.Exceptions;
 
-namespace ShopApiCore.Exceptions
+public class AlreadyExistException : Exception
 {
-    public class AlreadyExistException : Exception
-    {
-    }
 }

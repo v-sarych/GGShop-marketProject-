@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Integrations.YourPayments.Entities.PaymentWebHookData;
 
-namespace Integrations.YourPayments.Entities.PaymentWebHookData
+public class WebHookDataDTO
 {
-    public class WebHookDataDTO
-    {
-        public OrderData OrderData { get; set; }
-    }
+    public OrderData OrderData { get; set; }
 }

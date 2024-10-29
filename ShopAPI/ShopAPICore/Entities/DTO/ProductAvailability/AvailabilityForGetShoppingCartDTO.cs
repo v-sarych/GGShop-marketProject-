@@ -1,17 +1,10 @@
-﻿using ShopApiCore.Entities.DTO.ProductSearch;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ShopAPICore.Entities.DTO.ProductSearch;
 
-namespace ShopApiCore.Entities.DTO.ProductAvailability
+namespace ShopAPICore.Entities.DTO.ProductAvailability;
+
+public class AvailabilityForGetShoppingCartDTO
 {
-    public class AvailabilityForGetShoppingCartDTO
-    {
-        public string Size {  get; set; }
+    public string Size {  get; set; }
 
-        public SimpleProductDTO Product { get; set; }
-    }
+    public SimpleProductDTO Product { get; set; }
 }

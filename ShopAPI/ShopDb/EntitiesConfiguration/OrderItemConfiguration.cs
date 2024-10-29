@@ -2,24 +2,23 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShopDb.Entities;
 
-namespace ShopDb.Configuration
+namespace ShopDb.EntitiesConfiguration;
+
+internal class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
 {
-    internal class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
+    public void Configure(EntityTypeBuilder<OrderItem> builder)
     {
-        public void Configure(EntityTypeBuilder<OrderItem> builder)
-        {
-            builder.HasKey(x => new { x.OrderId, x.Sku });
+        builder.HasKey(x => new { x.OrderId, x.Sku });
 
-            builder.HasOne(x => x.Product)
-                .WithMany(x => x.OrderItems)
-                .HasForeignKey(y => y.ProductId)
-                .HasPrincipalKey(z => z.Id)
-                .OnDelete(DeleteBehavior.SetNull);
+        builder.HasOne(x => x.Product)
+            .WithMany(x => x.OrderItems)
+            .HasForeignKey(y => y.ProductId)
+            .HasPrincipalKey(z => z.Id)
+            .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasOne(x => x.AvailabilityOfProduct)
-                .WithMany()
-                .HasPrincipalKey(x => x.Sku)
-                .HasForeignKey(x => x.Sku);
-        }
+        builder.HasOne(x => x.AvailabilityOfProduct)
+            .WithMany()
+            .HasPrincipalKey(x => x.Sku)
+            .HasForeignKey(x => x.Sku);
     }
 }

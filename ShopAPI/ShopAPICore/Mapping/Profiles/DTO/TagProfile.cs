@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
-using ShopApiCore.Entities.DTO.Tag;
+using ShopAPICore.Entities.DTO.Tag;
 using ShopDb.Entities;
 
-namespace ShopApiCore.Mapping.Profiles.DTO
+namespace ShopAPICore.Mapping.Profiles.DTO;
+
+public class TagProfile : Profile
 {
-    public class TagProfile : Profile
+    public TagProfile()
     {
-        public TagProfile()
-        {
-            CreateProjection<Tag, TagDTO>();
-        }
+        CreateProjection<Tag, TagDTO>();
     }
 }

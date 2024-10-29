@@ -1,78 +1,76 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using ShopApiCore.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.Replication.PgOutput.Messages;
-using ShopApiCore.Entities.DTO.Comment;
-using ShopApiCore.Interfaces.Repository;
+using ShopAPICore.Entities.DTO.Comment;
+using ShopAPICore.Exceptions;
+using ShopAPICore.Interfaces.Repository;
 using ShopDb;
 using ShopDb.Entities;
 
-namespace ShopApiCore.Repositories
+namespace ShopAPICore.Repositories;
+
+public class CommentRepository : ICommentRepository
 {
-    public class CommentRepository : ICommentRepository
+    private readonly IShopDbContext _dbContext;
+    private readonly IMapper _mapper;
+
+    public CommentRepository(IShopDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
+
+    public async Task Create(CreateCommentDTO creatingSettings, long userId)
     {
-        private readonly IShopDbContext _dbContext;
-        private readonly IMapper _mapper;
+        if (await _dbContext.Comments.AsNoTracking().AnyAsync(x => x.UserId == userId && x.ProductId == creatingSettings.ProductId))
+            throw new AlreadyExistException();
 
-        public CommentRepository(IShopDbContext dbContext, IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
+        if (! await _dbContext.OrdersItems.AsNoTracking().AnyAsync(i => i.ProductId == creatingSettings.ProductId && i.Order.UserId == userId))
+            throw new NotFoundException();
 
-        public async Task Create(CreateCommentDTO creatingSettings, long userId)
-        {
-            if (await _dbContext.Comments.AsNoTracking().AnyAsync(x => x.UserId == userId && x.ProductId == creatingSettings.ProductId))
-                throw new AlreadyExistException();
+        var comment = new Comment {
+            UserId = userId,
+            ProductId = creatingSettings.ProductId,
+            Stars = creatingSettings.Stars,
+            Text = creatingSettings.Text,
+            CreatedDate = DateTime.UtcNow
+        };
 
-            if (! await _dbContext.OrdersItems.AsNoTracking().AnyAsync(i => i.ProductId == creatingSettings.ProductId && i.Order.UserId == userId))
-                throw new NotFoundException();
+        await _dbContext.Comments.AddAsync(comment);
+        await _dbContext.SaveChangesAsync();
+    }
 
-            Comment comment = new Comment {
-                UserId = userId,
-                ProductId = creatingSettings.ProductId,
-                Stars = creatingSettings.Stars,
-                Text = creatingSettings.Text,
-                CreatedDate = DateTime.UtcNow
-            };
+    public async Task Delete(int productId, long userId)
+    {
+        _dbContext.Comments.Remove(await _dbContext.Comments.FirstAsync(c => c.UserId == userId && c.ProductId == productId));
 
-            await _dbContext.Comments.AddAsync(comment);
-            await _dbContext.SaveChangesAsync();
-        }
+        await _dbContext.SaveChangesAsync();
+    }
 
-        public async Task Delete(int productId, long userId)
-        {
-            _dbContext.Comments.Remove(await _dbContext.Comments.FirstAsync(c => c.UserId == userId && c.ProductId == productId));
+    public async Task Edit(EditCommentDTO edittingSettings, long userId)
+    {
+        var comment = await _dbContext.Comments.FirstAsync(c => c.UserId == userId && c.ProductId == edittingSettings.ProductId);
 
-            await _dbContext.SaveChangesAsync();
-        }
+        if (edittingSettings.Text != null)
+            comment.Text = edittingSettings.Text;
 
-        public async Task Edit(EditCommentDTO edittingSettings, long userId)
-        {
-            Comment comment = await _dbContext.Comments.FirstAsync(c => c.UserId == userId && c.ProductId == edittingSettings.ProductId);
+        await _dbContext.SaveChangesAsync();
+    }
 
-            if (edittingSettings.Text != null)
-                comment.Text = edittingSettings.Text;
+    public async Task<ICollection<CommentDTO>> Get(GetCommentsDTO gettingSettings)
+    {
+        IQueryable<Comment> getCommentQuery = _dbContext.Comments.AsNoTracking();
 
-            await _dbContext.SaveChangesAsync();
-        }
+        if (gettingSettings.UserId != null)
+            getCommentQuery = getCommentQuery.Where(c => c.UserId == gettingSettings.UserId);
 
-        public async Task<ICollection<CommentDTO>> Get(GetCommentsDTO gettingSettings)
-        {
-            IQueryable<Comment> getCommentQuery = _dbContext.Comments.AsNoTracking();
+        if(gettingSettings.ProductId != null)
+            getCommentQuery = getCommentQuery.Where(c => c.ProductId == gettingSettings.ProductId);
 
-            if (gettingSettings.UserId != null)
-                getCommentQuery = getCommentQuery.Where(c => c.UserId == gettingSettings.UserId);
+        if (gettingSettings.Stars != null)
+            getCommentQuery = getCommentQuery.Where(c => c.Stars == gettingSettings.Stars);
 
-            if(gettingSettings.ProductId != null)
-                getCommentQuery = getCommentQuery.Where(c => c.ProductId == gettingSettings.ProductId);
+        if (gettingSettings.FirstRangePoint != null && gettingSettings.EndRangePoint != null)
+            getCommentQuery = getCommentQuery.Skip(gettingSettings.FirstRangePoint.Value)
+                .Take(gettingSettings.EndRangePoint.Value - gettingSettings.FirstRangePoint.Value);
 
-            if (gettingSettings.Stars != null)
-                getCommentQuery = getCommentQuery.Where(c => c.Stars == gettingSettings.Stars);
+        return await getCommentQuery.ProjectTo<CommentDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
-            if (gettingSettings.FirstRangePoint != null && gettingSettings.EndRangePoint != null)
-                getCommentQuery = getCommentQuery.Skip(gettingSettings.FirstRangePoint.Value)
-                    .Take(gettingSettings.EndRangePoint.Value - gettingSettings.FirstRangePoint.Value);
-
-            return await getCommentQuery.ProjectTo<CommentDTO>(_mapper.ConfigurationProvider).ToListAsync();
-
-        }
     }
 }

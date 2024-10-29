@@ -1,27 +1,26 @@
 ﻿using ShopDb.Enums;
 
-namespace ShopDb.Entities
+namespace ShopDb.Entities;
+
+public class Order
 {
-    public class Order
-    {
-        public Guid Id { get; set; }
-        public string Type { get; set; }
-        public string? DeliveryInfo { get; set; }
-        public string? AdditionalOrderInfo { get; set; }
-        public DateTime DateOfCreation { get; set; }
-        public string Status { get; set; } = OrderStatuses.Created;
+    public Guid Id { get; set; }
+    public string Type { get; set; }
+    public string? DeliveryInfo { get; set; }
+    public string? AdditionalOrderInfo { get; set; }
+    public DateTime DateOfCreation { get; set; }
+    public string Status { get; set; } = OrderStatuses.Created;
 
-        public bool IsPaidFor { get; set; } = false;
-        public float AdditionalFees { get; set; } = 0;
-        public float Cost { get; set; } = 0;
+    public bool IsPaidFor { get; set; } = false;
+    public float AdditionalFees { get; set; } = 0;
+    public float Cost { get; set; } = 0;
 
-        public string WebHookKey {  get; set; }
+    public string WebHookKey {  get; set; }
 
-        public long UserId { get; set; }
-        public User User { get; set; }
+    public long UserId { get; set; }
+    public User User { get; set; }
 
-        public Payment Payment { get; set; }
+    public Payment Payment { get; set; }
 
-        public ICollection<OrderItem> OrderItems { get; set; }
-    }
+    public ICollection<OrderItem> OrderItems { get; set; }
 }

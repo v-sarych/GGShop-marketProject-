@@ -1,8 +1,7 @@
-﻿namespace ShopDb.Enums
+﻿namespace ShopDb.Enums;
+
+public class Roles
 {
-    public class Roles
-    {
-        public const string User = "User";
-        public const string Admin = "Admin";
-    }
+    public const string User = "User";
+    public const string Admin = "Admin";
 }

@@ -1,8 +1,7 @@
-﻿namespace ShopApiCore.Entities.DTO.User
+﻿namespace ShopAPICore.Entities.DTO.User;
+
+public class SimpleUserDTO
 {
-    public class SimpleUserDTO
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-    }
+    public long Id { get; set; }
+    public string Name { get; set; }
 }

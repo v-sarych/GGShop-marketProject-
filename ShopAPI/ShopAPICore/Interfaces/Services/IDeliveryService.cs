@@ -1,10 +1,7 @@
-﻿using ShopDb.Entities;
+﻿namespace ShopAPICore.Interfaces.Services;
 
-namespace ShopApiCore.Interfaces.Services
+public interface IDeliveryService
 {
-    public interface IDeliveryService
-    {
-        Task TransferToDelivery(Guid orderId);
-        Task<float> CalculateDeliveryCost(string deliveryInfo);
-    }
+    Task TransferToDelivery(Guid orderId);
+    Task<float> CalculateDeliveryCost(string deliveryInfo);
 }

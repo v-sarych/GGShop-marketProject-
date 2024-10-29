@@ -1,15 +1,12 @@
-﻿using ShopApiCore.Entities.DTO.Order;
-using ShopApiCore.Entities.DTO.Payments;
-using ShopDb.Entities;
+﻿using ShopAPICore.Entities.DTO.Order;
 
-namespace ShopApiCore.Interfaces.Repository
+namespace ShopAPICore.Interfaces.Repository;
+
+public interface IOrderRepository
 {
-    public interface IOrderRepository
-    {
-        Task<ICollection<GetFullOrderInfoDTO>> GetOrders(OrderSearchSettingsDTO searchSettings);
-        Task<GetUserOrderDTO> CreateWithDelivery(CreateOrderDTO createSettings, long userId);
-        Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings, long userId);
-        Task UpdateStatus(Guid id, string newStatus);
-        Task<OrderStatusesDTO> GetAvailableStatuses();
-    }
+    Task<ICollection<GetFullOrderInfoDTO>> GetOrders(OrderSearchSettingsDTO searchSettings);
+    Task<GetUserOrderDTO> CreateWithDelivery(CreateOrderDTO createSettings, long userId);
+    Task<GetUserOrderDTO> Create(CreateOrderDTO createSettings, long userId);
+    Task UpdateStatus(Guid id, string newStatus);
+    Task<OrderStatusesDTO> GetAvailableStatuses();
 }

@@ -1,17 +1,11 @@
 ﻿using Integrations.YourPayments.Entities.Payment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Integrations.YourPayments.Interfaces
+namespace Integrations.YourPayments.Interfaces;
+
+public interface IPaymentRepository
 {
-    public interface IPaymentRepository
-    {
-        Task<bool> CanCreatePayment(Guid id);
-        Task<string> GetPaymentStatus(Guid id);
-        Task CreatePayment(PaymentDTO payment);
-        Task UpdatePaymnentData(UpdatePaymentDTO info);
-    }
+    Task<bool> CanCreatePayment(Guid id);
+    Task<string> GetPaymentStatus(Guid id);
+    Task CreatePayment(PaymentDTO payment);
+    Task UpdatePaymnentData(UpdatePaymentDTO info);
 }

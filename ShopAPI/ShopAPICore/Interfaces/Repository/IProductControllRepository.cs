@@ -1,10 +1,9 @@
-﻿using ShopApiCore.Entities.DTO.ProductControll;
+﻿using ShopAPICore.Entities.DTO.ProductControll;
 
-namespace ShopApiCore.Interfaces.Repository
+namespace ShopAPICore.Interfaces.Repository;
+
+public interface IProductControllRepository
 {
-    public interface IProductControllRepository
-    {
-        Task<int> Create();
-        Task Update(UpdateProductDTO productDTO);
-    }
+    Task<int> Create();
+    Task Update(UpdateProductDTO productDTO);
 }
