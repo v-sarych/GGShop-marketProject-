@@ -1,8 +1,23 @@
 using FileServer.Model.Extentions;
 using IdentityServer.Model.Extentions;
 using Microsoft.Extensions.FileProviders;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: "logs/FileServer-.log",
+        rollingInterval: RollingInterval.Day,
+        fileSizeLimitBytes: 10_485_760,      // 10 МБ
+        retainedFileCountLimit: 7,           // Хранить 7 последних файлов
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+    )
+.CreateLogger();
+
+builder.Host.UseSerilog();
 
 ConfigureServices(builder);
 

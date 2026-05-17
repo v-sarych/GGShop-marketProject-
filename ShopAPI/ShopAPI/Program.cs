@@ -5,8 +5,23 @@ using ShopApiServer.Extentions;
 using ShopDb;
 using System.Reflection;
 using ShopAPICore.Mapping;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: "logs/ShopApi-.log",
+        rollingInterval: RollingInterval.Day,
+        fileSizeLimitBytes: 10_485_760,      // 10 МБ
+        retainedFileCountLimit: 7,           // Хранить 7 последних файлов
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+    )
+.CreateLogger();
+
+builder.Host.UseSerilog();
 
 ConfigureServices(builder);
 
@@ -58,12 +73,12 @@ void ConfigureApp(WebApplication app)
         app.UseSwaggerUI();
     //} - only for general development
 
-    /*using(var scope = app.Services.CreateScope())
+    using(var scope = app.Services.CreateScope())
         using(var context = scope.ServiceProvider.GetService<ShopDbContext>())
         {
             //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-        }*/
+        }
 
     app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 

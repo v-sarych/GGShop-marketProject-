@@ -4,8 +4,23 @@ using Microsoft.EntityFrameworkCore;
 using IdentityServer.Model.Mapper;
 using ShopApiServer.Extentions;
 using ShopDb;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: "logs/IdentityServer-.log",
+        rollingInterval: RollingInterval.Day,
+        fileSizeLimitBytes: 10_485_760,      // 10 МБ
+        retainedFileCountLimit: 7,           // Хранить 7 последних файлов
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+    )
+.CreateLogger();
+
+builder.Host.UseSerilog();
 
 ConfigureServices(builder);
 
@@ -33,6 +48,7 @@ app.Run();
 
 void ConfigureServices(WebApplicationBuilder builder)
 {
+
     builder.Services.AddTransient<IUserRepository, UserRepository>();
 
     builder.Services.AddDbContext<ShopDbContext>(options =>
