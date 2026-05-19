@@ -8,6 +8,11 @@ services:
     build: 
       context: "./"
       dockerfile: ./ShopAPI/ShopAPI/dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    volumes:
+      - ./logs:/app/logs
+      - ./appsettings.Production.json:/app/conf/ShopApi/appsettings.Production.json:ro
     networks:
       - internal-network
 
@@ -16,6 +21,11 @@ services:
     build:
       context: "./"
       dockerfile: IdentityServer/IdentityServer/dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    volumes:
+      - ./logs:/app/logs
+      - ./appsettings.Production.json:/app/conf/IdentityServer/appsettings.Production.json:ro
     networks:
       - internal-network
 
@@ -24,8 +34,14 @@ services:
     build:
       context: "./"
       dockerfile: FileServer/FileServer/dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    volumes:
+      - ./logs:/app/logs
+      - ./static:/app/static 
+      - ./appsettings.Production.json:/app/conf/FileServer/appsettings.Production.json:ro
     networks:
-      - internal-network
+      - internal-network 
 
 
   nginx:
@@ -34,10 +50,14 @@ services:
       dockerfile: nginx/dockerfile
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - api
       - identity
       - file
+    volumes:
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./nginx/logs:/var/log/nginx
     networks:
       - internal-network
 
